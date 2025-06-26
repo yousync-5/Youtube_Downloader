@@ -1,5 +1,6 @@
 from pathlib import Path
 from pydub import AudioSegment
+from utils import run_mfa_align
 
 def export_segments_for_mfa(vocal_path: str, segments: list, output_base: str = "mfa/corpus"):
     """
@@ -27,5 +28,6 @@ def export_segments_for_mfa(vocal_path: str, segments: list, output_base: str = 
             f.write(full_text)
 
         print(f"✅ 전체 음성 및 자막이 저장되었습니다 → {output_dir}")
+        run_mfa_align()
     except Exception as e:
         print(f"❌ 저장 중 오류 발생: {e}")
