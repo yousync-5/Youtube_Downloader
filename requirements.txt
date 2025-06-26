@@ -1,0 +1,5 @@
+1. 공식 CMake 설치
+pip install dlib
+pip install face_recognition
+
+pip install demucs

@@ -1,14 +1,12 @@
-from flask import Flask, request, jsonify
-from downloader.youtube_downloader import download_audio
+import face_recognition
+import os
+base_dir = "youtube_processor"
+sub_dir = "tmp_frames"
+filename = "002_2.jpg"
 
-app = Flask(__name__)
+full_path = os.path.join(base_dir, sub_dir, filename)
 
-@app.route('/download', methods=['POST'])
-def download():
-    data = request.json
-    url = data.get('url')
-    mp3_path = download_audio(url)
-    return jsonify({'status': 'ok', 'path': mp3_path})
+image = face_recognition.load_image_file(full_path)
+face_locations = face_recognition.face_locations(image)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+print(f"총 {len(face_locations)}명의 얼굴을 감지했습니다.")

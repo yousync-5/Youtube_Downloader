@@ -24,7 +24,7 @@ def extract_frames_per_segment(video_path, segments, output_folder="tmp_frames")
 
         for i, ts in enumerate(timestamps):
             out_file = output_dir / f"{idx:03d}_{i+1}.jpg"
-            cmd = f'"{FFMPEG_PATH}\\ffmpeg" -ss {ts:.3f} -i "{video_path}" -frames:v 1 -q:v 2 "{out_file}" -y -loglevel quiet'
+            cmd = f'"{FFMPEG_PATH}" -ss {ts:.3f} -i "{video_path}" -frames:v 1 -q:v 2 "{out_file}" -y -loglevel quiet'
             subprocess.run(cmd, shell=True, check=True)
 
         print(f"📸 세그먼트 {idx}: 총 {len(timestamps)}장 추출됨 ({timestamps[0]:.2f}s ~ {timestamps[-1]:.2f}s)")
