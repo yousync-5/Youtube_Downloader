@@ -6,9 +6,54 @@ from demucs_wrapper import separate_vocals
 from who_is_speaker import analyze_speakers
 from voice_analyzer import analyze_voice_speakers
 from export_for_mfa import export_segments_for_mfa
+from voice_to_pitch import create_pitch_json_with_token  # 직접 호출로 변경
 from utils import sanitize_filename  # 이미 있다면 생략 가능
 from utils import extract_video_id
 import time
+
+def make_token(youtube_url, segments, movie_name=None, actor_name=None):
+    """
+    토큰 생성 함수 (가제)
+    
+    Args:
+        youtube_url (str): YouTube URL
+        segments (list): 음성 인식 결과 세그먼트들
+        movie_name (str, optional): 영화 이름
+        actor_name (str, optional): 배우 이름
+    
+    Returns:
+        dict: 생성된 토큰
+    """
+    
+    # 모든 대사를 하나로 합치기
+    all_dialogue = " ".join([seg.get('text', '').strip() for seg in segments if seg.get('text')])
+    
+    # 토큰 구조 생성
+    token = {
+        "url": youtube_url,
+        "actor_name": actor_name or "Unknown Actor",
+        "movie_name": movie_name or "Unknown Movie", 
+        "segments": [
+            {
+                "text": seg.get('text', '').strip(),
+                "start": seg.get('start', 0),
+                "end": seg.get('end', 0)
+            }
+            for seg in segments if seg.get('text')
+        ],
+        "all_dialogue": all_dialogue,
+        "total_segments": len(segments),
+        "total_duration": segments[-1].get('end', 0) - segments[0].get('start', 0) if segments else 0
+    }
+    
+    print(f"🎯 토큰 생성 완료:")
+    print(f"  - URL: {youtube_url}")
+    print(f"  - 영화: {token['movie_name']}")
+    print(f"  - 배우: {token['actor_name']}")
+    print(f"  - 세그먼트 수: {token['total_segments']}")
+    print(f"  - 총 길이: {token['total_duration']:.2f}초")
+    
+    return token
 
 def main():
 
@@ -77,7 +122,23 @@ def main():
     elapsed = time.time() - start_time  # ⏱️ 소요 시간
     print(f"🕒 URL 전처리 소요 시간: {elapsed:.2f}초")
 
+    # 3. 토큰 생성 (새로 추가)
+    print("\n🎯 토큰 생성 중...")
+    
+    # 사용자로부터 영화명과 배우명 입력받기 (임시)
+    movie_name = input("🎬 영화 이름을 입력하세요 (선택사항): ").strip() or None
+    actor_name = input("🎭 배우 이름을 입력하세요 (선택사항): ").strip() or None
+    
+    token = make_token(youtube_url, segments, movie_name, actor_name)
 
+    # 4. 피치 분석 (토큰 생성 직후)
+    print("\n🎵 피치 분석 시작...")
+    pitch_json_path = create_pitch_json_with_token(vocal_path, token)
+    
+    if pitch_json_path:
+        print(f"✅ 피치 분석 및 토큰 정보 저장 완료: {pitch_json_path}")
+    else:
+        print("❌ 피치 분석 실패")
 
     #화자 분석은 나중에 한다. 
 
