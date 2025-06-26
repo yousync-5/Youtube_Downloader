@@ -1,0 +1,2063 @@
+{
+  "analysis_info": {
+    "reference_file": "full.wav (기준 발음)",
+    "user_file": "testspeech.wav (사용자 발음)",
+    "target_text": "I DON'T KNOW WHO YOU ARE. I DON'T KNOW WHAT YOU WANT. IF YOU'RE LOOKING FOR RANSOM, I CAN TELL YOU I DON'T HAVE MONEY. BUT WHAT I DO HAVE, I HAVE A VERY PARTICULAR SET OF SKILLS. SKILLS I HAVE ACQUIRED ARE FOR A VERY LONG CAREER. SKILLS THAT MAKE ME A NIGHTMARE FOR PEOPLE LIKE YOU. IF YOU LET MY DAUGHTER GO NOW, THAT'LL BE THE END OF IT. I WILL NOT LOOK FOR YOU, I WILL NOT PURSUE YOU. BUT IF YOU DON'T, I WILL LOOK FOR YOU. I WILL FIND YOU, AND I WILL KILL YOU. GOOD LUCK. GOOD LUCK.",
+    "recognized_text": "I DON'T KNOW WHO YOU ARE. I DON'T KNOW WHAT YOU WANT. IF YOU'RE LOOKING FOR RANSOM, I CAN TELL YOU I DON'T HAVE MONEY. BUT WHAT I DO HAVE, I HAVE A VERY PARTICULAR SET OF SKILLS. SKILLS I HAVE ACQUIRED ARE FOR A VERY LONG CAREER. SKILLS THAT MAKE ME A NIGHTMARE FOR PEOPLE LIKE YOU. IF YOU LET MY DAUGHTER GO NOW, THAT'LL BE THE END OF IT. I WILL NOT LOOK FOR YOU, I WILL NOT PURSUE YOU. BUT IF YOU DON'T, I WILL LOOK FOR YOU. I WILL FIND YOU, AND I WILL KILL YOU. GOOD LUCK. GOOD LUCK.",
+    "analysis_date": "2025-06-24",
+    "analysis_type": "pronunciation_assessment",
+    "total_words_compared": 104
+  },
+  "text_accuracy": {
+    "target_word_count": 104,
+    "recognized_word_count": 104,
+    "matching_words": 104,
+    "word_accuracy_percentage": 100.0
+  },
+  "pronunciation_score": {
+    "base_score": 0.839,
+    "text_penalty_factor": 1.0,
+    "final_score": 0.839, 
+    "percentage": 83.9,
+    "grade": "Very Good (80-89%)"
+  },
+  "detailed_word_analysis": [
+    {
+      "phone_index": 0,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.10999999999999943,
+      "user_duration": 0.12,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9287215663259524,
+        "f0_similarity": 0.6601411995444878,
+        "spectral_similarity": 0.9025920942237062,
+        "duration_similarity": 0.9523809523809498,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8745114757602097,
+        "overall_similarity": 0.8745114757602097,
+        "f0_difference": 102.96548698673027,
+        "duration_difference": 0.010000000000000564
+      }
+    },
+    {
+      "phone_index": 1,
+      "reference_phone": "don't",
+      "user_phone": "don't",
+      "reference_duration": 0.22000000000000064,
+      "user_duration": 0.49999999999999994,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9570810117789542,
+        "f0_similarity": 0.5151356200412854,
+        "spectral_similarity": 0.9139350939694934,
+        "duration_similarity": 0.41666666666666724,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.751979880847071,
+        "overall_similarity": 0.751979880847071,
+        "f0_difference": 188.2472735703484,
+        "duration_difference": 0.2799999999999993
+      }
+    },
+    {
+      "phone_index": 2,
+      "reference_phone": "know",
+      "user_phone": "know",
+      "reference_duration": 0.14999999999999947,
+      "user_duration": 0.1200000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9245900570306032,
+        "f0_similarity": 0.6138594280641397,
+        "spectral_similarity": 0.9458459029472605,
+        "duration_similarity": 0.8695652173913068,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8556901324927826,
+        "overall_similarity": 0.8556901324927826,
+        "f0_difference": 125.80749086271719,
+        "duration_difference": 0.02999999999999936
+      }
+    },
+    {
+      "phone_index": 3,
+      "reference_phone": "who",
+      "user_phone": "who",
+      "reference_duration": 0.16000000000000014,
+      "user_duration": 0.06999999999999995,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.966762779596922,
+        "f0_similarity": 0.6691127923626197,
+        "spectral_similarity": 0.9027183582992492,
+        "duration_similarity": 0.6896551724137926,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8390023764539012,
+        "overall_similarity": 0.8390023764539012,
+        "f0_difference": 98.9032675549443,
+        "duration_difference": 0.09000000000000019
+      }
+    },
+    {
+      "phone_index": 4,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.2400000000000002,
+      "user_duration": 0.19000000000000006,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9694868615535915,
+        "f0_similarity": 0.6899643040670339,
+        "spectral_similarity": 0.8466478498587219,
+        "duration_similarity": 0.7999999999999994,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8551171754065877,
+        "overall_similarity": 0.8551171754065877,
+        "f0_difference": 89.87006838047796,
+        "duration_difference": 0.050000000000000155
+      }
+    },
+    {
+      "phone_index": 5,
+      "reference_phone": "are",
+      "user_phone": "are",
+      "reference_duration": 0.4500000000000002,
+      "user_duration": 0.030000000000000027,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9424011490932399,
+        "f0_similarity": 0.7414367130795929,
+        "spectral_similarity": 0.8620396364529653,
+        "duration_similarity": 0.32258064516129026,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7621718585760656,
+        "overall_similarity": 0.7621718585760656,
+        "f0_difference": 69.74655620881033,
+        "duration_difference": 0.42000000000000015
+      }
+    },
+    {
+      "phone_index": 6,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.11999999999999922,
+      "user_duration": 0.10999999999999988,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.939865126883369,
+        "f0_similarity": 0.6606358304553201,
+        "spectral_similarity": 0.910546740375017,
+        "duration_similarity": 0.9523809523809553,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8806587553956062,
+        "overall_similarity": 0.8806587553956062,
+        "f0_difference": 102.7386508269722,
+        "duration_difference": 0.009999999999999343
+      }
+    },
+    {
+      "phone_index": 7,
+      "reference_phone": "don't",
+      "user_phone": "don't",
+      "reference_duration": 0.17999999999999972,
+      "user_duration": 0.40000000000000013,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9680009190780922,
+        "f0_similarity": 0.7393321190154257,
+        "spectral_similarity": 0.9155309538728247,
+        "duration_similarity": 0.47619047619047566,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.813411077446982,
+        "overall_similarity": 0.813411077446982,
+        "f0_difference": 70.51442086181989,
+        "duration_difference": 0.22000000000000042
+      }
+    },
+    {
+      "phone_index": 8,
+      "reference_phone": "know",
+      "user_phone": "know",
+      "reference_duration": 0.14000000000000057,
+      "user_duration": 0.3599999999999999,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9560781564464116,
+        "f0_similarity": 0.9140040105980813,
+        "spectral_similarity": 0.9495883335453066,
+        "duration_similarity": 0.476190476190477,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8503878266453375,
+        "overall_similarity": 0.8503878266453375,
+        "f0_difference": 18.81742058126133,
+        "duration_difference": 0.2199999999999993
+      }
+    },
+    {
+      "phone_index": 9,
+      "reference_phone": "what",
+      "user_phone": "what",
+      "reference_duration": 0.21999999999999886,
+      "user_duration": 0.19000000000000017,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9675105290294761,
+        "f0_similarity": 0.8604688787522412,
+        "spectral_similarity": 0.6947070761116255,
+        "duration_similarity": 0.8695652173913093,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8719524460628256,
+        "overall_similarity": 0.8719524460628256,
+        "f0_difference": 32.43141610190288,
+        "duration_difference": 0.029999999999998694
+      }
+    },
+    {
+      "phone_index": 10,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.0600000000000005,
+      "user_duration": 0.06000000000000005,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.8909630526403008,
+        "f0_similarity": 0.9890038165516406,
+        "spectral_similarity": 0.9017899334905802,
+        "duration_similarity": 0.9999999999999978,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.9345439710645642,
+        "overall_similarity": 0.9345439710645642,
+        "f0_difference": 2.2236887794224742,
+        "duration_difference": 4.440892098500626e-16
+      }
+    },
+    {
+      "phone_index": 11,
+      "reference_phone": "want",
+      "user_phone": "want",
+      "reference_duration": 0.3100000000000005,
+      "user_duration": 0.6000000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9441176010863903,
+        "f0_similarity": 0.5992114463015008,
+        "spectral_similarity": 0.7721063116501776,
+        "duration_similarity": 0.4081632653061228,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7335432450861165,
+        "overall_similarity": 0.7335432450861165,
+        "f0_difference": 133.77199523549734,
+        "duration_difference": 0.2899999999999996
+      }
+    },
+    {
+      "phone_index": 12,
+      "reference_phone": "if",
+      "user_phone": "if",
+      "reference_duration": 0.16999999999999993,
+      "user_duration": 0.06000000000000005,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.957783690925879,
+        "f0_similarity": 0.7343108607919848,
+        "spectral_similarity": 0.5565370950611707,
+        "duration_similarity": 0.6451612903225808,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7703153256054989,
+        "overall_similarity": 0.7703153256054989,
+        "f0_difference": 72.3642134126842,
+        "duration_difference": 0.10999999999999988
+      }
+    },
+    {
+      "phone_index": 13,
+      "reference_phone": "you're",
+      "user_phone": "you're",
+      "reference_duration": 0.20999999999999908,
+      "user_duration": 0.4299999999999997,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9632994181243232,
+        "f0_similarity": 0.7721428956162183,
+        "spectral_similarity": 0.8044214731247761,
+        "duration_similarity": 0.47619047619047544,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7958707362360233,
+        "overall_similarity": 0.7958707362360233,
+        "f0_difference": 59.0194135508914,
+        "duration_difference": 0.22000000000000064
+      }
+    },
+    {
+      "phone_index": 14,
+      "reference_phone": "looking",
+      "user_phone": "looking",
+      "reference_duration": 0.3100000000000005,
+      "user_duration": 0.7300000000000004,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9772684661607071,
+        "f0_similarity": 0.604179944417552,
+        "spectral_similarity": 0.9652855313209988,
+        "duration_similarity": 0.32258064516129037,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7693166106442512,
+        "overall_similarity": 0.7693166106442512,
+        "f0_difference": 131.02720778460485,
+        "duration_difference": 0.41999999999999993
+      }
+    },
+    {
+      "phone_index": 15,
+      "reference_phone": "for",
+      "user_phone": "for",
+      "reference_duration": 0.1899999999999995,
+      "user_duration": 0.1899999999999995,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9650821541312602,
+        "f0_similarity": 0.7885056598093317,
+        "spectral_similarity": 0.9987674056470182,
+        "duration_similarity": 1.0,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.943487474743774,
+        "overall_similarity": 0.943487474743774,
+        "f0_difference": 53.64434295672895,
+        "duration_difference": 0.0
+      }
+    },
+    {
+      "phone_index": 16,
+      "reference_phone": "ransom",
+      "user_phone": "ransom",
+      "reference_duration": 0.5300000000000011,
+      "user_duration": 0.6900000000000004,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9732812307950559,
+        "f0_similarity": 0.8323564980080466,
+        "spectral_similarity": 0.9134421129630546,
+        "duration_similarity": 0.5555555555555567,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.849583325623354,
+        "overall_similarity": 0.849583325623354,
+        "f0_difference": 40.28165873472469,
+        "duration_difference": 0.15999999999999925
+      }
+    },
+    {
+      "phone_index": 17,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.08000000000000007,
+      "user_duration": 0.11999999999999922,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9437858479588573,
+        "f0_similarity": 0.643131455757455,
+        "spectral_similarity": 0.9891943274230183,
+        "duration_similarity": 0.8333333333333363,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.870646162486305,
+        "overall_similarity": 0.870646162486305,
+        "f0_difference": 110.97841383679145,
+        "duration_difference": 0.03999999999999915
+      }
+    },
+    {
+      "phone_index": 18,
+      "reference_phone": "can",
+      "user_phone": "can",
+      "reference_duration": 0.16999999999999993,
+      "user_duration": 0.1900000000000004,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9738490038700216,
+        "f0_similarity": 0.583357821228818,
+        "spectral_similarity": 0.9100532487413086,
+        "duration_similarity": 0.9090909090909072,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8700399973602154,
+        "overall_similarity": 0.8700399973602154,
+        "f0_difference": 142.84275057581067,
+        "duration_difference": 0.020000000000000462
+      }
+    },
+    {
+      "phone_index": 19,
+      "reference_phone": "tell",
+      "user_phone": "tell",
+      "reference_duration": 0.1999999999999993,
+      "user_duration": 0.23000000000000043,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9531735207743449,
+        "f0_similarity": 0.5550111986575026,
+        "spectral_similarity": 0.9432507447264337,
+        "duration_similarity": 0.8695652173913001,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8548348404647854,
+        "overall_similarity": 0.8548348404647854,
+        "f0_difference": 160.35308924175422,
+        "duration_difference": 0.030000000000001137
+      }
+    },
+    {
+      "phone_index": 20,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.15000000000000036,
+      "user_duration": 0.1899999999999995,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9520132580788404,
+        "f0_similarity": 0.5536855026051271,
+        "spectral_similarity": 0.8114900161304647,
+        "duration_similarity": 0.8333333333333363,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8205070736453218,
+        "overall_similarity": 0.8205070736453218,
+        "f0_difference": 161.21588710375607,
+        "duration_difference": 0.03999999999999915
+      }
+    },
+    {
+      "phone_index": 21,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.09999999999999964,
+      "user_duration": 0.11000000000000032,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.8698663754465836,
+        "f0_similarity": 0.7036099808685067,
+        "spectral_similarity": 0.7319200656797862,
+        "duration_similarity": 0.9523809523809493,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.825528749964482,
+        "overall_similarity": 0.825528749964482,
+        "f0_difference": 84.24838396000064,
+        "duration_difference": 0.010000000000000675
+      }
+    },
+    {
+      "phone_index": 22,
+      "reference_phone": "don't",
+      "user_phone": "don't",
+      "reference_duration": 0.16999999999999993,
+      "user_duration": 0.20999999999999996,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9474480223201003,
+        "f0_similarity": 0.6973982118424998,
+        "spectral_similarity": 0.6566247772101614,
+        "duration_similarity": 0.8333333333333333,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.816450473405239,
+        "overall_similarity": 0.816450473405239,
+        "f0_difference": 86.78020190445788,
+        "duration_difference": 0.040000000000000036
+      }
+    },
+    {
+      "phone_index": 23,
+      "reference_phone": "have",
+      "user_phone": "have",
+      "reference_duration": 0.08999999999999986,
+      "user_duration": 0.1899999999999995,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9621990218823072,
+        "f0_similarity": 0.7022184013525065,
+        "spectral_similarity": 0.9104678187329871,
+        "duration_similarity": 0.6666666666666674,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8407501861033553,
+        "overall_similarity": 0.8407501861033553,
+        "f0_difference": 84.81167627449007,
+        "duration_difference": 0.09999999999999964
+      }
+    },
+    {
+      "phone_index": 24,
+      "reference_phone": "money",
+      "user_phone": "money",
+      "reference_duration": 0.370000000000001,
+      "user_duration": 0.5600000000000005,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9705116398344912,
+        "f0_similarity": 0.9332253618442794,
+        "spectral_similarity": 0.8810426681260338,
+        "duration_similarity": 0.5128205128205134,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8536223644919618,
+        "overall_similarity": 0.8536223644919618,
+        "f0_difference": 14.310506526260212,
+        "duration_difference": 0.1899999999999995
+      }
+    },
+    {
+      "phone_index": 25,
+      "reference_phone": "but",
+      "user_phone": "but",
+      "reference_duration": 0.16000000000000014,
+      "user_duration": 0.13000000000000078,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9402649908562084,
+        "f0_similarity": 0.6454664595704909,
+        "spectral_similarity": 0.9801703234383988,
+        "duration_similarity": 0.8695652173913068,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8751463964225228,
+        "overall_similarity": 0.8751463964225228,
+        "f0_difference": 109.8534355031939,
+        "duration_difference": 0.02999999999999936
+      }
+    },
+    {
+      "phone_index": 26,
+      "reference_phone": "what",
+      "user_phone": "what",
+      "reference_duration": 0.129999999999999,
+      "user_duration": 0.16999999999999993,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9020942858920248,
+        "f0_similarity": 0.6096315730997159,
+        "spectral_similarity": 0.7968536399630793,
+        "duration_similarity": 0.8333333333333302,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.808801423636035,
+        "overall_similarity": 0.808801423636035,
+        "f0_difference": 128.06699788051577,
+        "duration_difference": 0.040000000000000924
+      }
+    },
+    {
+      "phone_index": 27,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.08999999999999986,
+      "user_duration": 0.11999999999999922,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.8890243409879186,
+        "f0_similarity": 0.5499836112159859,
+        "spectral_similarity": 0.7303574084133103,
+        "duration_similarity": 0.8695652173913068,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.785590983799288,
+        "overall_similarity": 0.785590983799288,
+        "f0_difference": 163.6471995189277,
+        "duration_difference": 0.02999999999999936
+      }
+    },
+    {
+      "phone_index": 28,
+      "reference_phone": "do",
+      "user_phone": "do",
+      "reference_duration": 0.20000000000000107,
+      "user_duration": 0.23000000000000043,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9647647031107284,
+        "f0_similarity": 0.5977875681485588,
+        "spectral_similarity": 0.8373478660889958,
+        "duration_similarity": 0.8695652173913068,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8468460115700638,
+        "overall_similarity": 0.8468460115700638,
+        "f0_difference": 134.56701118665134,
+        "duration_difference": 0.02999999999999936
+      }
+    },
+    {
+      "phone_index": 29,
+      "reference_phone": "have",
+      "user_phone": "have",
+      "reference_duration": 0.34999999999999964,
+      "user_duration": 0.41999999999999993,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9685230478322717,
+        "f0_similarity": 0.9190642231853856,
+        "spectral_similarity": 0.9153924201375254,
+        "duration_similarity": 0.7407407407407399,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.9024486959456389,
+        "overall_similarity": 0.9024486959456389,
+        "f0_difference": 17.61264877313991,
+        "duration_difference": 0.07000000000000028
+      }
+    },
+    {
+      "phone_index": 30,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.03999999999999915,
+      "user_duration": 0.08000000000000007,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9019841354384084,
+        "f0_similarity": 0.6322381332935778,
+        "spectral_similarity": 0.9781204048105425,
+        "duration_similarity": 0.8333333333333302,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8495320284628535,
+        "overall_similarity": 0.8495320284628535,
+        "f0_difference": 116.33650276379427,
+        "duration_difference": 0.040000000000000924
+      }
+    },
+    {
+      "phone_index": 31,
+      "reference_phone": "have",
+      "user_phone": "have",
+      "reference_duration": 0.08999999999999986,
+      "user_duration": 0.23000000000000043,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9430411839342523,
+        "f0_similarity": 0.5457099400733321,
+        "spectral_similarity": 0.8636851172800355,
+        "duration_similarity": 0.5882352941176461,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7767425438679036,
+        "overall_similarity": 0.7767425438679036,
+        "f0_difference": 166.49506507637398,
+        "duration_difference": 0.14000000000000057
+      }
+    },
+    {
+      "phone_index": 32,
+      "reference_phone": "a",
+      "user_phone": "a",
+      "reference_duration": 0.08999999999999986,
+      "user_duration": 0.08999999999999986,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9114634756644832,
+        "f0_similarity": 0.5587002177731335,
+        "spectral_similarity": 0.8918557309205923,
+        "duration_similarity": 1.0,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8546965800045385,
+        "overall_similarity": 0.8546965800045385,
+        "f0_difference": 157.97372837469027,
+        "duration_difference": 0.0
+      }
+    },
+    {
+      "phone_index": 33,
+      "reference_phone": "very",
+      "user_phone": "very",
+      "reference_duration": 0.28999999999999915,
+      "user_duration": 0.379999999999999,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9428815417985661,
+        "f0_similarity": 0.5907037597045743,
+        "spectral_similarity": 0.7213304028618464,
+        "duration_similarity": 0.6896551724137935,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7774904837154692,
+        "overall_similarity": 0.7774904837154692,
+        "f0_difference": 138.57918916924618,
+        "duration_difference": 0.08999999999999986
+      }
+    },
+    {
+      "phone_index": 34,
+      "reference_phone": "particular",
+      "user_phone": "particular",
+      "reference_duration": 0.5199999999999996,
+      "user_duration": 0.6899999999999995,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9731132767915023,
+        "f0_similarity": 0.6858799317469021,
+        "spectral_similarity": 0.9419266884267673,
+        "duration_similarity": 0.5405405405405407,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.822914742859443,
+        "overall_similarity": 0.822914742859443,
+        "f0_difference": 91.59622660282527,
+        "duration_difference": 0.16999999999999993
+      }
+    },
+    {
+      "phone_index": 35,
+      "reference_phone": "set",
+      "user_phone": "set",
+      "reference_duration": 0.23000000000000043,
+      "user_duration": 0.27000000000000135,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9460432193377238,
+        "f0_similarity": 0.9311862554679063,
+        "spectral_similarity": 0.6995945361146426,
+        "duration_similarity": 0.8333333333333302,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8712401127182654,
+        "overall_similarity": 0.8712401127182654,
+        "f0_difference": 14.779802456924358,
+        "duration_difference": 0.040000000000000924
+      }
+    },
+    {
+      "phone_index": 36,
+      "reference_phone": "of",
+      "user_phone": "of",
+      "reference_duration": 0.10999999999999943,
+      "user_duration": 0.10999999999999943,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9555414489873032,
+        "f0_similarity": 0.8944467036106756,
+        "spectral_similarity": 0.7585788726396584,
+        "duration_similarity": 1.0,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.9128216948449881,
+        "overall_similarity": 0.9128216948449881,
+        "f0_difference": 23.601919703707352,
+        "duration_difference": 0.0
+      }
+    },
+    {
+      "phone_index": 37,
+      "reference_phone": "skills",
+      "user_phone": "skills",
+      "reference_duration": 0.5199999999999996,
+      "user_duration": 0.7799999999999994,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9598858893394954,
+        "f0_similarity": 0.9023573457371569,
+        "spectral_similarity": 0.5743837829434993,
+        "duration_similarity": 0.4347826086956524,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7662591032110599,
+        "overall_similarity": 0.7662591032110599,
+        "f0_difference": 21.641682139369408,
+        "duration_difference": 0.2599999999999998
+      }
+    },
+    {
+      "phone_index": 38,
+      "reference_phone": "skills",
+      "user_phone": "skills",
+      "reference_duration": 0.5199999999999996,
+      "user_duration": 0.4800000000000004,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.967607830279027,
+        "f0_similarity": 0.6650147759558745,
+        "spectral_similarity": 0.6024366952302551,
+        "duration_similarity": 0.8333333333333363,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.807200093015504,
+        "overall_similarity": 0.807200093015504,
+        "f0_difference": 100.74519729659438,
+        "duration_difference": 0.03999999999999915
+      }
+    },
+    {
+      "phone_index": 39,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.0400000000000027,
+      "user_duration": 0.09999999999999964,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.8540072608127433,
+        "f0_similarity": 0.5682858952346508,
+        "spectral_similarity": 0.8500919268917088,
+        "duration_similarity": 0.7692307692307783,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7791246225965249,
+        "overall_similarity": 0.7791246225965249,
+        "f0_difference": 151.93553399282956,
+        "duration_difference": 0.059999999999996945
+      }
+    },
+    {
+      "phone_index": 40,
+      "reference_phone": "have",
+      "user_phone": "have",
+      "reference_duration": 0.13999999999999702,
+      "user_duration": 0.1999999999999993,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9175478671921385,
+        "f0_similarity": 0.6484613732401332,
+        "spectral_similarity": 0.6205123035727274,
+        "duration_similarity": 0.7692307692307625,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7746600360855801,
+        "overall_similarity": 0.7746600360855801,
+        "f0_difference": 108.42237988774934,
+        "duration_difference": 0.060000000000002274
+      }
+    },
+    {
+      "phone_index": 41,
+      "reference_phone": "acquired",
+      "user_phone": "acquired",
+      "reference_duration": 0.4400000000000013,
+      "user_duration": 0.6600000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9600580343206779,
+        "f0_similarity": 0.7986696590839106,
+        "spectral_similarity": 0.839022207393007,
+        "duration_similarity": 0.4761904761904775,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8067996822617503,
+        "overall_similarity": 0.8067996822617503,
+        "f0_difference": 50.41642401866602,
+        "duration_difference": 0.21999999999999886
+      }
+    },
+    {
+      "phone_index": 42,
+      "reference_phone": "are",
+      "user_phone": "are",
+      "reference_duration": 0.05999999999999872,
+      "user_duration": 0.09999999999999964,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9573788587321289,
+        "f0_similarity": 0.7607380406399328,
+        "spectral_similarity": 0.8782966687289375,
+        "duration_similarity": 0.8333333333333302,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8774251520332916,
+        "overall_similarity": 0.8774251520332916,
+        "f0_difference": 62.902588428153265,
+        "duration_difference": 0.040000000000000924
+      }
+    },
+    {
+      "phone_index": 43,
+      "reference_phone": "for",
+      "user_phone": "for",
+      "reference_duration": 0.15000000000000213,
+      "user_duration": 0.21000000000000085,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9669967668049266,
+        "f0_similarity": 0.6965308742049865,
+        "spectral_similarity": 0.8940219147128222,
+        "duration_similarity": 0.769230769230773,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.858755418351687,
+        "overall_similarity": 0.858755418351687,
+        "f0_difference": 87.13730777300871,
+        "duration_difference": 0.05999999999999872
+      }
+    },
+    {
+      "phone_index": 44,
+      "reference_phone": "a",
+      "user_phone": "a",
+      "reference_duration": 0.05000000000000071,
+      "user_duration": 0.07000000000000028,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9458605109680298,
+        "f0_similarity": 0.7473850978605557,
+        "spectral_similarity": 0.8524476025588983,
+        "duration_similarity": 0.9090909090909108,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.880128926289285,
+        "overall_similarity": 0.880128926289285,
+        "f0_difference": 67.59966257357092,
+        "duration_difference": 0.019999999999999574
+      }
+    },
+    {
+      "phone_index": 45,
+      "reference_phone": "very",
+      "user_phone": "very",
+      "reference_duration": 0.25,
+      "user_duration": 0.3699999999999992,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9261360695707074,
+        "f0_similarity": 0.6498666805235886,
+        "spectral_similarity": 0.6473193489420422,
+        "duration_similarity": 0.6250000000000016,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7548916337214094,
+        "overall_similarity": 0.7548916337214094,
+        "f0_difference": 107.75543045053908,
+        "duration_difference": 0.11999999999999922
+      }
+    },
+    {
+      "phone_index": 46,
+      "reference_phone": "long",
+      "user_phone": "long",
+      "reference_duration": 0.259999999999998,
+      "user_duration": 0.3000000000000007,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9606282116860579,
+        "f0_similarity": 0.9489514183305691,
+        "spectral_similarity": 0.8554134233437098,
+        "duration_similarity": 0.8333333333333239,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.911790919675944,
+        "overall_similarity": 0.911790919675944,
+        "f0_difference": 10.758945228036566,
+        "duration_difference": 0.0400000000000027
+      }
+    },
+    {
+      "phone_index": 47,
+      "reference_phone": "career",
+      "user_phone": "career",
+      "reference_duration": 0.46999999999999886,
+      "user_duration": 0.629999999999999,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9639001785388708,
+        "f0_similarity": 0.7651247179624275,
+        "spectral_similarity": 0.7375829580507989,
+        "duration_similarity": 0.5555555555555554,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7972127177293046,
+        "overall_similarity": 0.7972127177293046,
+        "f0_difference": 61.39529321783232,
+        "duration_difference": 0.16000000000000014
+      }
+    },
+    {
+      "phone_index": 48,
+      "reference_phone": "skills",
+      "user_phone": "skills",
+      "reference_duration": 0.5700000000000003,
+      "user_duration": 0.490000000000002,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9606553523833838,
+        "f0_similarity": 0.6704184226892645,
+        "spectral_similarity": 0.5451448065293132,
+        "duration_similarity": 0.7142857142857186,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7702319296542128,
+        "overall_similarity": 0.7702319296542128,
+        "f0_difference": 98.32115769989659,
+        "duration_difference": 0.0799999999999983
+      }
+    },
+    {
+      "phone_index": 49,
+      "reference_phone": "that",
+      "user_phone": "that",
+      "reference_duration": 0.0799999999999983,
+      "user_duration": 0.21000000000000085,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9590978255135015,
+        "f0_similarity": 0.6081984838655093,
+        "spectral_similarity": 0.9362004461481398,
+        "duration_similarity": 0.6060606060606014,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8137310374202508,
+        "overall_similarity": 0.8137310374202508,
+        "f0_difference": 128.84001737206881,
+        "duration_difference": 0.13000000000000256
+      }
+    },
+    {
+      "phone_index": 50,
+      "reference_phone": "make",
+      "user_phone": "make",
+      "reference_duration": 0.25,
+      "user_duration": 0.259999999999998,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9735067334170454,
+        "f0_similarity": 0.6566947401031309,
+        "spectral_similarity": 0.9379762209281575,
+        "duration_similarity": 0.9523809523809614,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8988130760492681,
+        "overall_similarity": 0.8988130760492681,
+        "f0_difference": 104.55550773650316,
+        "duration_difference": 0.00999999999999801
+      }
+    },
+    {
+      "phone_index": 51,
+      "reference_phone": "me",
+      "user_phone": "me",
+      "reference_duration": 0.08000000000000185,
+      "user_duration": 0.16000000000000014,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9568828214544899,
+        "f0_similarity": 0.8159722761709751,
+        "spectral_similarity": 0.9371590390066219,
+        "duration_similarity": 0.7142857142857186,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8762365344744591,
+        "overall_similarity": 0.8762365344744591,
+        "f0_difference": 45.10636677329086,
+        "duration_difference": 0.0799999999999983
+      }
+    },
+    {
+      "phone_index": 52,
+      "reference_phone": "a",
+      "user_phone": "a",
+      "reference_duration": 0.029999999999997584,
+      "user_duration": 0.08000000000000185,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.8837092265979861,
+        "f0_similarity": 0.6998191955424231,
+        "spectral_similarity": 0.713559248944249,
+        "duration_similarity": 0.7999999999999864,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7961593795365263,
+        "overall_similarity": 0.7961593795365263,
+        "f0_difference": 85.78810251836822,
+        "duration_difference": 0.05000000000000426
+      }
+    },
+    {
+      "phone_index": 53,
+      "reference_phone": "nightmare",
+      "user_phone": "nightmare",
+      "reference_duration": 0.4800000000000004,
+      "user_duration": 0.5499999999999972,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9410920509157222,
+        "f0_similarity": 0.790962667643462,
+        "spectral_similarity": 0.8351877026062614,
+        "duration_similarity": 0.7407407407407497,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8498150425643836,
+        "overall_similarity": 0.8498150425643836,
+        "f0_difference": 52.856434546861465,
+        "duration_difference": 0.06999999999999673
+      }
+    },
+    {
+      "phone_index": 54,
+      "reference_phone": "for",
+      "user_phone": "for",
+      "reference_duration": 0.19000000000000128,
+      "user_duration": 0.19000000000000128,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.971794558488902,
+        "f0_similarity": 0.9526090991724503,
+        "spectral_similarity": 0.778669453544683,
+        "duration_similarity": 1.0,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.9349735339389875,
+        "overall_similarity": 0.9349735339389875,
+        "f0_difference": 9.94970568068669,
+        "duration_difference": 0.0
+      }
+    },
+    {
+      "phone_index": 55,
+      "reference_phone": "people",
+      "user_phone": "people",
+      "reference_duration": 0.25,
+      "user_duration": 0.370000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.974061388946536,
+        "f0_similarity": 0.8391920790222486,
+        "spectral_similarity": 0.7636710094855084,
+        "duration_similarity": 0.6249999999999981,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8351971732801654,
+        "overall_similarity": 0.8351971732801654,
+        "f0_difference": 38.32446110909686,
+        "duration_difference": 0.120000000000001
+      }
+    },
+    {
+      "phone_index": 56,
+      "reference_phone": "like",
+      "user_phone": "like",
+      "reference_duration": 0.21999999999999886,
+      "user_duration": 0.28999999999999915,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9808067638479468,
+        "f0_similarity": 0.6291444280140732,
+        "spectral_similarity": 0.9305006505911382,
+        "duration_similarity": 0.7407407407407399,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8523998694083691,
+        "overall_similarity": 0.8523998694083691,
+        "f0_difference": 117.89203097818142,
+        "duration_difference": 0.07000000000000028
+      }
+    },
+    {
+      "phone_index": 57,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.28000000000000114,
+      "user_duration": 0.370000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.970268508455707,
+        "f0_similarity": 0.8386413270570714,
+        "spectral_similarity": 0.6146532923498904,
+        "duration_similarity": 0.6896551724137935,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8166973617464339,
+        "overall_similarity": 0.8166973617464339,
+        "f0_difference": 38.48097338803046,
+        "duration_difference": 0.08999999999999986
+      }
+    },
+    {
+      "phone_index": 58,
+      "reference_phone": "if",
+      "user_phone": "if",
+      "reference_duration": 0.23000000000000043,
+      "user_duration": 0.17999999999999972,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9620123363923233,
+        "f0_similarity": 0.6649317639523503,
+        "spectral_similarity": 0.7745948018092046,
+        "duration_similarity": 0.7999999999999977,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.83271024770924,
+        "overall_similarity": 0.83271024770924,
+        "f0_difference": 100.7827431963864,
+        "duration_difference": 0.05000000000000071
+      }
+    },
+    {
+      "phone_index": 59,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.07000000000000028,
+      "user_duration": 0.16000000000000014,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.979719059906429,
+        "f0_similarity": 0.6120571323070938,
+        "spectral_similarity": 0.8856204313181436,
+        "duration_similarity": 0.6896551724137935,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8293541711703778,
+        "overall_similarity": 0.8293541711703778,
+        "f0_difference": 126.76688080754516,
+        "duration_difference": 0.08999999999999986
+      }
+    },
+    {
+      "phone_index": 60,
+      "reference_phone": "let",
+      "user_phone": "let",
+      "reference_duration": 0.16000000000000014,
+      "user_duration": 0.1700000000000017,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9433081901463432,
+        "f0_similarity": 0.547160311801054,
+        "spectral_similarity": 0.9659512144749972,
+        "duration_similarity": 0.9523809523809453,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8704217717899365,
+        "overall_similarity": 0.8704217717899365,
+        "f0_difference": 165.52358730418933,
+        "duration_difference": 0.010000000000001563
+      }
+    },
+    {
+      "phone_index": 61,
+      "reference_phone": "my",
+      "user_phone": "my",
+      "reference_duration": 0.129999999999999,
+      "user_duration": 0.1999999999999993,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9347540182580867,
+        "f0_similarity": 0.5832961027890976,
+        "spectral_similarity": 0.9124653673264538,
+        "duration_similarity": 0.7407407407407399,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.821202049474493,
+        "overall_similarity": 0.821202049474493,
+        "f0_difference": 142.8790266961787,
+        "duration_difference": 0.07000000000000028
+      }
+    },
+    {
+      "phone_index": 62,
+      "reference_phone": "daughter",
+      "user_phone": "daughter",
+      "reference_duration": 0.2699999999999996,
+      "user_duration": 0.41000000000000014,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9006102262452015,
+        "f0_similarity": 0.6716253978580269,
+        "spectral_similarity": 0.7618833796535249,
+        "duration_similarity": 0.5882352941176461,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7645929048239202,
+        "overall_similarity": 0.7645929048239202,
+        "f0_difference": 97.7850460060736,
+        "duration_difference": 0.14000000000000057
+      }
+    },
+    {
+      "phone_index": 63,
+      "reference_phone": "go",
+      "user_phone": "go",
+      "reference_duration": 0.15000000000000213,
+      "user_duration": 0.23000000000000043,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9602385013297307,
+        "f0_similarity": 0.7754481872002583,
+        "spectral_similarity": 0.7777976550172805,
+        "duration_similarity": 0.7142857142857186,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8376017118325438,
+        "overall_similarity": 0.8376017118325438,
+        "f0_difference": 57.915362110905704,
+        "duration_difference": 0.0799999999999983
+      }
+    },
+    {
+      "phone_index": 64,
+      "reference_phone": "now",
+      "user_phone": "now",
+      "reference_duration": 0.46000000000000085,
+      "user_duration": 0.509999999999998,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9529347460305488,
+        "f0_similarity": 0.774161737615886,
+        "spectral_similarity": 0.7906745765860792,
+        "duration_similarity": 0.8000000000000091,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8541411612526143,
+        "overall_similarity": 0.8541411612526143,
+        "f0_difference": 58.343948405305355,
+        "duration_difference": 0.04999999999999716
+      }
+    },
+    {
+      "phone_index": 65,
+      "reference_phone": "that'll",
+      "user_phone": "that'll",
+      "reference_duration": 0.21000000000000085,
+      "user_duration": 0.3500000000000014,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9371321783501637,
+        "f0_similarity": 0.5473545492595242,
+        "spectral_similarity": 0.7556230872240048,
+        "duration_similarity": 0.5882352941176461,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7530954574603006,
+        "overall_similarity": 0.7530954574603006,
+        "f0_difference": 165.39387545159767,
+        "duration_difference": 0.14000000000000057
+      }
+    },
+    {
+      "phone_index": 66,
+      "reference_phone": "be",
+      "user_phone": "be",
+      "reference_duration": 0.10000000000000142,
+      "user_duration": 0.14999999999999858,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9542114456893884,
+        "f0_similarity": 0.6279316983190057,
+        "spectral_similarity": 0.8584562250188644,
+        "duration_similarity": 0.8000000000000091,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8389621629433313,
+        "overall_similarity": 0.8389621629433313,
+        "f0_difference": 118.50597849321309,
+        "duration_difference": 0.04999999999999716
+      }
+    },
+    {
+      "phone_index": 67,
+      "reference_phone": "the",
+      "user_phone": "the",
+      "reference_duration": 0.16999999999999815,
+      "user_duration": 0.21000000000000085,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.954031526669521,
+        "f0_similarity": 0.7435694682000739,
+        "spectral_similarity": 0.8352056160203228,
+        "duration_similarity": 0.8333333333333239,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8640342941785526,
+        "overall_similarity": 0.8640342941785526,
+        "f0_difference": 68.97285129811917,
+        "duration_difference": 0.0400000000000027
+      }
+    },
+    {
+      "phone_index": 68,
+      "reference_phone": "end",
+      "user_phone": "end",
+      "reference_duration": 0.14000000000000057,
+      "user_duration": 0.18999999999999773,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9274799449878922,
+        "f0_similarity": 0.7275596073633741,
+        "spectral_similarity": 0.9900504577300152,
+        "duration_similarity": 0.8000000000000091,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8745139910138365,
+        "overall_similarity": 0.8745139910138365,
+        "f0_difference": 74.8915662385192,
+        "duration_difference": 0.04999999999999716
+      }
+    },
+    {
+      "phone_index": 69,
+      "reference_phone": "of",
+      "user_phone": "of",
+      "reference_duration": 0.10000000000000142,
+      "user_duration": 0.13000000000000256,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9523859122884688,
+        "f0_similarity": 0.7900754307078669,
+        "spectral_similarity": 0.7314770430665193,
+        "duration_similarity": 0.8695652173913001,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8591779031485249,
+        "overall_similarity": 0.8591779031485249,
+        "f0_difference": 53.1403866347423,
+        "duration_difference": 0.030000000000001137
+      }
+    },
+    {
+      "phone_index": 70,
+      "reference_phone": "it",
+      "user_phone": "it",
+      "reference_duration": 0.16000000000000014,
+      "user_duration": 0.23999999999999844,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9771967911871472,
+        "f0_similarity": 0.825657523219363,
+        "spectral_similarity": 0.9779974089768015,
+        "duration_similarity": 0.7142857142857186,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8944668457712355,
+        "overall_similarity": 0.8944668457712355,
+        "f0_difference": 42.23118469286135,
+        "duration_difference": 0.0799999999999983
+      }
+    },
+    {
+      "phone_index": 71,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.08999999999999986,
+      "user_duration": 0.120000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9281514312262825,
+        "f0_similarity": 0.6210565121554541,
+        "spectral_similarity": 0.9246845179404526,
+        "duration_similarity": 0.8695652173913001,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8543218219879545,
+        "overall_similarity": 0.8543218219879545,
+        "f0_difference": 122.03188612558787,
+        "duration_difference": 0.030000000000001137
+      }
+    },
+    {
+      "phone_index": 72,
+      "reference_phone": "will",
+      "user_phone": "will",
+      "reference_duration": 0.129999999999999,
+      "user_duration": 0.14999999999999858,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9749119430965246,
+        "f0_similarity": 0.5829112520859234,
+        "spectral_similarity": 0.9842932894235706,
+        "duration_similarity": 0.9090909090909108,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.885223867358691,
+        "overall_similarity": 0.885223867358691,
+        "f0_difference": 143.10540289676754,
+        "duration_difference": 0.019999999999999574
+      }
+    },
+    {
+      "phone_index": 73,
+      "reference_phone": "not",
+      "user_phone": "not",
+      "reference_duration": 0.19000000000000128,
+      "user_duration": 0.2700000000000031,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9277718079193717,
+        "f0_similarity": 0.5499174819507145,
+        "spectral_similarity": 0.7661632224092886,
+        "duration_similarity": 0.7142857142857095,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7771820068968913,
+        "overall_similarity": 0.7771820068968913,
+        "f0_difference": 163.69092921094781,
+        "duration_difference": 0.08000000000000185
+      }
+    },
+    {
+      "phone_index": 74,
+      "reference_phone": "look",
+      "user_phone": "look",
+      "reference_duration": 0.1999999999999993,
+      "user_duration": 0.2699999999999996,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9690178161556534,
+        "f0_similarity": 0.5958100188291796,
+        "spectral_similarity": 0.9589959022149257,
+        "duration_similarity": 0.7407407407407399,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8467164588192305,
+        "overall_similarity": 0.8467164588192305,
+        "f0_difference": 135.67747046788173,
+        "duration_difference": 0.07000000000000028
+      }
+    },
+    {
+      "phone_index": 75,
+      "reference_phone": "for",
+      "user_phone": "for",
+      "reference_duration": 0.10000000000000142,
+      "user_duration": 0.14000000000000057,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9582320885379045,
+        "f0_similarity": 0.6333225851102714,
+        "spectral_similarity": 0.8968179351534075,
+        "duration_similarity": 0.8333333333333363,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8559876061345649,
+        "overall_similarity": 0.8559876061345649,
+        "f0_difference": 115.79483299995823,
+        "duration_difference": 0.03999999999999915
+      }
+    },
+    {
+      "phone_index": 76,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.28000000000000114,
+      "user_duration": 0.379999999999999,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9844306644856339,
+        "f0_similarity": 0.8264238338978556,
+        "spectral_similarity": 0.856328683820199,
+        "duration_similarity": 0.6666666666666714,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8636561026711987,
+        "overall_similarity": 0.8636561026711987,
+        "f0_difference": 42.006573136562764,
+        "duration_difference": 0.09999999999999787
+      }
+    },
+    {
+      "phone_index": 77,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.10000000000000142,
+      "user_duration": 0.10999999999999943,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9209948422117052,
+        "f0_similarity": 0.6226789103053958,
+        "spectral_similarity": 0.9178732840492274,
+        "duration_similarity": 0.9523809523809614,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8669845662317992,
+        "overall_similarity": 0.8669845662317992,
+        "f0_difference": 121.19282778006573,
+        "duration_difference": 0.00999999999999801
+      }
+    },
+    {
+      "phone_index": 78,
+      "reference_phone": "will",
+      "user_phone": "will",
+      "reference_duration": 0.13000000000000256,
+      "user_duration": 0.16000000000000014,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.974924174835914,
+        "f0_similarity": 0.606789888350184,
+        "spectral_similarity": 0.9647234176236201,
+        "duration_similarity": 0.8695652173913134,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8781853746073891,
+        "overall_similarity": 0.8781853746073891,
+        "f0_difference": 129.60338304876,
+        "duration_difference": 0.029999999999997584
+      }
+    },
+    {
+      "phone_index": 79,
+      "reference_phone": "not",
+      "user_phone": "not",
+      "reference_duration": 0.18999999999999773,
+      "user_duration": 0.3200000000000003,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9565057398770306,
+        "f0_similarity": 0.5429481213494504,
+        "spectral_similarity": 0.9291623099523755,
+        "duration_similarity": 0.6060606060606014,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7982365034232978,
+        "overall_similarity": 0.7982365034232978,
+        "f0_difference": 168.3593185715743,
+        "duration_difference": 0.13000000000000256
+      }
+    },
+    {
+      "phone_index": 80,
+      "reference_phone": "pursue",
+      "user_phone": "pursue",
+      "reference_duration": 0.36999999999999744,
+      "user_duration": 0.38000000000000256,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9569873085961196,
+        "f0_similarity": 0.6631693177078078,
+        "spectral_similarity": 0.7166077009992727,
+        "duration_similarity": 0.9523809523809291,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8492265176560497,
+        "overall_similarity": 0.8492265176560497,
+        "f0_difference": 101.58210680084557,
+        "duration_difference": 0.010000000000005116
+      }
+    },
+    {
+      "phone_index": 81,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.23000000000000398,
+      "user_duration": 0.4299999999999997,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9741249513360143,
+        "f0_similarity": 0.7378260022867325,
+        "spectral_similarity": 0.743004250744938,
+        "duration_similarity": 0.5000000000000053,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.785816031140741,
+        "overall_similarity": 0.785816031140741,
+        "f0_difference": 71.06661920309554,
+        "duration_difference": 0.19999999999999574
+      }
+    },
+    {
+      "phone_index": 82,
+      "reference_phone": "but",
+      "user_phone": "but",
+      "reference_duration": 0.14999999999999858,
+      "user_duration": 0.14000000000000057,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9613089083596695,
+        "f0_similarity": 0.7139022586648063,
+        "spectral_similarity": 0.8687199572548329,
+        "duration_similarity": 0.9523809523809614,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.891524197003988,
+        "overall_similarity": 0.891524197003988,
+        "f0_difference": 80.15039534131051,
+        "duration_difference": 0.00999999999999801
+      }
+    },
+    {
+      "phone_index": 83,
+      "reference_phone": "if",
+      "user_phone": "if",
+      "reference_duration": 0.1600000000000037,
+      "user_duration": 0.14000000000000057,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.969573345175375,
+        "f0_similarity": 0.6778794170461501,
+        "spectral_similarity": 0.9073478857058653,
+        "duration_similarity": 0.9090909090908962,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8866929804387323,
+        "overall_similarity": 0.8866929804387323,
+        "f0_difference": 95.03772348111285,
+        "duration_difference": 0.020000000000003126
+      }
+    },
+    {
+      "phone_index": 84,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.0899999999999963,
+      "user_duration": 0.15000000000000213,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9628878958635955,
+        "f0_similarity": 0.5670205166905576,
+        "spectral_similarity": 0.9764742247657576,
+        "duration_similarity": 0.769230769230752,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8477002604828516,
+        "overall_similarity": 0.8477002604828516,
+        "f0_difference": 152.72092298760117,
+        "duration_difference": 0.060000000000005826
+      }
+    },
+    {
+      "phone_index": 85,
+      "reference_phone": "don't",
+      "user_phone": "don't",
+      "reference_duration": 0.4200000000000017,
+      "user_duration": 0.4299999999999997,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9779927015337907,
+        "f0_similarity": 0.7301851935381333,
+        "spectral_similarity": 0.9868689871813873,
+        "duration_similarity": 0.9523809523809614,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.9250841072336127,
+        "overall_similarity": 0.9250841072336127,
+        "f0_difference": 73.90311631888106,
+        "duration_difference": 0.00999999999999801
+      }
+    },
+    {
+      "phone_index": 86,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.12000000000000455,
+      "user_duration": 0.10999999999999943,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.8812579369377305,
+        "f0_similarity": 0.6153343045419625,
+        "spectral_similarity": 0.9301639569465942,
+        "duration_similarity": 0.9523809523809291,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8520790175489893,
+        "overall_similarity": 0.8520790175489893,
+        "f0_difference": 125.02657258622101,
+        "duration_difference": 0.010000000000005116
+      }
+    },
+    {
+      "phone_index": 87,
+      "reference_phone": "will",
+      "user_phone": "will",
+      "reference_duration": 0.14000000000000057,
+      "user_duration": 0.21000000000000085,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9751748971931866,
+        "f0_similarity": 0.7098522046209864,
+        "spectral_similarity": 0.9421763486384017,
+        "duration_similarity": 0.7407407407407399,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8686238176773003,
+        "overall_similarity": 0.8686238176773003,
+        "f0_difference": 81.74879037924043,
+        "duration_difference": 0.07000000000000028
+      }
+    },
+    {
+      "phone_index": 88,
+      "reference_phone": "look",
+      "user_phone": "look",
+      "reference_duration": 0.22999999999999687,
+      "user_duration": 0.21999999999999886,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9716617109442746,
+        "f0_similarity": 0.5733726152993024,
+        "spectral_similarity": 0.9565747303716123,
+        "duration_similarity": 0.9523809523809614,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8851303439880851,
+        "overall_similarity": 0.8851303439880851,
+        "f0_difference": 148.81331033851228,
+        "duration_difference": 0.00999999999999801
+      }
+    },
+    {
+      "phone_index": 89,
+      "reference_phone": "for",
+      "user_phone": "for",
+      "reference_duration": 0.09000000000000341,
+      "user_duration": 0.16000000000000014,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9495671699047453,
+        "f0_similarity": 0.7298713185611114,
+        "spectral_similarity": 0.8611419206609214,
+        "duration_similarity": 0.7407407407407497,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8461776639544547,
+        "overall_similarity": 0.8461776639544547,
+        "f0_difference": 74.02090603352597,
+        "duration_difference": 0.06999999999999673
+      }
+    },
+    {
+      "phone_index": 90,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.21000000000000085,
+      "user_duration": 0.370000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9750922506204976,
+        "f0_similarity": 0.7134326041486293,
+        "spectral_similarity": 0.8043905880122411,
+        "duration_similarity": 0.5555555555555554,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8047126497914842,
+        "overall_similarity": 0.8047126497914842,
+        "f0_difference": 80.33481906629268,
+        "duration_difference": 0.16000000000000014
+      }
+    },
+    {
+      "phone_index": 91,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.14999999999999858,
+      "user_duration": 0.120000000000001,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9111482567165123,
+        "f0_similarity": 0.6172750954741023,
+        "spectral_similarity": 0.9154086443182268,
+        "duration_similarity": 0.8695652173913134,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8449090941233335,
+        "overall_similarity": 0.8449090941233335,
+        "f0_difference": 124.00464795422965,
+        "duration_difference": 0.029999999999997584
+      }
+    },
+    {
+      "phone_index": 92,
+      "reference_phone": "will",
+      "user_phone": "will",
+      "reference_duration": 0.23000000000000398,
+      "user_duration": 0.16000000000000014,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9754791111509039,
+        "f0_similarity": 0.6641658531091115,
+        "spectral_similarity": 0.9833599683193828,
+        "duration_similarity": 0.7407407407407303,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8678449568942065,
+        "overall_similarity": 0.8678449568942065,
+        "f0_difference": 101.12960349249285,
+        "duration_difference": 0.07000000000000384
+      }
+    },
+    {
+      "phone_index": 93,
+      "reference_phone": "find",
+      "user_phone": "find",
+      "reference_duration": 0.3399999999999963,
+      "user_duration": 0.3999999999999986,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9705619400849118,
+        "f0_similarity": 0.6617321543229355,
+        "spectral_similarity": 0.9259597678791316,
+        "duration_similarity": 0.7692307692307625,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8596093143205307,
+        "overall_similarity": 0.8596093143205307,
+        "f0_difference": 102.23708896937914,
+        "duration_difference": 0.060000000000002274
+      }
+    },
+    {
+      "phone_index": 94,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.2700000000000031,
+      "user_duration": 0.3099999999999987,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9788947953209371,
+        "f0_similarity": 0.8267558134405952,
+        "spectral_similarity": 0.7327348638923356,
+        "duration_similarity": 0.8333333333333486,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8701227202616307,
+        "overall_similarity": 0.8701227202616307,
+        "f0_difference": 41.909396642386696,
+        "duration_difference": 0.039999999999995595
+      }
+    },
+    {
+      "phone_index": 95,
+      "reference_phone": "and",
+      "user_phone": "and",
+      "reference_duration": 0.1700000000000017,
+      "user_duration": 0.21000000000000085,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9296140637558823,
+        "f0_similarity": 0.770809074853588,
+        "spectral_similarity": 0.7147244720419675,
+        "duration_similarity": 0.8333333333333363,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8356190015481314,
+        "overall_similarity": 0.8356190015481314,
+        "f0_difference": 59.46762502502864,
+        "duration_difference": 0.03999999999999915
+      }
+    },
+    {
+      "phone_index": 96,
+      "reference_phone": "i",
+      "user_phone": "i",
+      "reference_duration": 0.14999999999999858,
+      "user_duration": 0.14999999999999858,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.8553554560737086,
+        "f0_similarity": 0.6264434746347686,
+        "spectral_similarity": 0.7912567641567461,
+        "duration_similarity": 1.0,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8256822301877864,
+        "overall_similarity": 0.8256822301877864,
+        "f0_difference": 119.26264395459582,
+        "duration_difference": 0.0
+      }
+    },
+    {
+      "phone_index": 97,
+      "reference_phone": "will",
+      "user_phone": "will",
+      "reference_duration": 0.14000000000000057,
+      "user_duration": 0.21999999999999886,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9482930600352654,
+        "f0_similarity": 0.6029295928030053,
+        "spectral_similarity": 0.7770205864502442,
+        "duration_similarity": 0.7142857142857186,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7981644027218999,
+        "overall_similarity": 0.7981644027218999,
+        "f0_difference": 131.713689935511,
+        "duration_difference": 0.0799999999999983
+      }
+    },
+    {
+      "phone_index": 98,
+      "reference_phone": "kill",
+      "user_phone": "kill",
+      "reference_duration": 0.25,
+      "user_duration": 0.3000000000000007,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9469491067244747,
+        "f0_similarity": 0.9802426814611871,
+        "spectral_similarity": 0.7373420651047142,
+        "duration_similarity": 0.7999999999999977,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8822965920029697,
+        "overall_similarity": 0.8822965920029697,
+        "f0_difference": 4.031107584371227,
+        "duration_difference": 0.05000000000000071
+      }
+    },
+    {
+      "phone_index": 99,
+      "reference_phone": "you",
+      "user_phone": "you",
+      "reference_duration": 0.060000000000002274,
+      "user_duration": 0.389999999999997,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9539018878715314,
+        "f0_similarity": 0.8071036517945341,
+        "spectral_similarity": 0.6290964404802197,
+        "duration_similarity": 0.3773584905660415,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7442724717167717,
+        "overall_similarity": 0.7442724717167717,
+        "f0_difference": 47.79964699120745,
+        "duration_difference": 0.32999999999999474
+      }
+    },
+    {
+      "phone_index": 100,
+      "reference_phone": "good",
+      "user_phone": "good",
+      "reference_duration": 0.09000000000000341,
+      "user_duration": 0.21000000000000085,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9417653558700904,
+        "f0_similarity": 0.8864205118357418,
+        "spectral_similarity": 0.5752161122090087,
+        "duration_similarity": 0.625000000000005,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7940334671569873,
+        "overall_similarity": 0.7940334671569873,
+        "f0_difference": 25.626547817364838,
+        "duration_difference": 0.11999999999999744
+      }
+    },
+    {
+      "phone_index": 101,
+      "reference_phone": "luck",
+      "user_phone": "luck",
+      "reference_duration": 0.18999999999999773,
+      "user_duration": 0.490000000000002,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9831306472065017,
+        "f0_similarity": 0.6756831504783862,
+        "spectral_similarity": 0.8704770732289802,
+        "duration_similarity": 0.3999999999999966,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.7824843036240733,
+        "overall_similarity": 0.7824843036240733,
+        "f0_difference": 95.9967254746537,
+        "duration_difference": 0.30000000000000426
+      }
+    },
+    {
+      "phone_index": 102,
+      "reference_phone": "good",
+      "user_phone": "good",
+      "reference_duration": 0.21999999999999886,
+      "user_duration": 0.21000000000000085,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9829596985014127,
+        "f0_similarity": 0.7297356711203042,
+        "spectral_similarity": 0.8366143928403278,
+        "duration_similarity": 0.9523809523809614,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8969300826688837,
+        "overall_similarity": 0.8969300826688837,
+        "f0_difference": 74.07184260700336,
+        "duration_difference": 0.00999999999999801
+      }
+    },
+    {
+      "phone_index": 103,
+      "reference_phone": "luck",
+      "user_phone": "luck",
+      "reference_duration": 0.3400000000000034,
+      "user_duration": 0.490000000000002,
+      "similarity_metrics": {
+        "mfcc_similarity": 0.9857941627442102,
+        "f0_similarity": 0.9268082847712374,
+        "spectral_similarity": 0.7684312093576173,
+        "duration_similarity": 0.5714285714285737,
+        "words_match": true,
+        "word_penalty": 1.0,
+        "base_similarity": 0.8476512782091699,
+        "overall_similarity": 0.8476512782091699,
+        "f0_difference": 15.794359293373901,
+        "duration_difference": 0.14999999999999858
+      }
+    }
+  ],
+  "pronunciation_feedback": {
+    "well_pronounced_words": [
+      "i",
+      "know",
+      "you",
+      "i",
+      "know",
+      "what",
+      "you",
+      "for",
+      "i",
+      "can",
+      "tell",
+      "money",
+      "but",
+      "have",
+      "a",
+      "set",
+      "of",
+      "are",
+      "for",
+      "a",
+      "long",
+      "make",
+      "me",
+      "for",
+      "like",
+      "let",
+      "now",
+      "the",
+      "end",
+      "of",
+      "it",
+      "i",
+      "will",
+      "for",
+      "you",
+      "i",
+      "will",
+      "but",
+      "if",
+      "don't",
+      "i",
+      "will",
+      "look",
+      "will",
+      "find",
+      "you",
+      "kill",
+      "good"
+    ],
+    "words_needing_practice": [],
+    "total_words_analyzed": 104
+  },
+  "summary": {
+    "words_analyzed": 104,
+    "well_pronounced_count": 48,
+    "needs_practice_count": 0,
+    "text_accuracy_percentage": 100.0,
+    "overall_assessment": "Very Good (80-89%)"
+  }
+}

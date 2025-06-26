@@ -3,19 +3,11 @@ from yt_dlp import YoutubeDL
 from config import FFMPEG_PATH, DOWNLOAD_DIR
 from utils import sanitize_filename
 
-def download_audio(url):
+def download_audio(url, video_id, video_filename):
     DOWNLOAD_DIR.mkdir(exist_ok=True)
-
-    with YoutubeDL({
-        'quiet': True,
-        'no_warnings': True,
-        'skip_download': True,
-        'ffmpeg_location': FFMPEG_PATH
-    }) as ydl:
-        info = ydl.extract_info(url, download=False)
-        video_id = info.get("id", "")
-        filename = sanitize_filename(video_id)  # ← 여기서 title 제거!
-        output_path = DOWNLOAD_DIR / filename
+    
+   # 💡 전달받은 video_filename을 그대로 사용
+    output_path = DOWNLOAD_DIR / video_filename
 
     ydl_opts = {
         'format': 'bestaudio/best',
@@ -40,6 +32,7 @@ def download_video(url, output_path):
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio/best',
         'outtmpl': output_path,
+        'merge_output_format': 'mp4',    # ← 이 옵션을 추가하세요!
         'quiet': True,
         'no_warnings': True,
         'ffmpeg_location': FFMPEG_PATH
