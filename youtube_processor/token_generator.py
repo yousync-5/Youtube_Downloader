@@ -5,6 +5,13 @@ YouTube 처리 결과를 토큰 형태로 생성하는 기능을 제공.
 토큰은 DB 스키마와 독립적인 중간 데이터 구조로 설계됨.
 """
 
+from pathlib import Path
+from config import TOKEN_DATA_DIR
+from utils import sanitize_filename
+    
+
+
+
 def make_token(youtube_url, segments, movie_name=None, actor_name=None):
     """
     유연한 토큰 생성 - 스키마 변경에 대응 가능
@@ -176,10 +183,7 @@ def create_token(youtube_url, segments, video_id):
     Returns:
         dict: 생성된 토큰
     """
-    from pathlib import Path
-    from config import TOKEN_DATA_DIR
-    from utils import sanitize_filename
-    
+
     print("\n토큰 생성 중...")
     
     # 사용자 입력 받기

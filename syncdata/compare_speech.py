@@ -275,7 +275,7 @@ def main():
     import numpy as np
 
     # 실제 경로 기반으로 설정 (Windows 경로)
-    base_dir = "C:/Users/c4851/syncdata/mfa"
+    base_dir = "C:/youtube_downliader/syncdata/mfa"
     corpus_path = os.path.join(base_dir, "corpus")
     dict_path = os.path.join(base_dir, "english_us_arpa.dict")
     model_path = os.path.join(base_dir, "english_us_arpa")

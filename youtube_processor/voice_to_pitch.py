@@ -30,8 +30,8 @@ import json
 import numpy as np
 from pathlib import Path
 from config import PITCH_REFERENCE_DIR, PITCH_USER_DIR, USER_UPLOADS_DIR
-
-def create_pitch_json_with_token(vocal_path, token):
+from utils import extract_video_id
+def create_pitch_json_with_token(vocal_path, speaker):
     """
     토큰 정보를 기반으로 기준 음성의 피치 JSON 생성 (기준 음성용)
     
@@ -47,9 +47,11 @@ def create_pitch_json_with_token(vocal_path, token):
         # 기준 음성 피치 디렉토리 생성
         PITCH_REFERENCE_DIR.mkdir(parents=True, exist_ok=True)
         
-        # 기준 음성 파일명 생성: 영화이름_배우이름_pitch.json
-        output_filename = f"{token['movie_name']}_{token['actor_name']}_pitch.json"
-        
+        # 기준 음성 파일명 생성: 배우이름_pitch.json
+
+        safe_url = extract_video_id(speaker['video_url'])
+        output_filename = f"{speaker['actor']}_{safe_url}_{speaker['token_id']}pitch.json"
+
         # 기준 음성 전용 경로
         output_path = PITCH_REFERENCE_DIR / output_filename
         
@@ -61,7 +63,7 @@ def create_pitch_json_with_token(vocal_path, token):
         print(f"오디오 정보: {snd.duration:.2f}초, {snd.sampling_frequency}Hz")
         
         # 피치 추출
-        pitch = snd.to_pitch(time_step=0.01)
+        pitch = snd.to_pitch(time_step=0.1)
         print(f"피치 프레임 수: {pitch.get_number_of_frames()}")
         
         pitch_data = []

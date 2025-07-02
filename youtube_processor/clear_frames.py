@@ -1,7 +1,7 @@
 from .utils import reset_folder  # ✅ 상대경로 import
 from pathlib import Path
 
-reset_folder("tmp_frames", "downloads", "separated/htdemucs")
+reset_folder("tmp_frames", "downloads", "separated/htdemucs", "pitch_data", "split_tokens")
 
 # 확인용: 폴더 내부에 남아 있는 파일 출력
 tmp_dir = Path(__file__).parent / "tmp_frames"  # ✅ 폴더 경로 기준 보정

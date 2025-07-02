@@ -3,6 +3,8 @@ import shutil
 import subprocess
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
+import boto3
+from botocore.exceptions import ClientError
 def sanitize_filename(name):
     name = re.sub(r'[\\/*?:"<>|]', '', name)
     name = re.sub(r'\s+', '_', name)
@@ -46,7 +48,8 @@ def run_mfa_align():
     ]
 
     try:
-        result = subprocess.run(command, check=True, capture_output=True, text=True,  encoding="utf-8")
+        result = subprocess.run(command, check=True, capture_output=True, text=True, encoding="utf-8", errors="ignore")
+
         print(result.stdout)
     except subprocess.CalledProcessError as e:
         print("❌ MFA 실행 중 오류 발생!")
@@ -74,3 +77,29 @@ def reset_folder(*folders, remove_only_files=False):
             # 폴더가 없으면 생성
             path.mkdir(parents=True, exist_ok=True)
         print(f"🧹 Folder '{folder}/' reset")
+
+def generate_presigned_url(bucket: str, key: str, expiration: int = 3600):
+    """
+    Presigned URL을 생성합니다.
+
+    :param bucket: S3 버킷 이름
+    :param key: S3 객체의 Key (폴더/파일명 포함)
+    :param expiration: URL 유효 시간 (초, 기본 1시간)
+    :return: presigned URL 문자열 또는 None (실패 시)
+    """
+    # S3 클라이언트 생성
+    s3 = boto3.client('s3', region_name='ap-northeast-2') 
+
+    try:
+        # presigned URL 생성
+        response = s3.generate_presigned_url(
+            ClientMethod="get_object",
+            Params={"Bucket": bucket, "Key": key},
+            ExpiresIn=expiration,
+        )
+        return response
+
+    except ClientError as e:
+        # 오류 발생 시 에러 출력 및 None 반환
+        print("❌ Presigned URL 생성 실패:", e)
+        return None
