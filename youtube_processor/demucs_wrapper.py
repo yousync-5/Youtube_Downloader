@@ -1,5 +1,7 @@
 import subprocess
 import time
+import os
+import sys
 from pathlib import Path
 
 def separate_vocals(audio_path: str, output_root="separated") -> str:
@@ -18,6 +20,8 @@ def separate_vocals(audio_path: str, output_root="separated") -> str:
         "--two-stems", "vocals",
         audio_path
     ]
+    
+    print(f"🚀 demucs 실행: demucs -o {output_root} --two-stems vocals {Path(audio_path).name}")
     subprocess.run(cmd, check=True, text=True)
 
     elapsed = time.time() - start_time  # ⏱️ 소요 시간
@@ -32,7 +36,7 @@ def separate_vocals(audio_path: str, output_root="separated") -> str:
     #      ├── vocals.wav     ← 🎤 추출된 보컬
     #     └── no_vocals.wav  ← 🎵 배경음
     vocals_path = output_dir / "htdemucs" / basename / "vocals.wav"
-
+    
     # 실제로 생성되었는지 검증
     if not vocals_path.exists():
         raise FileNotFoundError(f"❌ vocals.wav not found at {vocals_path}")
