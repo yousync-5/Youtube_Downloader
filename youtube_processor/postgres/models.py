@@ -38,7 +38,7 @@ class ScriptWord(Base):
     __tablename__ = "words"
 
     id = Column(Integer, primary_key=True, index=True)
-    sentence_id = Column(Integer, ForeignKey("scripts.id"))
+    script_id = Column(Integer, ForeignKey("scripts.id"))
     word = Column(String)
     start_time = Column(Float)
     end_time = Column(Float)

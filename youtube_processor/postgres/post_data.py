@@ -48,10 +48,10 @@ def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: l
         return None
 
 
-def make_token(db: Session, actor_name: str, speaker: dict,
+def make_token(db: Session, movie_name: str, actor_name: str, speaker: dict,
                s3_textgrid_url: str, s3_pitch_url: str, s3_bgvoice_url: str):
     token_data = {
-        "token_name": "확인용",
+        "token_name": movie_name,
         "actor_name": actor_name,
         "category": "스릴러",  # 만약 Token 모델에 'category' 컬럼이 없으면 이 줄 삭제 필요
         "start_time": float(speaker["start_time"]),  # numpy → float 변환
