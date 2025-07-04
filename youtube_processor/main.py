@@ -60,31 +60,31 @@ def main():
 
     #당장은 필요치아니함
 
-    # movie_name = None
-    # actor_name = None
-    # try:
-    #     # 터미널 인코딩 설정
-    #     import sys
-    #     if hasattr(sys.stdin, 'reconfigure'):
-    #         sys.stdin.reconfigure(encoding='utf-8')
+    movie_name = None
+    actor_name = None
+    try:
+        # 터미널 인코딩 설정
+        import sys
+        if hasattr(sys.stdin, 'reconfigure'):
+            sys.stdin.reconfigure(encoding='utf-8')
         
-    #     movie_input = input("영화 이름을 입력하세요 (선택사항): ")
-    #     if movie_input and movie_input.strip():
-    #         movie_name = movie_input.strip()
+        movie_input = input("영화 이름을 입력하세요 (선택사항): ")
+        if movie_input and movie_input.strip():
+            movie_name = movie_input.strip()
             
-    #     actor_input = input("배우 이름을 입력하세요 (선택사항): ")
-    #     if actor_input and actor_input.strip():
-    #         actor_name = actor_input.strip()
+        actor_input = input("배우 이름을 입력하세요 (선택사항): ")
+        if actor_input and actor_input.strip():
+            actor_name = actor_input.strip()
             
-    # except (UnicodeDecodeError, UnicodeError) as e:
-    #     print(f"입력 인코딩 오류: {e}")
-    #     print("기본값을 사용합니다.")
-    #     movie_name = None
-    #     actor_name = None
-    # except Exception as e:
-    #     print(f"입력 처리 중 오류: {e}")
-    #     movie_name = None
-    #     actor_name = None
+    except (UnicodeDecodeError, UnicodeError) as e:
+        print(f"입력 인코딩 오류: {e}")
+        print("기본값을 사용합니다.")
+        movie_name = None
+        actor_name = None
+    except Exception as e:
+        print(f"입력 처리 중 오류: {e}")
+        movie_name = None
+        actor_name = None
 
 
     start_time = time.time()  # ⏱️ 시작 시간
@@ -96,10 +96,10 @@ def main():
     print({video_filename})
     # 1-3 폴더 경로지정
     mp4_path = os.path.join("downloads", video_filename + ".mp4")
-
+    download_video(youtube_url, mp4_path)
     # 1-4 오디오 추출 및 파일 경로 반환 
     mp3_path, _ = download_audio(youtube_url, video_id, video_filename)
-
+ 
     # 1-5 영상이 없을 시 다운로드 실행
     if not os.path.exists(mp4_path):
         download_video(youtube_url, mp4_path)
@@ -122,6 +122,9 @@ def main():
     print(f"🕒 자막 추출 측정시작")
     # 2-2  Whisper로 자막 추출
     segments = transcribe_audio(vocal_path)
+    print("\n🗣️ 정밀분석:")
+    for seg in segments:
+        print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
     selected = segments[:]
 
     if not segments:
@@ -132,12 +135,12 @@ def main():
     # print(f"🕒 자막 추출 전처리 소요 시간: {elapsed:.2f}초")
 
 
-    # check_segment = transcribe_audio_check(vocal_path)
+    check_segment = transcribe_audio_check(vocal_path)
 
 
-    # print("\n🗣️ First 5 segments:")
-    # for seg in check_segment:
-    #     print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
+    print("\n🗣️ First 5 segments:")
+    for seg in check_segment:
+        print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
 
 
     #예외처리
@@ -146,16 +149,16 @@ def main():
 
     # 테스트용
     word_list = format_segments_for_output(segments)
-    print("\n🗣️ 선택된 문장 리스트:")
-    for i, seg in enumerate(word_list, 1):
-        print(f"{i:>2}. ⏱️ {seg['start']:.2f}s ~ {seg['end']:.2f}s | 📝 \"{seg['text']}\"")
+    # print("\n🗣️ 선택된 문장 리스트:")
+    # for i, seg in enumerate(word_list, 1):
+    #     print(f"{i:>2}. ⏱️ {seg['start']:.2f}s ~ {seg['end']:.2f}s | 📝 \"{seg['text']}\"")
 
-        if "words" in seg:
-            for w in seg["words"]:
-                w_start = round(w["start"], 2)
-                w_end = round(w["end"], 2)
-                w_text = w["word"].strip()
-                print(f"    🔹 {w_start:.2f}s - {w_end:.2f}s: {w_text}")
+    #     if "words" in seg:
+    #         for w in seg["words"]:
+    #             w_start = round(w["start"], 2)
+    #             w_end = round(w["end"], 2)
+    #             w_text = w["word"].strip()
+    #             print(f"    🔹 {w_start:.2f}s - {w_end:.2f}s: {w_text}")
 
     
 
@@ -190,40 +193,23 @@ def main():
     pprint(speaker_diarization_data)
 
     print("여기 출력값은 정확히 화자분리를 위한 문장 타임 스템프로 활용된다.")
-    """
-        {'start': 4.0, 'end': 6.77, 'text': "I don't know who you are."}
-    {'start': 6.77, 'end': 9.89, 'text': "I don't know what you want."}
-    {'start': 9.89, 'end': 15.97, 'text': "If you're looking for ransom, I can tell you I don't have money, but what I do have."}
-    {'start': 15.97, 'end': 18.82, 'text': 'I have a very particular set of skills.'}
-    {'start': 18.82, 'end': 21.91, 'text': 'Skills I have acquired are for a very long career.'}
-    {'start': 21.91, 'end': 24.66, 'text': 'Skills that make me a nightmare for people like you.'}
-    {'start': 24.66, 'end': 29.44, 'text': "If you let my daughter go now, that'll be the end of it."}
-    {'start': 29.44, 'end': 33.44, 'text': 'I will not look for you, I will not pursue you.'}
-    {'start': 33.44, 'end': 37.65, 'text': "But if you don't, I will look for you."}
-    {'start': 37.65, 'end': 44.53, 'text': 'I will find you, and I will kill you.'}
-    {'start': 44.53, 'end': 48.0, 'text': 'Good luck.'}"""
-    
 
     post_word_data = merge_words_into_segments(speaker_diarization_data, word_list)
 
+    # save_path = Path("cached_data/post_word_data.json")
+    # save_path.parent.mkdir(parents=True, exist_ok=True)  # 폴더 없으면 생성
+
+    # # JSON 저장
+    # with open(save_path, "w", encoding="utf-8") as f:
+    #     json.dump(post_word_data, f, ensure_ascii=False, indent=2)
+
+    # print(f"✅ post_word_data 저장 완료: {save_path.resolve()}")
+
+
+
+
     print("이번에는 기대를 해봅니다.")
-    # for seg in post_word_data:
-    #     start = seg["start"]
-    #     end = seg["end"]
-    #     print(f'📝 {start:.2f} ~ {end:.2f}: {seg["text"]}')
-        
-    #     if "words" in seg:
-    #         for word in seg["words"]:
-    #             w_start = word["start"]
-    #             w_end = word["end"]
-    #             w_text = word["word"]
-    #             print(f'    🔹 {w_start:6.2f}s - {w_end:6.2f}s:')
-    #             for text in w_text:
-    #                 word_text = text['word']
-    #                 word_start = text['start']
-    #                 word_end = text['end']
-    #                 print(f'{word_text}: {word_start:.2f} ~ {word_end:.2f}')
-    
+
     for seg in post_word_data:
         start = seg["start"]
         end = seg["end"]
@@ -256,7 +242,12 @@ def main():
 
 
     #화자분리 데이터가 뽑혀야한다. 
-    speaker = split_segments_by_half(post_word_data, youtube_url)
+
+
+    print("해당지점에서 화자분리하다가 터진다")
+    speaker = post_word_data
+    
+    # split_segments_by_half(post_word_data, youtube_url,actor_name)
     
     
     #S3 채우기 + 화자분리 데이터 분할로직
@@ -326,6 +317,7 @@ def main():
         if s3_textgrid_url and s3_pitch_url and s3_bgvoice_url:
             make_token(
                 db=db,
+                movie_name = movie_name,
                 actor_name=actor,
                 speaker=s3_data,
                 s3_textgrid_url=s3_textgrid_url,
@@ -369,5 +361,10 @@ def main():
 # 실행
 if __name__ == "__main__":
     main()
+
+
+
+
+
 
 

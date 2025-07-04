@@ -32,7 +32,11 @@ def download_video(url, output_path):
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio/best',
         'outtmpl': output_path,
-        'merge_output_format': 'mp4',    # ← 이 옵션을 추가하세요!
+        'merge_output_format': 'mp4',
+        'postprocessors': [{               # ✅ 이거 추가
+            'key': 'FFmpegVideoConvertor',
+            'preferedformat': 'mp4',
+        }],    # ← 이 옵션을 추가하세요!
         'quiet': True,
         'no_warnings': True,
         'ffmpeg_location': FFMPEG_PATH

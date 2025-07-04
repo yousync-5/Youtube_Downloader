@@ -41,8 +41,8 @@ def run_mfa_align():
         "mfa", "align",
         "/data/corpus", "/data/english_us_arpa.dict", "/data/english_us_arpa", "/data/mfa_output",
         "--clean",
-        "--beam", "10",
-        "--retry_beam", "40",
+        "--beam", "100",
+        "--retry_beam", "400",
         "--phone_boundary_method", "strict",
         "--output_format", "long_textgrid"
     ]
