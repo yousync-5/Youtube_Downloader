@@ -1,6 +1,9 @@
-from .models import Token, ScriptSentence, ScriptWord
+from .models import Token, Script, ScriptWord, URL, Actor # URL, Actor 모델 import 추가
+import time
+from typing import Optional
 from sqlalchemy.orm import Session
-import traceback  # ← 에러 출력용
+from sqlalchemy.exc import OperationalError, ProgrammingError
+import traceback
 import numpy as np
 
 def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: list[dict]):
@@ -17,7 +20,7 @@ def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: l
         
         for sentence_dict in sentences_data:
             words = sentence_dict.pop("words", [])  # 단어 리스트 추출
-            sentence = ScriptSentence(**sentence_dict)
+            sentence = Script(**sentence_dict)
             sentence.token = new_token
             db.add(sentence)
 
@@ -27,7 +30,7 @@ def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: l
                     start_time=word["start"],
                     end_time=word["end"],
                     # probability = float(word.get("probability", 0.0)),  
-                    sentence=sentence  # 관계 연결
+                    script=sentence  # 관계 연결
                 )
                 db.add(word_entry)
 
@@ -50,16 +53,40 @@ def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: l
 
 def make_token(db: Session, movie_name: str, actor_name: str, speaker: dict,
                s3_textgrid_url: str, s3_pitch_url: str, s3_bgvoice_url: str):
+    
+    # --- Actor 조회 또는 생성 ---
+    actor = db.query(Actor).filter(Actor.name == actor_name).first()
+    if not actor:
+        actor = Actor(name=actor_name)
+        db.add(actor)
+        db.flush() # Actor ID를 얻기 위해 flush (아직 commit 아님)
+        print(f"✅ 새로운 Actor 생성: {actor_name} (ID: {actor.id})")
+    else:
+        print(f"✅ 기존 Actor 사용: {actor_name} (ID: {actor.id})")
+
+    # --- URL 조회 또는 생성 ---
+    youtube_url_str = speaker["video_url"]
+    url_entry = db.query(URL).filter(URL.youtube_url == youtube_url_str).first()
+    if not url_entry:
+        url_entry = URL(youtube_url=youtube_url_str, actor_id=actor.id)
+        db.add(url_entry)
+        db.flush() # URL ID를 얻기 위해 flush (아직 commit 아님)
+        print(f"✅ 새로운 URL 생성: {youtube_url_str}")
+    else:
+        print(f"✅ 기존 URL 사용: {youtube_url_str}")
+
+
     token_data = {
-        "token_name": movie_name,
-        "actor_name": actor_name,
-        "category": "스릴러",  # 만약 Token 모델에 'category' 컬럼이 없으면 이 줄 삭제 필요
-        "start_time": float(speaker["start_time"]),  # numpy → float 변환
+        "token_name": movie_name if movie_name is not None else "", # None 대신 빈 문자열
+        "actor_name": actor_name if actor_name is not None else "", # None 대신 빈 문자열
+        "category": "스릴러",
+        "start_time": float(speaker["start_time"]),
         "end_time": float(speaker["end_time"]),
         "s3_textgrid_url": s3_textgrid_url,
         "s3_pitch_url": s3_pitch_url,
         "s3_bgvoice_url": s3_bgvoice_url,
-        "youtube_url": speaker["video_url"]
+        "youtube_url": youtube_url_str # URL 객체 대신 문자열 사용
+        # view_count는 models.py에 default=0이므로 명시적으로 추가할 필요 없음
     }
 
     sentences_data = []
@@ -68,8 +95,8 @@ def make_token(db: Session, movie_name: str, actor_name: str, speaker: dict,
             script_clean = seg["text"].encode("utf-8", errors="replace").decode("utf-8")
             sentence_entry = {
                 "script": script_clean,
-                'start_time': float(np.float64(3.98)),       # 🔧 반드시 float() 처리
-                'end_time': float(np.float64(24.66)),
+                'start_time': float(seg['start']),
+                'end_time': float(seg['end']),
                 "words": seg.get("words", [])
             }
             sentences_data.append(sentence_entry)

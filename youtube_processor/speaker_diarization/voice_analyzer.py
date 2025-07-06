@@ -6,8 +6,11 @@ from tempfile import NamedTemporaryFile
 from pydub import AudioSegment
 
 # 세그먼트 별로 음성 잘라내기 (wav 단위)
+# def extract_segment_audio(full_audio_path, start, end):
+#     audio = AudioSegment.from_wav(full_audio_path)
 def extract_segment_audio(full_audio_path, start, end):
-    audio = AudioSegment.from_wav(full_audio_path)
+    # MP3든 WAV든 포맷 자동 감지
+    audio = AudioSegment.from_file(full_audio_path)
     segment_audio = audio[start * 1000:end * 1000]  # pydub: milliseconds 단위
 
     tmp = NamedTemporaryFile(delete=False, suffix=".wav")

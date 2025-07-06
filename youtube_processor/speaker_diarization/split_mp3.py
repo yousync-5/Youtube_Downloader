@@ -10,15 +10,14 @@ def split_audio_by_token(mp3_paths, speaker_data,  video_filename ,output_dir="s
         audio = AudioSegment.from_file(mp3_path)
         audio_type = Path(mp3_path).stem  # 파일명만 뽑아서 구분용
 
-        for speaker in speaker_data:
-            token_id = speaker["token_id"]
-            start_time = speaker["start_time"]
-            end_time = speaker["end_time"]
+        token_id = speaker_data["token_id"]
+        start_time = speaker_data["start_time"]
+        end_time = speaker_data["end_time"]
 
-            start_ms = int(start_time * 1000)
-            end_ms = int(end_time * 1000)
+        start_ms = int(start_time * 1000)
+        end_ms = int(end_time * 1000)
 
-            clip = audio[start_ms:end_ms]
-            filename = f"{audio_type}_{video_filename}_token_{token_id}.mp3"
-            clip.export(output_path / filename, format="mp3")
-            print(f"🎧 Saved: {filename} ({start_time}s ~ {end_time}s)")
+        clip = audio[start_ms:end_ms]
+        filename = f"{audio_type}_{video_filename}_token_{token_id}.mp3"
+        clip.export(output_path / filename, format="mp3")
+        print(f"🎧 Saved: {filename} ({start_time}s ~ {end_time}s)")

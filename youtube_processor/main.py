@@ -1,4 +1,3 @@
-
 # 기본 유틸리티 모듈
 import os  # 운영체제 경로 관련
 import time  # 시간 측정 및 대기
@@ -23,7 +22,7 @@ from format_segments_for_output import format_segments_for_output
 from speaker_diarization.who_is_speaker import analyze_speakers  # 얼굴 + 자막 + 음성 기반 화자 식별
 from speaker_diarization.voice_analyzer import analyze_voice_speakers  # 음성 기반 화자 분리 (e.g., pyannote)
 from speaker_diarization.frame_extractor import extract_frames_per_segment  # 자막 구간 기반 프레임 추출
-from speaker_diarization.split_segment import split_segments_by_half #화자분리 함수 
+from speaker_diarization.split_segment import split_segments_by_half # 화자분리 함수 
 from merge_words import merge_words_into_segments
 #음성 피치 분석
 from voice_to_pitch import create_pitch_json_with_token  # 구간별 pitch(음높이) 추출 및 저장
@@ -37,18 +36,32 @@ from utils import sanitize_filename, extract_video_id, reset_folder, run_mfa_ali
 
 #토큰 및 db관련 로직
 from token_generator import create_token  # Token 생성 (음성+자막 묶음)
-from postgres.database import engine  # SQLAlchemy DB 엔진
+
 from sqlalchemy.orm import sessionmaker, Session  # DB 세션 관련
-from postgres.models import Token, ScriptSentence  # ORM 모델 정의
+from postgres.models import Token, Script  # ORM 모델 정의
 from postgres.post_data import make_token  # Token + 문장 → DB 저장 함수
 
+from dotenv import load_dotenv
+load_dotenv()
+from postgres.database import engine  # SQLAlchemy DB 엔진
+
+# 음성 기반 화자 분리
+
+# from pyannote.audio import Pipeline
+# from collections import defaultdict # defaultdict가 없다면 추가
+# from pyannote.audio.pipelines import SpeakerDiarization
+from speaker_diarizer import diarize_main_speaker
+import json # 다운로드용
+
+import torch
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
 
 # DB 엔진에 연결된 세션 팩토리 생성 (autocommit=False, autoflush=True 기본값 사용)
 SessionLocal = sessionmaker(bind=engine)
 
 # 실제 사용할 DB 세션 인스턴스 생성 (이걸로 쿼리 수행)
 db = SessionLocal()
-
 
 def main():
 
@@ -122,7 +135,7 @@ def main():
     print(f"🕒 자막 추출 측정시작")
     # 2-2  Whisper로 자막 추출
     segments = transcribe_audio(vocal_path)
-    print("\n🗣️ 정밀분석:")
+    print("🗣️ 정밀분석:")
     for seg in segments:
         print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
     selected = segments[:]
@@ -138,7 +151,7 @@ def main():
     check_segment = transcribe_audio_check(vocal_path)
 
 
-    print("\n🗣️ First 5 segments:")
+    print("🗣️ First 5 segments:")
     for seg in check_segment:
         print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
 
@@ -149,9 +162,9 @@ def main():
 
     # 테스트용
     word_list = format_segments_for_output(segments)
-    # print("\n🗣️ 선택된 문장 리스트:")
+    # print("🗣️ 선택된 문장 리스트:")
     # for i, seg in enumerate(word_list, 1):
-    #     print(f"{i:>2}. ⏱️ {seg['start']:.2f}s ~ {seg['end']:.2f}s | 📝 \"{seg['text']}\"")
+    #     print(f"{i:>2}. ⏱️ {seg['start']:.2f}s ~ {seg['end']:.2f}s | 📝 "{seg['text']}"")
 
     #     if "words" in seg:
     #         for w in seg["words"]:
@@ -163,11 +176,11 @@ def main():
     
 
     # 🔡 MFA용 세그먼트 내보내기
-    print("\n📦 MFA용 음성/텍스트 export:")
+    print("📦 MFA용 음성/텍스트 export:")
 
 
-    print("\n📦 첫번째 MFA분석 목적은 화자분리 데이터를 만들기 위함이다. ")
-    print("\n⏳ TextGrid 생성 완료를 기다리는 중...")
+    print("📦 첫번째 MFA분석 목적은 화자분리 데이터를 만들기 위함이다. ")
+    print("⏳ TextGrid 생성 완료를 기다리는 중...")
   
     export_segments_for_mfa(
         vocal_path=vocal_path,
@@ -182,9 +195,9 @@ def main():
     elapsed = time.time() - start_time  # ⏱️ 소요 시간
     print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
     
-    
-
+        
     speaker_diarization_data = generate_sentence_json(selected,f"../syncdata/mfa/mfa_output/{video_filename}0.TextGrid" )
+
     for seg in speaker_diarization_data:
         seg["start"] = round(float(seg["start"]), 2)
         seg["end"] = round(float(seg["end"]), 2)
@@ -196,16 +209,17 @@ def main():
 
     post_word_data = merge_words_into_segments(speaker_diarization_data, word_list)
 
-    # save_path = Path("cached_data/post_word_data.json")
-    # save_path.parent.mkdir(parents=True, exist_ok=True)  # 폴더 없으면 생성
+    #####################################################
+    ## test를 위한 저장
+    save_path = Path("cached_data/post_word_data.json")
+    save_path.parent.mkdir(parents=True, exist_ok=True)  # 폴더 없으면 생성
 
-    # # JSON 저장
-    # with open(save_path, "w", encoding="utf-8") as f:
-    #     json.dump(post_word_data, f, ensure_ascii=False, indent=2)
+    # JSON 저장
+    with open(save_path, "w", encoding="utf-8") as f:
+        json.dump(post_word_data, f, ensure_ascii=False, indent=2)
 
-    # print(f"✅ post_word_data 저장 완료: {save_path.resolve()}")
-
-
+    print(f"✅ post_word_data 저장 완료: {save_path.resolve()}")
+    #####################################################
 
 
     print("이번에는 기대를 해봅니다.")
@@ -229,8 +243,7 @@ def main():
     #             print(f"   🔹 {w['start']}s - {w['end']}s: {w['text']}")
 
 
-    print("\n⏳ 이 시점에서 뽑혀진 textgrid와 segment로 화자를 분리 데이터를 만든 후 폴더를 비우고 화자별로 재요청을 보내야한다")
-
+    # print("⏳ 이 시점에서 뽑혀진 textgrid와 segment로 화자를 분리 데이터를 만든 후 폴더를 비우고 화자별로 재요청을 보내야한다")
 
 
     #객체 배열이 반환된다. 배열의 내용은 
@@ -238,15 +251,51 @@ def main():
     #화자 분리 데이터가 나온다면 오디오도 기준에 맞춰 잘라져야한다. 
  
 
-    print("만약 이렇게 분할에 성공한다면 지금 즉시 syncdata 파일 내의 데이터들은 지우고 새로 요청을 박자.")
+    # print("만약 이렇게 분할에 성공한다면 지금 즉시 syncdata 파일 내의 데이터들은 지우고 새로 요청을 박자.")
 
 
     #화자분리 데이터가 뽑혀야한다. 
+########################################################################################
+
+    HF_TOKEN = os.getenv("HF_TOKEN")
+    # VOCAL_MP3  = f"split_tokens/vocals_{video_filename}_token_1.mp3"
+    # POST_JSON  = "cached_data/post_word_data.json"
+
+    with open(save_path, encoding="utf-8") as f:
+    # with open(POST_JSON, encoding="utf-8") as f:
+        post_words = json.load(f)
+
+    result = diarize_main_speaker(
+        vocal_path     = vocal_path,
+        post_word_data = post_words,
+        hf_token       = HF_TOKEN,
+    )
+    # diar_result 구조:  {'label', 'segments', 'start', 'end'}
+    main_speaker_label    = result["label"]
+    main_speaker_segments = result["segments"]
+    final_start_time      = result["start"]
+    final_end_time        = result["end"]
 
 
-    print("해당지점에서 화자분리하다가 터진다")
-    speaker = post_word_data
-    
+    print("👑 Main speaker:", main_speaker_label)
+    for i, s in enumerate(main_speaker_segments, 1):
+        print(f"[{i}] {s['start']:.2f}-{s['end']:.2f}: {s['text']}")
+
+    speakers = [
+        {
+            "actor": actor_name,    # 스크립트 초기에 입력받은 배우 이름
+            "video_url": youtube_url,
+            "token_id": 1,          # 주요 화자는 항상 token_id 1을 가짐
+            "speaker_label": main_speaker_label,
+            "start_time": final_start_time,
+            "end_time": final_end_time,
+            "segments": main_speaker_segments
+        }
+    ]
+    # ==================
+
+    # print("해당지점에서 화자분리하다가 터진다/n")
+    # speaker = post_word_data
     # split_segments_by_half(post_word_data, youtube_url,actor_name)
     
     
@@ -254,13 +303,17 @@ def main():
 
     vocal_path = Path("separated") / "htdemucs" /video_filename / "vocals.wav"
     no_vocals_path =  Path("separated") / "htdemucs" /video_filename / "no_vocals.wav"
-    split_audio_by_token([vocal_path, no_vocals_path], speaker, video_filename)
     
+    # 추가#
+    for speaker in speakers:
+        split_audio_by_token([vocal_path, no_vocals_path], speaker, video_filename)
+
+
     #새로운 text그
     reset_folder("../syncdata/mfa/corpus", "../syncdata/mfa/mfa_output")
     print("제거성공")
     # 1. 먼저 모든 token에 대해 lab/wav export만 수행
-    for s3_data in speaker:
+    for s3_data in speakers:
         print(f"▶️ 처리 중: token_id={s3_data['token_id']}")
         
         segments = s3_data["segments"]
@@ -282,7 +335,7 @@ def main():
 
     bucket_name = "testgrid-pitch-bgvoice-yousync"
     # 3. 이후 pitch, 업로드, DB 저장 처리 반복
-    for s3_data in speaker:
+    for s3_data in speakers:
         token_id = s3_data["token_id"]
         actor = s3_data["actor"]
 
@@ -299,7 +352,7 @@ def main():
         s3_bgvoice_key = f"{s3_prefix}/bgvoice.mp3"
         
         s3_textgrid_path = f"../syncdata/mfa/mfa_output/{video_filename}{token_id}.TextGrid"
-        s3_pitchdata_path = f"./pitch_data/reference/{actor}_{video_filename}_{token_id}pitch.json"
+        s3_pitchdata_path = f"./pitch_data/reference/{sanitize_filename(actor)}_{video_filename}_{token_id}pitch.json"
         s3_bgvoice_path = bgvoice_path
 
         # S3 업로드
@@ -325,15 +378,7 @@ def main():
                 s3_bgvoice_url=s3_bgvoice_url,
             )
 
-    print("\n🎯 TextGrid 기반 토큰 생성 중...")
-
-
-
-
-
-
-
-
+    print("🎯 TextGrid 기반 토큰 생성 중...")
 
 
     # audio = AudioSegment.from_file(no_vocals_path, format="mp3")
@@ -346,25 +391,9 @@ def main():
 
 
 
-
-
-
-
-
-
-
-
-
     reset_folder("../syncdata/mfa/corpus", "../syncdata/mfa/mfa_output")
     reset_folder("tmp_frames", "downloads", "separated/htdemucs", "pitch_data", "split_tokens")
 
 # 실행
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-

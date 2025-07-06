@@ -30,7 +30,7 @@ def download_audio(url, video_id, video_filename):
 
 def download_video(url, output_path):
     ydl_opts = {
-        'format': 'bestvideo[ext=mp4]+bestaudio/best',
+        'format': 'bestvideo+bestaudio/best',
         'outtmpl': output_path,
         'merge_output_format': 'mp4',
         'postprocessors': [{               # ✅ 이거 추가
