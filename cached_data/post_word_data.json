@@ -1,0 +1,567 @@
+[
+  {
+    "start": 0.0,
+    "end": 3.0,
+    "text": " Give me your hand.",
+    "words": [
+      {
+        "start": 0.0,
+        "end": 0.06,
+        "word": "Give"
+      },
+      {
+        "start": 0.06,
+        "end": 1.76,
+        "word": "me"
+      },
+      {
+        "start": 1.76,
+        "end": 1.94,
+        "word": "your"
+      },
+      {
+        "start": 1.94,
+        "end": 3.0,
+        "word": "hand."
+      }
+    ]
+  },
+  {
+    "start": 10.1,
+    "end": 11.58,
+    "text": " Now close your eyes.",
+    "words": [
+      {
+        "start": 10.1,
+        "end": 10.48,
+        "word": "Now"
+      },
+      {
+        "start": 10.48,
+        "end": 10.7,
+        "word": "close"
+      },
+      {
+        "start": 10.7,
+        "end": 10.94,
+        "word": "your"
+      },
+      {
+        "start": 10.94,
+        "end": 11.58,
+        "word": "eyes."
+      }
+    ]
+  },
+  {
+    "start": 13.1,
+    "end": 14.12,
+    "text": " Go on.",
+    "words": [
+      {
+        "start": 13.1,
+        "end": 13.32,
+        "word": "Go"
+      },
+      {
+        "start": 13.32,
+        "end": 14.12,
+        "word": "on."
+      }
+    ]
+  },
+  {
+    "start": 17.78,
+    "end": 18.86,
+    "text": " Step up.",
+    "words": [
+      {
+        "start": 17.78,
+        "end": 18.32,
+        "word": "Step"
+      },
+      {
+        "start": 18.32,
+        "end": 18.86,
+        "word": "up."
+      }
+    ]
+  },
+  {
+    "start": 22.94,
+    "end": 26.18,
+    "text": " Now hold on to the railing. Keep your eyes closed. Don't peek.",
+    "words": [
+      {
+        "start": 22.94,
+        "end": 23.18,
+        "word": "Now"
+      },
+      {
+        "start": 23.18,
+        "end": 23.28,
+        "word": "hold"
+      },
+      {
+        "start": 23.28,
+        "end": 23.46,
+        "word": "on"
+      },
+      {
+        "start": 23.46,
+        "end": 23.56,
+        "word": "to"
+      },
+      {
+        "start": 23.56,
+        "end": 23.72,
+        "word": "the"
+      },
+      {
+        "start": 23.72,
+        "end": 24.44,
+        "word": "railing."
+      },
+      {
+        "start": 24.96,
+        "end": 25.04,
+        "word": "Keep"
+      },
+      {
+        "start": 25.04,
+        "end": 25.22,
+        "word": "your"
+      },
+      {
+        "start": 25.22,
+        "end": 25.42,
+        "word": "eyes"
+      },
+      {
+        "start": 25.42,
+        "end": 25.62,
+        "word": "closed."
+      },
+      {
+        "start": 25.68,
+        "end": 25.9,
+        "word": "Don't"
+      },
+      {
+        "start": 25.9,
+        "end": 26.18,
+        "word": "peek."
+      }
+    ]
+  },
+  {
+    "start": 26.44,
+    "end": 27.06,
+    "text": " I'm not.",
+    "words": [
+      {
+        "start": 26.44,
+        "end": 26.72,
+        "word": "I'm"
+      },
+      {
+        "start": 26.72,
+        "end": 27.06,
+        "word": "not."
+      }
+    ]
+  },
+  {
+    "start": 28.5,
+    "end": 30.06,
+    "text": " Step up onto the rail.",
+    "words": [
+      {
+        "start": 28.5,
+        "end": 29.3,
+        "word": "Step"
+      },
+      {
+        "start": 29.3,
+        "end": 29.56,
+        "word": "up"
+      },
+      {
+        "start": 29.56,
+        "end": 29.76,
+        "word": "onto"
+      },
+      {
+        "start": 29.76,
+        "end": 29.96,
+        "word": "the"
+      },
+      {
+        "start": 29.96,
+        "end": 30.36,
+        "word": "rail."
+      }
+    ]
+  },
+  {
+    "start": 35.06,
+    "end": 35.64,
+    "text": " Hold on.",
+    "words": [
+      {
+        "start": 35.06,
+        "end": 35.22,
+        "word": "Hold"
+      },
+      {
+        "start": 35.22,
+        "end": 35.64,
+        "word": "on."
+      }
+    ]
+  },
+  {
+    "start": 36.54,
+    "end": 38.56,
+    "text": " Hold on. Keep your eyes closed.",
+    "words": [
+      {
+        "start": 36.54,
+        "end": 36.76,
+        "word": "Hold"
+      },
+      {
+        "start": 36.76,
+        "end": 37.14,
+        "word": "on."
+      },
+      {
+        "start": 37.5,
+        "end": 37.76,
+        "word": "Keep"
+      },
+      {
+        "start": 37.76,
+        "end": 37.9,
+        "word": "your"
+      },
+      {
+        "start": 37.9,
+        "end": 38.12,
+        "word": "eyes"
+      },
+      {
+        "start": 38.12,
+        "end": 38.56,
+        "word": "closed."
+      }
+    ]
+  },
+  {
+    "start": 39.72,
+    "end": 40.62,
+    "text": " Do you trust me?",
+    "words": [
+      {
+        "start": 39.72,
+        "end": 39.98,
+        "word": "Do"
+      },
+      {
+        "start": 39.98,
+        "end": 40.14,
+        "word": "trust"
+      },
+      {
+        "start": 40.14,
+        "end": 40.62,
+        "word": "me?"
+      }
+    ]
+  },
+  {
+    "start": 41.54,
+    "end": 42.46,
+    "text": " I trust you.",
+    "words": [
+      {
+        "start": 41.54,
+        "end": 41.74,
+        "word": "I"
+      },
+      {
+        "start": 41.74,
+        "end": 42.06,
+        "word": "trust"
+      },
+      {
+        "start": 42.06,
+        "end": 42.46,
+        "word": "you."
+      }
+    ]
+  },
+  {
+    "start": 52.0,
+    "end": 53.6,
+    "text": " All right.",
+    "words": [
+      {
+        "start": 52.0,
+        "end": 52.8,
+        "word": "All"
+      },
+      {
+        "start": 52.8,
+        "end": 53.6,
+        "word": "right."
+      }
+    ]
+  },
+  {
+    "start": 54.18,
+    "end": 55.3,
+    "text": " Open your eyes.",
+    "words": [
+      {
+        "start": 54.18,
+        "end": 54.6,
+        "word": "Open"
+      },
+      {
+        "start": 54.6,
+        "end": 54.88,
+        "word": "your"
+      },
+      {
+        "start": 54.88,
+        "end": 55.3,
+        "word": "eyes."
+      }
+    ]
+  },
+  {
+    "start": 57.06,
+    "end": 60.16,
+    "text": " Now close your eyes.",
+    "words": [
+      {
+        "start": 57.06,
+        "end": 58.08,
+        "word": "Now"
+      },
+      {
+        "start": 58.08,
+        "end": 60.04,
+        "word": "close"
+      },
+      {
+        "start": 60.04,
+        "end": 60.06,
+        "word": "your"
+      },
+      {
+        "start": 60.06,
+        "end": 60.16,
+        "word": "eyes."
+      }
+    ]
+  },
+  {
+    "start": 62.06,
+    "end": 64.6,
+    "text": " I'm flying, Jack.",
+    "words": [
+      {
+        "start": 62.06,
+        "end": 62.76,
+        "word": "I'm"
+      },
+      {
+        "start": 62.76,
+        "end": 63.36,
+        "word": "flying,"
+      },
+      {
+        "start": 64.38,
+        "end": 64.6,
+        "word": "Jack."
+      }
+    ]
+  },
+  {
+    "start": 87.06,
+    "end": 87.06,
+    "text": ""
+  },
+  {
+    "start": 87.06,
+    "end": 87.1,
+    "text": " I'm flying, Jack.",
+    "words": [
+      {
+        "start": 87.06,
+        "end": 87.1,
+        "word": "flying,"
+      }
+    ]
+  },
+  {
+    "start": 87.1,
+    "end": 87.1,
+    "text": ""
+  },
+  {
+    "start": 87.6,
+    "end": 87.92,
+    "text": " I'm flying, Jack.",
+    "words": [
+      {
+        "start": 87.6,
+        "end": 87.68,
+        "word": "I'm"
+      },
+      {
+        "start": 87.68,
+        "end": 87.7,
+        "word": "flying,"
+      },
+      {
+        "start": 87.88,
+        "end": 87.92,
+        "word": "Jack."
+      }
+    ]
+  },
+  {
+    "start": 87.92,
+    "end": 87.94,
+    "text": " I'm flying, Jack.",
+    "words": [
+      {
+        "start": 87.92,
+        "end": 87.94,
+        "word": "Jack."
+      }
+    ]
+  },
+  {
+    "start": 87.94,
+    "end": 87.94,
+    "text": ""
+  },
+  {
+    "start": 87.94,
+    "end": 87.94,
+    "text": ""
+  },
+  {
+    "start": 87.94,
+    "end": 88.04,
+    "text": " I'm flying, Jack.",
+    "words": [
+      {
+        "start": 87.94,
+        "end": 88.04,
+        "word": "Jack."
+      }
+    ]
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.06,
+    "text": " I'm flying, Jack.",
+    "words": [
+      {
+        "start": 88.04,
+        "end": 88.06,
+        "word": "Jack."
+      }
+    ]
+  },
+  {
+    "start": 88.06,
+    "end": 88.06,
+    "text": ""
+  },
+  {
+    "start": 88.06,
+    "end": 88.06,
+    "text": ""
+  },
+  {
+    "start": 88.06,
+    "end": 88.06,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  },
+  {
+    "start": 88.04,
+    "end": 88.04,
+    "text": ""
+  }
+]
