@@ -1,541 +1,791 @@
 [
   {
-    "start": 4.0,
-    "end": 11.68,
-    "text": "I don't know who you are I don't know what you want if you're looking for",
+    "start": 0.0,
+    "end": 0.56,
+    "text": " I'm going pro!",
     "words": [
       {
-        "start": 4.04,
-        "end": 4.5,
-        "word": "I"
+        "start": 0.0,
+        "end": 0.5,
+        "word": "I'm"
       },
       {
-        "start": 4.5,
-        "end": 4.7,
-        "word": "don't"
-      },
-      {
-        "start": 4.7,
-        "end": 4.86,
-        "word": "know"
-      },
-      {
-        "start": 4.86,
-        "end": 5.06,
-        "word": "who"
-      },
-      {
-        "start": 5.06,
-        "end": 5.3,
-        "word": "you"
-      },
-      {
-        "start": 5.3,
-        "end": 6.04,
-        "word": "are"
-      },
-      {
-        "start": 6.04,
-        "end": 8.52,
-        "word": "I"
-      },
-      {
-        "start": 8.52,
-        "end": 8.7,
-        "word": "don't"
-      },
-      {
-        "start": 8.7,
-        "end": 8.84,
-        "word": "know"
-      },
-      {
-        "start": 8.84,
-        "end": 9.02,
-        "word": "what"
-      },
-      {
-        "start": 9.02,
-        "end": 9.24,
-        "word": "you"
-      },
-      {
-        "start": 9.24,
-        "end": 9.64,
-        "word": "want"
-      },
-      {
-        "start": 9.64,
-        "end": 10.82,
-        "word": "if"
-      },
-      {
-        "start": 10.82,
-        "end": 11.12,
-        "word": "you're"
-      },
-      {
-        "start": 11.12,
-        "end": 11.36,
-        "word": "looking"
-      },
-      {
-        "start": 11.36,
-        "end": 11.68,
-        "word": "for"
+        "start": 0.5,
+        "end": 0.56,
+        "word": "pro!"
       }
     ]
   },
   {
-    "start": 11.68,
-    "end": 17.78,
-    "text": "ransom I can tell you I don't have money but what I do have are a very particular",
+    "start": 2.92,
+    "end": 4.16,
+    "text": " I'm going pro!",
     "words": [
       {
-        "start": 11.68,
-        "end": 12.02,
-        "word": "ransom"
+        "start": 2.92,
+        "end": 3.36,
+        "word": "I'm"
       },
       {
-        "start": 12.02,
-        "end": 12.78,
+        "start": 3.36,
+        "end": 3.68,
+        "word": "going"
+      },
+      {
+        "start": 3.68,
+        "end": 4.16,
+        "word": "pro!"
+      }
+    ]
+  },
+  {
+    "start": 5.12,
+    "end": 5.56,
+    "text": " Oh!",
+    "words": [
+      {
+        "start": 5.12,
+        "end": 5.56,
+        "word": "Oh!"
+      }
+    ]
+  },
+  {
+    "start": 6.66,
+    "end": 7.1,
+    "text": " Okay.",
+    "words": [
+      {
+        "start": 6.66,
+        "end": 7.1,
+        "word": "Okay."
+      }
+    ]
+  },
+  {
+    "start": 8.18,
+    "end": 8.62,
+    "text": " Yeah.",
+    "words": [
+      {
+        "start": 8.18,
+        "end": 8.62,
+        "word": "Yeah."
+      }
+    ]
+  },
+  {
+    "start": 9.34,
+    "end": 10.0,
+    "text": " I don't know.",
+    "words": [
+      {
+        "start": 9.34,
+        "end": 9.6,
         "word": "I"
       },
       {
-        "start": 12.78,
-        "end": 12.98,
-        "word": "can"
-      },
-      {
-        "start": 12.98,
-        "end": 13.16,
-        "word": "tell"
-      },
-      {
-        "start": 13.16,
-        "end": 13.32,
-        "word": "you"
-      },
-      {
-        "start": 13.32,
-        "end": 13.46,
-        "word": "I"
-      },
-      {
-        "start": 13.46,
-        "end": 13.58,
+        "start": 9.6,
+        "end": 9.8,
         "word": "don't"
       },
       {
-        "start": 13.58,
-        "end": 13.72,
-        "word": "have"
-      },
-      {
-        "start": 13.72,
-        "end": 14.22,
-        "word": "money"
-      },
-      {
-        "start": 14.22,
-        "end": 14.88,
-        "word": "but"
-      },
-      {
-        "start": 14.88,
-        "end": 15.04,
-        "word": "what"
-      },
-      {
-        "start": 15.04,
-        "end": 15.24,
-        "word": "I"
-      },
-      {
-        "start": 15.24,
-        "end": 15.4,
-        "word": "do"
-      },
-      {
-        "start": 15.4,
-        "end": 16.04,
-        "word": "have"
-      },
-      {
-        "start": 16.04,
-        "end": 16.88,
-        "word": "are"
-      },
-      {
-        "start": 16.88,
-        "end": 17.08,
-        "word": "a"
-      },
-      {
-        "start": 17.08,
-        "end": 17.26,
-        "word": "very"
-      },
-      {
-        "start": 17.26,
-        "end": 17.78,
-        "word": "particular"
+        "start": 9.8,
+        "end": 10.0,
+        "word": "know."
       }
     ]
   },
   {
-    "start": 17.78,
-    "end": 23.28,
-    "text": "set of skills skills I have acquired over a very long career skills that make",
+    "start": 10.08,
+    "end": 13.52,
+    "text": " You know, you'll probably be about as good as I was.",
     "words": [
       {
-        "start": 17.78,
-        "end": 17.98,
-        "word": "set"
+        "start": 10.08,
+        "end": 10.2,
+        "word": "You"
       },
       {
-        "start": 17.98,
-        "end": 19.14,
-        "word": "of"
+        "start": 10.2,
+        "end": 10.46,
+        "word": "know,"
       },
       {
-        "start": 19.14,
-        "end": 19.84,
-        "word": "skills"
+        "start": 10.62,
+        "end": 11.76,
+        "word": "you'll"
       },
       {
-        "start": 19.84,
-        "end": 20.04,
-        "word": "I"
+        "start": 11.76,
+        "end": 11.96,
+        "word": "probably"
       },
       {
-        "start": 20.04,
-        "end": 20.16,
-        "word": "have"
-      },
-      {
-        "start": 20.16,
-        "end": 20.5,
-        "word": "acquired"
-      },
-      {
-        "start": 20.5,
-        "end": 20.72,
-        "word": "over"
-      },
-      {
-        "start": 20.72,
-        "end": 20.9,
-        "word": "a"
-      },
-      {
-        "start": 20.9,
-        "end": 21.1,
-        "word": "very"
-      },
-      {
-        "start": 21.1,
-        "end": 21.34,
-        "word": "long"
-      },
-      {
-        "start": 21.34,
-        "end": 21.9,
-        "word": "career"
-      },
-      {
-        "start": 21.9,
-        "end": 22.82,
-        "word": "skills"
-      },
-      {
-        "start": 22.82,
-        "end": 23.18,
-        "word": "that"
-      },
-      {
-        "start": 23.18,
-        "end": 23.28,
-        "word": "make"
-      }
-    ]
-  },
-  {
-    "start": 23.28,
-    "end": 28.62,
-    "text": "me a nightmare for people like you if you let my daughter go now that'll be",
-    "words": [
-      {
-        "start": 23.28,
-        "end": 23.54,
-        "word": "me"
-      },
-      {
-        "start": 23.54,
-        "end": 23.66,
-        "word": "a"
-      },
-      {
-        "start": 23.66,
-        "end": 23.92,
-        "word": "nightmare"
-      },
-      {
-        "start": 23.92,
-        "end": 24.16,
-        "word": "for"
-      },
-      {
-        "start": 24.16,
-        "end": 24.34,
-        "word": "people"
-      },
-      {
-        "start": 24.34,
-        "end": 24.6,
-        "word": "like"
-      },
-      {
-        "start": 24.6,
-        "end": 25.26,
-        "word": "you"
-      },
-      {
-        "start": 25.26,
-        "end": 26.92,
-        "word": "if"
-      },
-      {
-        "start": 26.92,
-        "end": 27.08,
-        "word": "you"
-      },
-      {
-        "start": 27.08,
-        "end": 27.18,
-        "word": "let"
-      },
-      {
-        "start": 27.18,
-        "end": 27.46,
-        "word": "my"
-      },
-      {
-        "start": 27.46,
-        "end": 27.6,
-        "word": "daughter"
-      },
-      {
-        "start": 27.6,
-        "end": 27.82,
-        "word": "go"
-      },
-      {
-        "start": 27.82,
-        "end": 28.16,
-        "word": "now"
-      },
-      {
-        "start": 28.16,
-        "end": 28.5,
-        "word": "that'll"
-      },
-      {
-        "start": 28.5,
-        "end": 28.62,
+        "start": 11.96,
+        "end": 12.18,
         "word": "be"
-      }
-    ]
-  },
-  {
-    "start": 28.62,
-    "end": 36.58,
-    "text": "the end of it I will not look for you I will not pursue you but if you don't I",
-    "words": [
-      {
-        "start": 28.62,
-        "end": 28.84,
-        "word": "end"
       },
       {
-        "start": 28.84,
-        "end": 29.02,
-        "word": "of"
+        "start": 12.18,
+        "end": 12.36,
+        "word": "about"
       },
       {
-        "start": 29.02,
-        "end": 29.5,
-        "word": "it"
+        "start": 12.36,
+        "end": 12.56,
+        "word": "as"
       },
       {
-        "start": 29.5,
-        "end": 30.4,
-        "word": "I"
-      },
-      {
-        "start": 30.4,
-        "end": 30.6,
-        "word": "will"
-      },
-      {
-        "start": 30.6,
-        "end": 30.76,
-        "word": "not"
-      },
-      {
-        "start": 30.76,
-        "end": 30.94,
-        "word": "look"
-      },
-      {
-        "start": 30.94,
-        "end": 31.14,
-        "word": "for"
-      },
-      {
-        "start": 31.14,
-        "end": 31.54,
-        "word": "you"
-      },
-      {
-        "start": 31.54,
-        "end": 32.22,
-        "word": "I"
-      },
-      {
-        "start": 32.22,
-        "end": 32.42,
-        "word": "will"
-      },
-      {
-        "start": 32.42,
-        "end": 32.58,
-        "word": "not"
-      },
-      {
-        "start": 32.58,
-        "end": 32.88,
-        "word": "pursue"
-      },
-      {
-        "start": 32.88,
-        "end": 33.36,
-        "word": "you"
-      },
-      {
-        "start": 33.36,
-        "end": 34.44,
-        "word": "but"
-      },
-      {
-        "start": 34.44,
-        "end": 34.62,
-        "word": "if"
-      },
-      {
-        "start": 34.62,
-        "end": 34.86,
-        "word": "you"
-      },
-      {
-        "start": 34.86,
-        "end": 35.86,
-        "word": "don't"
-      },
-      {
-        "start": 35.86,
-        "end": 36.58,
-        "word": "I"
-      }
-    ]
-  },
-  {
-    "start": 36.58,
-    "end": 45.59,
-    "text": "will look for you I will find you and I will kill you",
-    "words": [
-      {
-        "start": 36.58,
-        "end": 36.72,
-        "word": "will"
-      },
-      {
-        "start": 36.72,
-        "end": 36.92,
-        "word": "look"
-      },
-      {
-        "start": 36.92,
-        "end": 37.14,
-        "word": "for"
-      },
-      {
-        "start": 37.14,
-        "end": 37.54,
-        "word": "you"
-      },
-      {
-        "start": 37.54,
-        "end": 38.54,
-        "word": "I"
-      },
-      {
-        "start": 38.54,
-        "end": 38.78,
-        "word": "will"
-      },
-      {
-        "start": 38.78,
-        "end": 39.08,
-        "word": "find"
-      },
-      {
-        "start": 39.08,
-        "end": 39.94,
-        "word": "you"
-      },
-      {
-        "start": 39.94,
-        "end": 41.4,
-        "word": "and"
-      },
-      {
-        "start": 41.4,
-        "end": 41.58,
-        "word": "I"
-      },
-      {
-        "start": 41.58,
-        "end": 41.72,
-        "word": "will"
-      },
-      {
-        "start": 41.72,
-        "end": 41.98,
-        "word": "kill"
-      },
-      {
-        "start": 41.98,
-        "end": 44.02,
-        "word": "you"
-      }
-    ]
-  },
-  {
-    "start": 45.59,
-    "end": 49.0,
-    "text": "good luck",
-    "words": [
-      {
-        "start": 47.16,
-        "end": 47.72,
+        "start": 12.56,
+        "end": 12.66,
         "word": "good"
       },
       {
-        "start": 47.72,
-        "end": 48.12,
-        "word": "luck"
+        "start": 12.66,
+        "end": 12.82,
+        "word": "as"
+      },
+      {
+        "start": 12.82,
+        "end": 13.12,
+        "word": "I"
+      },
+      {
+        "start": 13.12,
+        "end": 13.52,
+        "word": "was."
       }
     ]
+  },
+  {
+    "start": 13.96,
+    "end": 17.1,
+    "text": " That's kind of the way it works, you know, and I was below average.",
+    "words": [
+      {
+        "start": 13.96,
+        "end": 14.28,
+        "word": "That's"
+      },
+      {
+        "start": 14.28,
+        "end": 14.44,
+        "word": "kind"
+      },
+      {
+        "start": 14.44,
+        "end": 14.52,
+        "word": "of"
+      },
+      {
+        "start": 14.52,
+        "end": 14.58,
+        "word": "the"
+      },
+      {
+        "start": 14.58,
+        "end": 14.7,
+        "word": "way"
+      },
+      {
+        "start": 14.7,
+        "end": 14.9,
+        "word": "it"
+      },
+      {
+        "start": 14.9,
+        "end": 15.1,
+        "word": "works,"
+      },
+      {
+        "start": 15.18,
+        "end": 15.26,
+        "word": "you"
+      },
+      {
+        "start": 15.26,
+        "end": 15.4,
+        "word": "know,"
+      },
+      {
+        "start": 15.4,
+        "end": 15.58,
+        "word": "and"
+      },
+      {
+        "start": 15.58,
+        "end": 16.04,
+        "word": "I"
+      },
+      {
+        "start": 16.04,
+        "end": 16.26,
+        "word": "was"
+      },
+      {
+        "start": 16.26,
+        "end": 16.58,
+        "word": "below"
+      },
+      {
+        "start": 16.58,
+        "end": 17.1,
+        "word": "average."
+      }
+    ]
+  },
+  {
+    "start": 17.56,
+    "end": 18.36,
+    "text": " You know, so, whoa.",
+    "words": [
+      {
+        "start": 17.56,
+        "end": 17.6,
+        "word": "You"
+      },
+      {
+        "start": 17.6,
+        "end": 17.72,
+        "word": "know,"
+      },
+      {
+        "start": 17.88,
+        "end": 18.02,
+        "word": "so,"
+      },
+      {
+        "start": 18.02,
+        "end": 18.36,
+        "word": "whoa."
+      }
+    ]
+  },
+  {
+    "start": 18.98,
+    "end": 22.8,
+    "text": " So you'll probably ultimately rank somewhere around there, you know.",
+    "words": [
+      {
+        "start": 18.98,
+        "end": 19.18,
+        "word": "So"
+      },
+      {
+        "start": 19.18,
+        "end": 19.42,
+        "word": "you'll"
+      },
+      {
+        "start": 19.42,
+        "end": 19.6,
+        "word": "probably"
+      },
+      {
+        "start": 19.6,
+        "end": 20.12,
+        "word": "ultimately"
+      },
+      {
+        "start": 20.12,
+        "end": 20.8,
+        "word": "rank"
+      },
+      {
+        "start": 20.8,
+        "end": 21.7,
+        "word": "somewhere"
+      },
+      {
+        "start": 21.7,
+        "end": 22.1,
+        "word": "around"
+      },
+      {
+        "start": 22.1,
+        "end": 22.4,
+        "word": "there,"
+      },
+      {
+        "start": 22.4,
+        "end": 22.58,
+        "word": "you"
+      },
+      {
+        "start": 22.58,
+        "end": 22.8,
+        "word": "know."
+      }
+    ]
+  },
+  {
+    "start": 23.64,
+    "end": 27.0,
+    "text": " So, really, you'll excel at a lot of things, just not this."
+  },
+  {
+    "start": 27.0,
+    "end": 29.54,
+    "text": " Okay, so I don't want you out here shooting this ball around all day and night.",
+    "words": [
+      {
+        "start": 27.0,
+        "end": 27.16,
+        "word": "so"
+      },
+      {
+        "start": 27.16,
+        "end": 27.26,
+        "word": "I"
+      },
+      {
+        "start": 27.26,
+        "end": 27.36,
+        "word": "don't"
+      },
+      {
+        "start": 27.36,
+        "end": 27.42,
+        "word": "want"
+      },
+      {
+        "start": 27.42,
+        "end": 27.58,
+        "word": "you"
+      },
+      {
+        "start": 27.58,
+        "end": 27.72,
+        "word": "out"
+      },
+      {
+        "start": 27.72,
+        "end": 27.9,
+        "word": "here"
+      },
+      {
+        "start": 27.9,
+        "end": 28.1,
+        "word": "shooting"
+      },
+      {
+        "start": 28.1,
+        "end": 28.36,
+        "word": "this"
+      },
+      {
+        "start": 28.36,
+        "end": 28.5,
+        "word": "ball"
+      },
+      {
+        "start": 28.5,
+        "end": 28.8,
+        "word": "around"
+      },
+      {
+        "start": 28.8,
+        "end": 28.98,
+        "word": "all"
+      },
+      {
+        "start": 28.98,
+        "end": 29.16,
+        "word": "day"
+      },
+      {
+        "start": 29.16,
+        "end": 29.32,
+        "word": "and"
+      },
+      {
+        "start": 29.32,
+        "end": 29.54,
+        "word": "night."
+      }
+    ]
+  },
+  {
+    "start": 29.82,
+    "end": 30.18,
+    "text": " Alright?",
+    "words": [
+      {
+        "start": 29.82,
+        "end": 30.18,
+        "word": "Alright?"
+      }
+    ]
+  },
+  {
+    "start": 31.06,
+    "end": 31.42,
+    "text": " Alright.",
+    "words": [
+      {
+        "start": 31.06,
+        "end": 31.42,
+        "word": "Alright."
+      }
+    ]
+  },
+  {
+    "start": 32.02,
+    "end": 32.38,
+    "text": " Okay.",
+    "words": [
+      {
+        "start": 32.02,
+        "end": 32.38,
+        "word": "Okay."
+      }
+    ]
+  },
+  {
+    "start": 34.62,
+    "end": 35.1,
+    "text": " Alright, go ahead.",
+    "words": [
+      {
+        "start": 34.62,
+        "end": 34.78,
+        "word": "Alright,"
+      },
+      {
+        "start": 34.82,
+        "end": 34.94,
+        "word": "go"
+      },
+      {
+        "start": 34.94,
+        "end": 35.1,
+        "word": "ahead."
+      }
+    ]
+  },
+  {
+    "start": 59.86,
+    "end": 60.66,
+    "text": " Hey.",
+    "words": [
+      {
+        "start": 59.86,
+        "end": 60.66,
+        "word": "Hey."
+      }
+    ]
+  },
+  {
+    "start": 64.84,
+    "end": 68.76,
+    "text": " Don't ever let somebody tell you, you can't do something.",
+    "words": [
+      {
+        "start": 64.84,
+        "end": 65.02,
+        "word": "Don't"
+      },
+      {
+        "start": 65.02,
+        "end": 65.24,
+        "word": "ever"
+      },
+      {
+        "start": 65.24,
+        "end": 65.36,
+        "word": "let"
+      },
+      {
+        "start": 65.36,
+        "end": 65.72,
+        "word": "somebody"
+      },
+      {
+        "start": 65.72,
+        "end": 66.12,
+        "word": "tell"
+      },
+      {
+        "start": 66.12,
+        "end": 66.58,
+        "word": "you,"
+      },
+      {
+        "start": 67.42,
+        "end": 67.6,
+        "word": "you"
+      },
+      {
+        "start": 67.6,
+        "end": 68.04,
+        "word": "can't"
+      },
+      {
+        "start": 68.04,
+        "end": 68.32,
+        "word": "do"
+      },
+      {
+        "start": 68.32,
+        "end": 68.76,
+        "word": "something."
+      }
+    ]
+  },
+  {
+    "start": 70.22,
+    "end": 71.9,
+    "text": " Not even me.",
+    "words": [
+      {
+        "start": 70.22,
+        "end": 70.9,
+        "word": "Not"
+      },
+      {
+        "start": 70.9,
+        "end": 71.08,
+        "word": "even"
+      },
+      {
+        "start": 71.08,
+        "end": 71.9,
+        "word": "me."
+      }
+    ]
+  },
+  {
+    "start": 74.02,
+    "end": 74.44,
+    "text": " Alright?",
+    "words": [
+      {
+        "start": 74.02,
+        "end": 74.44,
+        "word": "Alright?"
+      }
+    ]
+  },
+  {
+    "start": 75.8,
+    "end": 76.3,
+    "text": " Alright.",
+    "words": [
+      {
+        "start": 75.8,
+        "end": 76.3,
+        "word": "Alright."
+      }
+    ]
+  },
+  {
+    "start": 77.8,
+    "end": 82.06,
+    "text": " You got a dream, you got to protect it.",
+    "words": [
+      {
+        "start": 77.8,
+        "end": 78.14,
+        "word": "You"
+      },
+      {
+        "start": 78.14,
+        "end": 78.26,
+        "word": "got"
+      },
+      {
+        "start": 78.26,
+        "end": 78.46,
+        "word": "a"
+      },
+      {
+        "start": 78.46,
+        "end": 78.86,
+        "word": "dream,"
+      },
+      {
+        "start": 80.04,
+        "end": 80.48,
+        "word": "you"
+      },
+      {
+        "start": 80.48,
+        "end": 80.64,
+        "word": "got"
+      },
+      {
+        "start": 80.64,
+        "end": 80.9,
+        "word": "to"
+      },
+      {
+        "start": 80.9,
+        "end": 81.16,
+        "word": "protect"
+      },
+      {
+        "start": 81.16,
+        "end": 82.06,
+        "word": "it."
+      }
+    ]
+  },
+  {
+    "start": 83.66,
+    "end": 85.14,
+    "text": " People can't do something themselves.",
+    "words": [
+      {
+        "start": 83.66,
+        "end": 83.9,
+        "word": "People"
+      },
+      {
+        "start": 83.9,
+        "end": 84.2,
+        "word": "can't"
+      },
+      {
+        "start": 84.2,
+        "end": 84.34,
+        "word": "do"
+      },
+      {
+        "start": 84.34,
+        "end": 84.54,
+        "word": "something"
+      },
+      {
+        "start": 84.54,
+        "end": 85.14,
+        "word": "themselves."
+      }
+    ]
+  },
+  {
+    "start": 85.14,
+    "end": 87.14,
+    "text": " They want to tell you, you can't do it.",
+    "words": [
+      {
+        "start": 85.14,
+        "end": 85.46,
+        "word": "They"
+      },
+      {
+        "start": 85.46,
+        "end": 85.66,
+        "word": "want"
+      },
+      {
+        "start": 85.66,
+        "end": 85.84,
+        "word": "to"
+      },
+      {
+        "start": 85.84,
+        "end": 85.98,
+        "word": "tell"
+      },
+      {
+        "start": 85.98,
+        "end": 86.14,
+        "word": "you,"
+      },
+      {
+        "start": 86.32,
+        "end": 86.64,
+        "word": "can't"
+      },
+      {
+        "start": 86.64,
+        "end": 86.8,
+        "word": "do"
+      },
+      {
+        "start": 86.8,
+        "end": 87.14,
+        "word": "it."
+      }
+    ]
+  },
+  {
+    "start": 92.24,
+    "end": 92.96,
+    "text": " You want something?",
+    "words": [
+      {
+        "start": 92.24,
+        "end": 92.48,
+        "word": "You"
+      },
+      {
+        "start": 92.48,
+        "end": 92.7,
+        "word": "want"
+      },
+      {
+        "start": 92.7,
+        "end": 92.96,
+        "word": "something?"
+      }
+    ]
+  },
+  {
+    "start": 93.32,
+    "end": 94.14,
+    "text": " Go get it.",
+    "words": [
+      {
+        "start": 93.32,
+        "end": 93.62,
+        "word": "Go"
+      },
+      {
+        "start": 93.62,
+        "end": 93.82,
+        "word": "get"
+      },
+      {
+        "start": 93.82,
+        "end": 94.14,
+        "word": "it."
+      }
+    ]
+  },
+  {
+    "start": 95.04,
+    "end": 95.54,
+    "text": " Period.",
+    "words": [
+      {
+        "start": 95.04,
+        "end": 95.54,
+        "word": "Period."
+      }
+    ]
+  },
+  {
+    "start": 103.78,
+    "end": 104.54,
+    "text": " Let's go.",
+    "words": [
+      {
+        "start": 103.78,
+        "end": 104.3,
+        "word": "Let's"
+      },
+      {
+        "start": 104.3,
+        "end": 104.54,
+        "word": "go."
+      }
+    ]
+  },
+  {
+    "start": 119.2,
+    "end": 120.6,
+    "text": " Let's go."
   }
 ]

@@ -166,7 +166,7 @@ class ScriptWord(Base):
     word = Column(String)
     start_time = Column(Float)
     end_time = Column(Float)
-    probability = Column(Float)
+    # probability = Column(Float)  # 데이터베이스에 없는 컬럼이므로 주석 처리
 
     # 관계 설정
     script = relationship(

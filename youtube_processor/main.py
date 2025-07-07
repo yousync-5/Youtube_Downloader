@@ -191,12 +191,29 @@ def main():
     )  
     start_time = time.time()
     print(f"🕒 측정시작")
-    run_mfa_align()
-    elapsed = time.time() - start_time  # ⏱️ 소요 시간
-    print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
     
+    # MFA 처리를 try-except로 감싸서 오류 시에도 계속 진행
+    try:
+        run_mfa_align()
+        elapsed = time.time() - start_time  # ⏱️ 소요 시간
+        print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
         
-    speaker_diarization_data = generate_sentence_json(selected,f"../syncdata/mfa/mfa_output/{video_filename}0.TextGrid" )
+        # MFA 결과를 사용한 화자 분리 데이터 생성
+        speaker_diarization_data = generate_sentence_json(selected,f"../syncdata/mfa/mfa_output/{video_filename}0.TextGrid" )
+        print("✅ MFA 기반 화자 분리 데이터 생성 완료")
+    except Exception as e:
+        print(f"⚠️ MFA 처리 중 오류 발생: {e}")
+        print("🔄 MFA 없이 기본 세그먼트 데이터로 진행합니다...")
+        # MFA 없이 기본 segments 데이터 사용
+        speaker_diarization_data = []
+        for i, seg in enumerate(segments):
+            speaker_diarization_data.append({
+                "start": round(seg["start"], 2),
+                "end": round(seg["end"], 2), 
+                "text": seg["text"],
+                "speaker": f"SPEAKER_{i % 2}"  # 임시로 2명의 화자로 분할
+            })
+        print("✅ 기본 화자 분리 데이터 생성 완료")
 
     for seg in speaker_diarization_data:
         seg["start"] = round(float(seg["start"]), 2)
@@ -329,15 +346,29 @@ def main():
     # 2. MFA 실행은 한 번만
     start_time = time.time()
     print("🕒 측정시작")
-    run_mfa_align()
-    elapsed = time.time() - start_time
-    print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
+    try:
+        run_mfa_align()
+        elapsed = time.time() - start_time
+        print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
+        print("✅ MFA 처리 완료")
+    except Exception as e:
+        print(f"⚠️ MFA 처리 중 오류 발생: {e}")
+        print("🔄 MFA 없이 계속 진행합니다...")
 
     bucket_name = "testgrid-pitch-bgvoice-yousync"
     # 3. 이후 pitch, 업로드, DB 저장 처리 반복
     for s3_data in speakers:
         token_id = s3_data["token_id"]
-        actor = s3_data["actor"]
+        actor = s3_data.get("actor", "unknown")  # 안전하게 actor 값 가져오기, 없으면 "unknown" 사용
+        
+        # actor가 None이거나 빈 문자열인 경우 기본값 설정
+        if not actor or actor.strip() == "":
+            actor = "unknown_actor"
+        
+        print(f"🔍 처리 중인 토큰 정보:")
+        print(f"  - token_id: {token_id}")
+        print(f"  - actor: '{actor}' (type: {type(actor)})")
+        print(f"  - s3_data keys: {list(s3_data.keys())}")
 
         vocal_path = f"./split_tokens/vocals_{video_filename}_token_{token_id}.mp3"
         bgvoice_path = f"./split_tokens/no_vocals_{video_filename}_token_{token_id}.mp3"
@@ -355,28 +386,68 @@ def main():
         s3_pitchdata_path = f"./pitch_data/reference/{sanitize_filename(actor)}_{video_filename}_{token_id}pitch.json"
         s3_bgvoice_path = bgvoice_path
 
+        # S3 업로드 변수 초기화
+        s3_textgrid_url = None
+        s3_pitch_url = None
+        s3_bgvoice_url = None
+        
         # S3 업로드
         try:
             s3_textgrid_url = upload_file_to_s3(s3_textgrid_path, bucket_name, s3_textgird_key)
-            s3_pitch_url = upload_file_to_s3(s3_pitchdata_path, bucket_name, s3_pitchdata_key)
-            s3_bgvoice_url = upload_file_to_s3(s3_bgvoice_path, bucket_name, s3_bgvoice_key)
-            
+            print(f"✅ TextGrid S3 업로드 성공: {s3_textgrid_url}")
         except FileNotFoundError as e:
-            print(f"❌ 로컬 파일을 찾을 수 없습니다: {e.filename}")
+            print(f"❌ TextGrid 파일을 찾을 수 없습니다: {e.filename}")
         except Exception as e:
-            print(f"❌ 예기치 않은 오류 발생: {e}")
+            print(f"❌ TextGrid S3 업로드 실패: {e}")
+            
+        try:
+            s3_pitch_url = upload_file_to_s3(s3_pitchdata_path, bucket_name, s3_pitchdata_key)
+            print(f"✅ Pitch 데이터 S3 업로드 성공: {s3_pitch_url}")
+        except FileNotFoundError as e:
+            print(f"❌ Pitch 파일을 찾을 수 없습니다: {e.filename}")
+        except Exception as e:
+            print(f"❌ Pitch S3 업로드 실패: {e}")
+            
+        try:
+            s3_bgvoice_url = upload_file_to_s3(s3_bgvoice_path, bucket_name, s3_bgvoice_key)
+            print(f"✅ 배경음성 S3 업로드 성공: {s3_bgvoice_url}")
+        except FileNotFoundError as e:
+            print(f"❌ 배경음성 파일을 찾을 수 없습니다: {e.filename}")
+        except Exception as e:
+            print(f"❌ 배경음성 S3 업로드 실패: {e}")
 
-        # DB 저장
-        if s3_textgrid_url and s3_pitch_url and s3_bgvoice_url:
-            make_token(
-                db=db,
-                movie_name = movie_name,
-                actor_name=actor,
-                speaker=s3_data,
-                s3_textgrid_url=s3_textgrid_url,
-                s3_pitch_url=s3_pitch_url,
-                s3_bgvoice_url=s3_bgvoice_url,
-            )
+        # DB 저장 (배경음성이 있으면 저장, 피치 데이터는 선택사항)
+        print(f"🔍 S3 업로드 결과 확인:")
+        print(f"  - TextGrid URL: {s3_textgrid_url}")
+        print(f"  - Pitch URL: {s3_pitch_url}")
+        print(f"  - 배경음성 URL: {s3_bgvoice_url}")
+        
+        if s3_bgvoice_url:  # 배경음성만 있어도 저장
+            print("🎯 데이터베이스에 토큰 저장 중...")
+            try:
+                result = make_token(
+                    db=db,
+                    movie_name = movie_name,
+                    actor_name=actor,
+                    speaker=s3_data,
+                    s3_textgrid_url=s3_textgrid_url if s3_textgrid_url else "",
+                    s3_pitch_url=s3_pitch_url if s3_pitch_url else "",
+                    s3_bgvoice_url=s3_bgvoice_url,
+                )
+                if result:
+                    print(f"✅ 데이터베이스 저장 성공: Token ID={result.id}")
+                else:
+                    print("❌ 데이터베이스 저장 실패")
+            except Exception as e:
+                print(f"❌ 데이터베이스 저장 중 오류: {e}")
+                import traceback
+                traceback.print_exc()
+        else:
+            print("❌ 배경음성 파일이 업로드되지 않아 데이터베이스 저장을 건너뜁니다.")
+            print("   필요한 파일들:")
+            print(f"   - TextGrid: {s3_textgrid_path} ({'존재' if os.path.exists(s3_textgrid_path) else '없음'})")
+            print(f"   - Pitch: {s3_pitchdata_path} ({'존재' if os.path.exists(s3_pitchdata_path) else '없음'})")
+            print(f"   - 배경음성: {s3_bgvoice_path} ({'존재' if os.path.exists(s3_bgvoice_path) else '없음'})")
 
     print("🎯 TextGrid 기반 토큰 생성 중...")
 

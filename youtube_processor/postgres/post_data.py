@@ -54,6 +54,15 @@ def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: l
 def make_token(db: Session, movie_name: str, actor_name: str, speaker: dict,
                s3_textgrid_url: str, s3_pitch_url: str, s3_bgvoice_url: str):
     
+    # actor_name 안전장치 - None이나 빈 문자열 방지
+    if not actor_name or str(actor_name).strip() == "" or actor_name == "None":
+        actor_name = "unknown_actor"
+        print(f"⚠️ actor_name이 비어있어서 기본값으로 설정: {actor_name}")
+    
+    print(f"🔍 make_token 함수 입력값:")
+    print(f"  - movie_name: '{movie_name}'")
+    print(f"  - actor_name: '{actor_name}' (type: {type(actor_name)})")
+    
     # --- Actor 조회 또는 생성 ---
     actor = db.query(Actor).filter(Actor.name == actor_name).first()
     if not actor:
