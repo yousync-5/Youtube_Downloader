@@ -13,7 +13,7 @@ from visualize import visualize_diarization
 load_dotenv()  # .env 파일의 HF_TOKEN 등을 로드
 
 # 하드코딩한 파일 경로 설정
-VOCAL_PATH = "separated/htdemucs/tn48hUyFrKQ/vocals.wav"
+VOCAL_PATH = "separated/htdemucs/4KYfTRe1pC4/vocals.wav"
 SEGMENTS_JSON = "cached_data/post_word_data.json"
 
 
@@ -34,9 +34,9 @@ def test_diarization(vocal_path: str, segments_json: str):
         "pyannote/embedding",
         device=device,
         use_auth_token=True,
-        duration=0.05,   #한번 임베딩을 추출할 오디오 길이(초) - 작을 수록(짧은 구간 단위 디테일)
+        duration=0.02,   #한번 임베딩을 추출할 오디오 길이(초) - 작을 수록(짧은 구간 단위 디테일)
         # 다음 윈도우로 얼마나 이동할지 - 작을 수록(겹침 경계 감지 정밀) 
-        step=0.005
+        step=0.02
     )
     # 3. 파이프라인에 덮어쓰기
 
@@ -48,9 +48,9 @@ def test_diarization(vocal_path: str, segments_json: str):
     
     # 음성 탐지(VAD) 민감도
     # 발화 시작 감지 임계치 - 작을 수록(낮은 음량도 발화로 간주), 클 수록(큰 목소리만 발화로 인식)
-    pipeline.segmentation.onset  = 0.3
+    pipeline.segmentation.onset  = 0.25
     # 발화 종료 감지 임계치 - 작을 수록(짧은 무음 구간만으로도 끊김 처리), 클수록(더 긴 무음 구간이 있어야 발화 종료로 간주)
-    pipeline.segmentation.offset = 1
+    pipeline.segmentation.offset = 0.7
 
     # 최소 발화/ 침묵 길이
     # 최소 발화 길이 - 작을 수록(짧은 단어, 음절도 발화 할당), 클 수록(빈말, 짧은 삑사리 제거)
@@ -60,10 +60,10 @@ def test_diarization(vocal_path: str, segments_json: str):
 
     # 클러스터링 방식 & 파라미터
     # 화자 임베딩 간 거리(혹은 유사도 기준)
-    pipeline.clustering.threshold = 0.2
+    pipeline.clustering.threshold = 0.8
 
     # 최소 클러스터 샘플 수 - 작을 수록(짧은 발화도 클러스터로 인정), 클 수록(충분히 자주 등장한 발화만 인정)
-    pipeline.clustering.min_samples = 7
+    # pipeline.clustering.min_samples = 7
 
 
     pipeline.to(device)

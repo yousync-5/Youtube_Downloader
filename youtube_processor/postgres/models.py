@@ -167,7 +167,10 @@ class ScriptWord(Base):
     start_time = Column(Float)
     end_time = Column(Float)
     probability = Column(Float)
-
+    
+    # 새로 추가할 컬럼: MFCC 계수를 2D 리스트로 저장
+    mfcc    = Column(JSON, nullable=True)
+    
     # 관계 설정
     script = relationship(
         "Script",

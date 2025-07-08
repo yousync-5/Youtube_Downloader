@@ -1,4 +1,7 @@
 from .models import Token, Script, ScriptWord, URL, Actor # URL, Actor 모델 import 추가
+from .mfcc import extract_mfcc_from_audio, extract_mfcc_segment # MFCC 데이터 추가
+
+
 import time
 from typing import Optional
 from sqlalchemy.orm import Session
@@ -6,9 +9,15 @@ from sqlalchemy.exc import OperationalError, ProgrammingError
 import traceback
 import numpy as np
 
-def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: list[dict]):
+def insert_token_with_sentences(db: Session, 
+                                token_data: dict, 
+                                sentences_data: list[dict],
+                                mfcc_mat: np.ndarray,
+                                frame_times: np.ndarray
+                                ):
     """
-    하나의 Token과 그에 속한 여러 ScriptSentence를 데이터베이스에 저장합니다.
+    하나의 Token과 그에 속한 여러 ScriptSentence를 데이터베이스에 저장하고,
+    각 단어별로 MFCC를 슬라이스하여 ScriptWord.mfcc에 저장합니다.
     """
     try:
         # Token 객체 생성
@@ -25,17 +34,24 @@ def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: l
             db.add(sentence)
 
             for word in words:
+                # 단어별로 MFCC 추출
+                start, end = word["start"], word["end"]
+                segment_mfcc = extract_mfcc_segment(
+                    mfcc_mat, frame_times, start_time=start, end_time=end
+                ).tolist()
+
                 word_entry = ScriptWord(
                     word=word["word"].strip(),
                     start_time=word["start"],
                     end_time=word["end"],
-                    # probability = float(word.get("probability", 0.0)),  
+                    probability = float(word.get("probability", 0.0)),
+                    mfcc=segment_mfcc,  
                     script=sentence  # 관계 연결
                 )
                 db.add(word_entry)
 
         print("🎯 Token 데이터:", repr(token_data))
-        print("🎯 Sentence 데이터:", [repr(s) for s in sentences_data])
+        print("🎯 Sentence 데이터:\n", [repr(s) for s in sentences_data])
 
         # 커밋 및 반영
         db.commit()
@@ -51,9 +67,20 @@ def insert_token_with_sentences(db: Session, token_data: dict, sentences_data: l
         return None
 
 
-def make_token(db: Session, movie_name: str, actor_name: str, speaker: dict,
-               s3_textgrid_url: str, s3_pitch_url: str, s3_bgvoice_url: str):
+def make_token(db: Session, 
+               movie_name: str, 
+               actor_name: str, 
+               speaker: dict,
+               audio_path:str,
+               s3_textgrid_url: str, 
+               s3_pitch_url: str, 
+               s3_bgvoice_url: str):
     
+    """
+    Token 생성 전, 전체 오디오에서 MFCC 행렬과 프레임 타임을 추출 후
+    insert_token_with_sentences 에 전달합니다.
+    """
+
     # --- Actor 조회 또는 생성 ---
     actor = db.query(Actor).filter(Actor.name == actor_name).first()
     if not actor:
@@ -75,6 +102,8 @@ def make_token(db: Session, movie_name: str, actor_name: str, speaker: dict,
     else:
         print(f"✅ 기존 URL 사용: {youtube_url_str}")
 
+    # 전체 오디오에서 MFCC와 타임스탬프 추출
+    mfcc_mat, frame_times = extract_mfcc_from_audio(audio_path)
 
     token_data = {
         "token_name": movie_name if movie_name is not None else "", # None 대신 빈 문자열
@@ -104,4 +133,5 @@ def make_token(db: Session, movie_name: str, actor_name: str, speaker: dict,
             print(f"❌ 문장 인코딩 실패: {repr(seg['text'])}")
             traceback.print_exc()
 
-    return insert_token_with_sentences(db, token_data, sentences_data)
+    # mfcc_mat, frame_times 추가
+    return insert_token_with_sentences(db, token_data, sentences_data, mfcc_mat, frame_times)

@@ -13,7 +13,7 @@ from pydub import AudioSegment  # mp3/wav 변환 등 오디오 조작
 from speaker_diarization.split_mp3 import split_audio_by_token  # Token 단위로 오디오 나누기
 
 #자막 생성 및 처리
-from transcriber import transcribe_audio, transcribe_audio_check  # Whisper 등으로 자막 생성
+from transcriber import transcribe_audio #, transcribe_audio_check  # Whisper 등으로 자막 생성
 from level_up_textgrid import generate_sentence_json  # TextGrid 자막 → 문장 JSON 변환
 from export_for_mfa import export_segments_for_mfa  # MFA 학습용 자막/음성 데이터 포맷팅
 from format_segments_for_output import format_segments_for_output
@@ -148,12 +148,12 @@ def main():
     # print(f"🕒 자막 추출 전처리 소요 시간: {elapsed:.2f}초")
 
 
-    check_segment = transcribe_audio_check(vocal_path)
+    # check_segment = transcribe_audio(vocal_path)
 
 
-    print("🗣️ First 5 segments:")
-    for seg in check_segment:
-        print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
+    # print("🗣️ First 5 segments:")
+    # for seg in check_segment:
+    #     print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
 
 
     #예외처리
@@ -333,6 +333,8 @@ def main():
     elapsed = time.time() - start_time
     print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
 
+
+
     bucket_name = "testgrid-pitch-bgvoice-yousync"
     # 3. 이후 pitch, 업로드, DB 저장 처리 반복
     for s3_data in speakers:
@@ -373,6 +375,7 @@ def main():
                 movie_name = movie_name,
                 actor_name=actor,
                 speaker=s3_data,
+                audio_path= vocal_path,
                 s3_textgrid_url=s3_textgrid_url,
                 s3_pitch_url=s3_pitch_url,
                 s3_bgvoice_url=s3_bgvoice_url,
@@ -392,8 +395,10 @@ def main():
 
 
     reset_folder("../syncdata/mfa/corpus", "../syncdata/mfa/mfa_output")
-    reset_folder("tmp_frames", "downloads", "separated/htdemucs", "pitch_data", "split_tokens")
-
+    reset_folder("tmp_frames", "downloads", "separated/htdemucs", "cached_data","pitch_data", "split_tokens")
 # 실행
 if __name__ == "__main__":
+    s_time = time.time()  # ⏱️ 시작 시간
     main()
+    e_time = time.time() - s_time  # ⏱️ 소요 시간
+    print(f"🕒 전체 전처리 소요 시간: {e_time:.2f}초")

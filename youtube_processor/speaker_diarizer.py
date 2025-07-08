@@ -16,7 +16,7 @@ def diarize_main_speaker(
     hf_token: str,
     *,                       # 키워드 전용
     min_speakers: int = 1,
-    max_speakers: int = 2,
+    max_speakers: int = 1,
 ) -> Dict[str, Any]:
     """Whisper 세그먼트(post_word_data)에 화자 라벨을 달고
        대사량이 가장 긴 화자를 반환한다."""
@@ -63,7 +63,7 @@ def diarize_main_speaker(
         pipeline.min_duration_on  = 0.2
         pipeline.min_duration_off = 0.4
         
-        pipeline.clustering.threshold = 0.5
+        pipeline.clustering.threshold = 0.8
 
         pipeline.to(device)
 

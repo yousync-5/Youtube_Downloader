@@ -1,6 +1,7 @@
 from praatio import textgrid
 import re
 import math
+from typing import List, Dict
 
 def normalize(text):
     return re.sub(r"[^\w']", "", text.lower())
@@ -62,3 +63,36 @@ def redistribute_gaps(segments):
         })
 
     return adjusted
+
+
+def generate_sentence_with_words(
+    whisper_segments: List[Dict],
+    textgrid_path: str
+) -> List[Dict]:
+    """
+    TextGrid 기반 word 리스트를 추가해서 sentence JSON을 반환.
+    기존 generate_sentence_json과는 별개로 사용합니다.
+    """
+    # 1) 먼저 기존 로직으로 문장 타이밍만 뽑기
+    base_segments = generate_sentence_json(whisper_segments, textgrid_path)
+
+    # 2) TextGrid에서 word tier 읽기
+    from praatio import textgrid
+    tg = textgrid.openTextgrid(textgrid_path, includeEmptyIntervals=True)
+    words_tier = tg.getTier("words").entries  # List[(start, end, label)]
+
+    # 3) 각 문장에 대해 word 매핑
+    for sent in base_segments:
+        sent_start, sent_end = sent["start"], sent["end"]
+        sent_words = []
+        for w_start, w_end, label in words_tier:
+            if w_start >= sent_start and w_end <= sent_end and label.strip():
+                sent_words.append({
+                    "start": round(w_start, 2),
+                    "end":   round(w_end,   2),
+                    "word":  label.strip()
+                })
+        sent["words"] = sent_words
+
+    # 4) 시간 조정(필요시)
+    return redistribute_gaps(base_segments)
