@@ -290,6 +290,18 @@ def main():
 
     post_word_data = merge_words_into_segments(speaker_diarization_data, word_list)
 
+    # === speaker 정보 post_word_data에 추가 ===
+    for seg in post_word_data:
+        match = next(
+            (s for s in speaker_diarization_data
+             if abs(s['start'] - seg['start']) < 0.01 and abs(s['end'] - seg['end']) < 0.01),
+            None
+        )
+        if match and 'speaker' in match:
+            seg['speaker'] = match['speaker']
+        else:
+            seg['speaker'] = 'UNKNOWN'
+
     #####################################################
     ## test를 위한 저장
     save_path = Path("cached_data/post_word_data.json")
@@ -373,113 +385,115 @@ def main():
     for i, s in enumerate(main_speaker_segments, 1):
         print(f"[{i}] {s['start']:.2f}-{s['end']:.2f}: {s['text']}")
 
-    speakers = [
-        {
-            "actor": actor_name,    # 스크립트 초기에 입력받은 배우 이름
+    # 1. 화자별 세그먼트 분리
+    from collections import defaultdict
+    speaker_segments = defaultdict(list)
+    for seg in post_word_data:
+        speaker = seg['speaker']
+        speaker_segments[speaker].append(seg)
+
+    # 2. 원하는 이름 매핑
+    speaker_name_map = {
+        "SPEAKER_0": "Natalie Portman",
+        "SPEAKER_1": "Jude Law",
+        "UNKNOWN": "Unknown"
+    }
+
+    speakers = []
+    for idx, (speaker_label, segs) in enumerate(speaker_segments.items(), 1):
+        segs = sorted(segs, key=lambda s: s['start'])
+        start_time = segs[0]['start']
+        end_time = segs[-1]['end']
+        token_name = speaker_name_map.get(speaker_label, speaker_label)
+        speakers.append({
+            "actor": token_name,  # 원하는 이름
             "video_url": youtube_url,
-            "token_id": 1,          # 주요 화자는 항상 token_id 1을 가짐
-            "speaker_label": main_speaker_label,
-            "start_time": final_start_time,
-            "end_time": final_end_time,
-            "segments": main_speaker_segments
-        }
-    ]
-    # ==================
+            "token_id": idx,
+            "speaker_label": speaker_label,
+            "start_time": start_time,
+            "end_time": end_time,
+            "segments": segs
+        })
 
-    # print("해당지점에서 화자분리하다가 터진다/n")
-    # speaker = post_word_data
-    # split_segments_by_half(post_word_data, youtube_url,actor_name)
-    
-    
-    #S3 채우기 + 화자분리 데이터 분할로직
+    # 3. 아래쪽 파이프라인에서 speakers 리스트를 반복 처리
+    for s3_data in speakers:
+        # 1) 오디오 분할
+        vocal_path_obj = Path("separated") / "htdemucs" / video_filename / "vocals.wav"
+        no_vocals_path_obj = Path("separated") / "htdemucs" / video_filename / "no_vocals.wav"
+        split_audio_by_token([vocal_path_obj, no_vocals_path_obj], s3_data, video_filename)
+
+        # 2) MFA용 세그먼트 export
+        segments = s3_data["segments"]
+        vocal_path_token = f"./split_tokens/vocals_{video_filename}_token_{s3_data['token_id']}.mp3"
+        export_segments_for_mfa(
+            vocal_path=vocal_path_token,
+            segments=segments,
+            output_base="../syncdata/mfa/corpus",
+            filename=video_filename,
+            token_num=s3_data["token_id"]
+        )
+
+    # 3) MFA 실행(한 번만)
+    start_time = time.time()
+    print("🕒 측정시작")
+    run_mfa_align()
+    elapsed = time.time() - start_time
+    print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
+
+    # 4) S3 업로드, pitch 추출, DB 저장 반복
+    bucket_name = "testgrid-pitch-bgvoice-yousync"
+    for s3_data in speakers:
+        token_id = s3_data["token_id"]
+        actor = s3_data["actor"]
+        # vocal_path = f"./split_tokens/vocals_{video_filename}_token_{token_id}.mp3"  # 기존(화자별 분할)
+        vocal_path = f"separated/htdemucs/{video_filename}/vocals.wav"  # 전체 보컬 오디오 사용
+        bgvoice_path = f"./split_tokens/no_vocals_{video_filename}_token_{token_id}.mp3"
+
+        # pitch 추출
+        create_pitch_json_with_token(vocal_path, s3_data)
+
+        # S3 경로 구성
+        s3_prefix = f"{actor}/{video_filename}/{token_id}"
+        s3_textgird_key = f"{s3_prefix}/textgrid.TextGrid"
+        s3_pitchdata_key = f"{s3_prefix}/pitch.json"
+        s3_bgvoice_key = f"{s3_prefix}/bgvoice.mp3"
+        s3_textgrid_path = f"../syncdata/mfa/mfa_output/{video_filename}{token_id}.TextGrid"
+        s3_pitchdata_path = f"./pitch_data/reference/{sanitize_filename(actor)}_{video_filename}_{token_id}pitch.json"
+        s3_bgvoice_path = bgvoice_path
+
+        # S3 업로드
+        try:
+            s3_textgrid_url = upload_file_to_s3(s3_textgrid_path, bucket_name, s3_textgird_key)
+            s3_pitch_url = upload_file_to_s3(s3_pitchdata_path, bucket_name, s3_pitchdata_key)
+            s3_bgvoice_url = upload_file_to_s3(s3_bgvoice_path, bucket_name, s3_bgvoice_key)
+        except FileNotFoundError as e:
+            print(f"❌ 로컬 파일을 찾을 수 없습니다: {e.filename}")
+            continue
+        except Exception as e:
+            print(f"❌ 예기치 않은 오류 발생: {e}")
+            continue
+
+        # DB 저장
+        if s3_textgrid_url and s3_pitch_url and s3_bgvoice_url:
+            make_token(
+                db=db,
+                movie_name=movie_name,
+                actor_name=actor,
+                speaker=s3_data,
+                audio_path=vocal_path,
+                s3_textgrid_url=s3_textgrid_url,
+                s3_pitch_url=s3_pitch_url,
+                s3_bgvoice_url=s3_bgvoice_url,
+            )
+    print("🎯 TextGrid 기반 토큰 생성 중...")
 
 
-    #해당 지점부터 정지
 
 
 
 
-    # vocal_path = Path("separated") / "htdemucs" /video_filename / "vocals.wav"
-    # no_vocals_path =  Path("separated") / "htdemucs" /video_filename / "no_vocals.wav"
-    
-    # # 추가#
-    # for speaker in speakers:
-    #     split_audio_by_token([vocal_path, no_vocals_path], speaker, video_filename)
 
 
-    # #새로운 text그
-    # reset_folder("../syncdata/mfa/corpus", "../syncdata/mfa/mfa_output")
-    # print("제거성공")
-    # # 1. 먼저 모든 token에 대해 lab/wav export만 수행
-    # for s3_data in speakers:
-    #     print(f"▶️ 처리 중: token_id={s3_data['token_id']}")
-        
-    #     segments = s3_data["segments"]
-    #     vocal_path = f"./split_tokens/vocals_{video_filename}_token_{s3_data['token_id']}.mp3"
-    #     export_segments_for_mfa(
-    #         vocal_path=vocal_path,
-    #         segments=segments,
-    #         output_base="../syncdata/mfa/corpus",
-    #         filename=video_filename,
-    #         token_num=s3_data["token_id"]
-    #     )
-
-    # # 2. MFA 실행은 한 번만
-    # start_time = time.time()
-    # print("🕒 측정시작")
-    # run_mfa_align()
-    # elapsed = time.time() - start_time
-    # print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
-
-
-
-    # bucket_name = "testgrid-pitch-bgvoice-yousync"
-    # # 3. 이후 pitch, 업로드, DB 저장 처리 반복
-    # for s3_data in speakers:
-    #     token_id = s3_data["token_id"]
-    #     actor = s3_data["actor"]
-
-    #     vocal_path = f"./split_tokens/vocals_{video_filename}_token_{token_id}.mp3"
-    #     bgvoice_path = f"./split_tokens/no_vocals_{video_filename}_token_{token_id}.mp3"
-
-    #     # pitch 추출
-    #     create_pitch_json_with_token(vocal_path, s3_data)
-
-    #     # S3 경로 구성
-    #     s3_prefix = f"{actor}/{video_filename}/{token_id}"
-    #     s3_textgird_key = f"{s3_prefix}/textgrid.TextGrid"
-    #     s3_pitchdata_key = f"{s3_prefix}/pitch.json"
-    #     s3_bgvoice_key = f"{s3_prefix}/bgvoice.mp3"
-        
-    #     s3_textgrid_path = f"../syncdata/mfa/mfa_output/{video_filename}{token_id}.TextGrid"
-    #     s3_pitchdata_path = f"./pitch_data/reference/{sanitize_filename(actor)}_{video_filename}_{token_id}pitch.json"
-    #     s3_bgvoice_path = bgvoice_path
-
-    #     # S3 업로드
-    #     try:
-    #         s3_textgrid_url = upload_file_to_s3(s3_textgrid_path, bucket_name, s3_textgird_key)
-    #         s3_pitch_url = upload_file_to_s3(s3_pitchdata_path, bucket_name, s3_pitchdata_key)
-    #         s3_bgvoice_url = upload_file_to_s3(s3_bgvoice_path, bucket_name, s3_bgvoice_key)
-            
-    #     except FileNotFoundError as e:
-    #         print(f"❌ 로컬 파일을 찾을 수 없습니다: {e.filename}")
-    #     except Exception as e:
-    #         print(f"❌ 예기치 않은 오류 발생: {e}")
-
-    #     # DB 저장
-    #     if s3_textgrid_url and s3_pitch_url and s3_bgvoice_url:
-    #         make_token(
-    #             db=db,
-    #             movie_name = movie_name,
-    #             actor_name=actor,
-    #             speaker=s3_data,
-    #             audio_path= vocal_path,
-    #             s3_textgrid_url=s3_textgrid_url,
-    #             s3_pitch_url=s3_pitch_url,
-    #             s3_bgvoice_url=s3_bgvoice_url,
-    #         )
-
-    # print("🎯 TextGrid 기반 토큰 생성 중...")
 
 
     # # audio = AudioSegment.from_file(no_vocals_path, format="mp3")

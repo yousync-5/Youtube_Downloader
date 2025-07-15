@@ -108,7 +108,7 @@ def make_token(db: Session,
     token_data = {
         "token_name": movie_name if movie_name is not None else "", # None 대신 빈 문자열
         "actor_name": actor_name if actor_name is not None else "", # None 대신 빈 문자열
-        "category": "스릴러",
+        "category": "romance",
         "start_time": float(speaker["start_time"]),
         "end_time": float(speaker["end_time"]),
         "s3_textgrid_url": s3_textgrid_url,
