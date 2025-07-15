@@ -75,7 +75,7 @@ def split_long_segment(seg,
 
 def transcribe_audio(vocals_path):
     print("🎙️자막추출 기본 모델 호출 ")
-    model = wts.load_model("turbo").to(device)
+    model = wts.load_model("base").to(device)
 
     print("🧠 음성 데이터 텍스트 변환중...")
     # result = model.transcribe(

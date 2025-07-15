@@ -18,10 +18,11 @@ def separate_vocals(audio_path: str, output_root="separated") -> str:
         "demucs",
         "-o", str(output_root),
         "--two-stems", "vocals",
+        "--device", "cpu",
         audio_path
     ]
     
-    print(f"🚀 demucs 실행: demucs -o {output_root} --two-stems vocals {Path(audio_path).name}")
+    print(f"🚀 demucs 실행: demucs -o {output_root} --two-stems vocals --device cpu {Path(audio_path).name}")
     subprocess.run(cmd, check=True, text=True)
 
     elapsed = time.time() - start_time  # ⏱️ 소요 시간

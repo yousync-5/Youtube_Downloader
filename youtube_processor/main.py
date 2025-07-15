@@ -207,6 +207,87 @@ def main():
 
     print("여기 출력값은 정확히 화자분리를 위한 문장 타임 스템프로 활용된다.")
 
+    # === 세그먼트별 프레임 이미지 추출 ===
+    extract_frames_per_segment(mp4_path, speaker_diarization_data, output_folder="tmp_frames")
+    print("✅ 세그먼트별 프레임 이미지 추출 완료: tmp_frames/")
+
+    # === 얼굴+음성 융합 화자분리 ===
+    from speaker_diarization.who_is_speaker import analyze_speakers_with_clustering, print_speaker_dialogue
+    from speaker_diarization.voice_analyzer import analyze_voice_speakers_with_clustering
+    
+    # 얼굴 기반 라벨
+    face_labels, _ = analyze_speakers_with_clustering(
+        len(speaker_diarization_data), 
+        folder="tmp_frames", 
+        threshold=0.6
+    )
+    
+    # 음성 기반 라벨 (화자 수는 얼굴 클러스터 수와 동일하게 시도)
+    n_speakers = 0
+    try:
+        n_speakers = int(input("화자 수(명)을 입력하세요 (모르면 Enter): ") or 0)
+    except ValueError:
+        n_speakers = 0
+    if n_speakers < 1:
+        n_speakers = len(set([l for l in face_labels if l != "UNKNOWN"]))
+        if n_speakers < 1:
+            n_speakers = 2
+    voice_labels, _ = analyze_voice_speakers_with_clustering(
+        vocal_path, speaker_diarization_data, n_speakers=n_speakers
+    )
+    
+    # 얼굴+음성 융합 라벨
+    final_labels = []
+    for f, v in zip(face_labels, voice_labels):
+        if f == v:
+            final_labels.append(f)
+        elif f == "UNKNOWN":
+            final_labels.append(v)
+        elif v == "UNKNOWN":
+            final_labels.append(f)
+        else:
+            final_labels.append(v)  # 음성 우선
+    
+    # 최종 라벨을 세그먼트에 추가
+    for i, (seg, label) in enumerate(zip(speaker_diarization_data, final_labels)):
+        seg['speaker'] = label
+    
+    print("\n=== 얼굴+음성 융합 화자분리 결과 ===")
+    print_speaker_dialogue(speaker_diarization_data, final_labels)
+
+    # === pyannote 기반 화자분리 ===
+
+
+    # from speaker_diarizer import diarize_main_speaker
+    # HF_TOKEN = os.getenv("HF_TOKEN")
+    # print("\n=== pyannote 기반 화자분리 결과 ===")
+    # diar_result = diarize_main_speaker(
+    #     vocal_path=vocal_path,
+    #     post_word_data=speaker_diarization_data,
+    #     hf_token=HF_TOKEN,
+    #     min_speakers=n_speakers,
+    #     max_speakers=n_speakers,
+    # )
+    # # 화자별 대사 출력
+    # from collections import defaultdict
+    # speaker_segments = defaultdict(list)
+    # for seg in speaker_diarization_data:
+    #     lbl = seg.get("speaker_label", "unknown")
+    #     speaker_segments[lbl].append(seg)
+    # for lbl, segs in speaker_segments.items():
+    #     print(f"\n👤 {lbl}:")
+    #     for seg in segs:
+    #         print(f"   [{seg['start']:.1f}s-{seg['end']:.1f}s] {seg['text']}")
+
+
+
+
+
+
+
+
+
+
     post_word_data = merge_words_into_segments(speaker_diarization_data, word_list)
 
     #####################################################
@@ -265,11 +346,22 @@ def main():
     # with open(POST_JSON, encoding="utf-8") as f:
         post_words = json.load(f)
 
+
+
+
+
+
+
     result = diarize_main_speaker(
         vocal_path     = vocal_path,
         post_word_data = post_words,
         hf_token       = HF_TOKEN,
     )
+
+
+
+
+
     # diar_result 구조:  {'label', 'segments', 'start', 'end'}
     main_speaker_label    = result["label"]
     main_speaker_segments = result["segments"]
@@ -301,96 +393,102 @@ def main():
     
     #S3 채우기 + 화자분리 데이터 분할로직
 
-    vocal_path = Path("separated") / "htdemucs" /video_filename / "vocals.wav"
-    no_vocals_path =  Path("separated") / "htdemucs" /video_filename / "no_vocals.wav"
+
+    #해당 지점부터 정지
+
+
+
+
+    # vocal_path = Path("separated") / "htdemucs" /video_filename / "vocals.wav"
+    # no_vocals_path =  Path("separated") / "htdemucs" /video_filename / "no_vocals.wav"
     
-    # 추가#
-    for speaker in speakers:
-        split_audio_by_token([vocal_path, no_vocals_path], speaker, video_filename)
+    # # 추가#
+    # for speaker in speakers:
+    #     split_audio_by_token([vocal_path, no_vocals_path], speaker, video_filename)
 
 
-    #새로운 text그
-    reset_folder("../syncdata/mfa/corpus", "../syncdata/mfa/mfa_output")
-    print("제거성공")
-    # 1. 먼저 모든 token에 대해 lab/wav export만 수행
-    for s3_data in speakers:
-        print(f"▶️ 처리 중: token_id={s3_data['token_id']}")
+    # #새로운 text그
+    # reset_folder("../syncdata/mfa/corpus", "../syncdata/mfa/mfa_output")
+    # print("제거성공")
+    # # 1. 먼저 모든 token에 대해 lab/wav export만 수행
+    # for s3_data in speakers:
+    #     print(f"▶️ 처리 중: token_id={s3_data['token_id']}")
         
-        segments = s3_data["segments"]
-        vocal_path = f"./split_tokens/vocals_{video_filename}_token_{s3_data['token_id']}.mp3"
-        export_segments_for_mfa(
-            vocal_path=vocal_path,
-            segments=segments,
-            output_base="../syncdata/mfa/corpus",
-            filename=video_filename,
-            token_num=s3_data["token_id"]
-        )
+    #     segments = s3_data["segments"]
+    #     vocal_path = f"./split_tokens/vocals_{video_filename}_token_{s3_data['token_id']}.mp3"
+    #     export_segments_for_mfa(
+    #         vocal_path=vocal_path,
+    #         segments=segments,
+    #         output_base="../syncdata/mfa/corpus",
+    #         filename=video_filename,
+    #         token_num=s3_data["token_id"]
+    #     )
 
-    # 2. MFA 실행은 한 번만
-    start_time = time.time()
-    print("🕒 측정시작")
-    run_mfa_align()
-    elapsed = time.time() - start_time
-    print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
+    # # 2. MFA 실행은 한 번만
+    # start_time = time.time()
+    # print("🕒 측정시작")
+    # run_mfa_align()
+    # elapsed = time.time() - start_time
+    # print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
 
 
 
-    bucket_name = "testgrid-pitch-bgvoice-yousync"
-    # 3. 이후 pitch, 업로드, DB 저장 처리 반복
-    for s3_data in speakers:
-        token_id = s3_data["token_id"]
-        actor = s3_data["actor"]
+    # bucket_name = "testgrid-pitch-bgvoice-yousync"
+    # # 3. 이후 pitch, 업로드, DB 저장 처리 반복
+    # for s3_data in speakers:
+    #     token_id = s3_data["token_id"]
+    #     actor = s3_data["actor"]
 
-        vocal_path = f"./split_tokens/vocals_{video_filename}_token_{token_id}.mp3"
-        bgvoice_path = f"./split_tokens/no_vocals_{video_filename}_token_{token_id}.mp3"
+    #     vocal_path = f"./split_tokens/vocals_{video_filename}_token_{token_id}.mp3"
+    #     bgvoice_path = f"./split_tokens/no_vocals_{video_filename}_token_{token_id}.mp3"
 
-        # pitch 추출
-        create_pitch_json_with_token(vocal_path, s3_data)
+    #     # pitch 추출
+    #     create_pitch_json_with_token(vocal_path, s3_data)
 
-        # S3 경로 구성
-        s3_prefix = f"{actor}/{video_filename}/{token_id}"
-        s3_textgird_key = f"{s3_prefix}/textgrid.TextGrid"
-        s3_pitchdata_key = f"{s3_prefix}/pitch.json"
-        s3_bgvoice_key = f"{s3_prefix}/bgvoice.mp3"
+    #     # S3 경로 구성
+    #     s3_prefix = f"{actor}/{video_filename}/{token_id}"
+    #     s3_textgird_key = f"{s3_prefix}/textgrid.TextGrid"
+    #     s3_pitchdata_key = f"{s3_prefix}/pitch.json"
+    #     s3_bgvoice_key = f"{s3_prefix}/bgvoice.mp3"
         
-        s3_textgrid_path = f"../syncdata/mfa/mfa_output/{video_filename}{token_id}.TextGrid"
-        s3_pitchdata_path = f"./pitch_data/reference/{sanitize_filename(actor)}_{video_filename}_{token_id}pitch.json"
-        s3_bgvoice_path = bgvoice_path
+    #     s3_textgrid_path = f"../syncdata/mfa/mfa_output/{video_filename}{token_id}.TextGrid"
+    #     s3_pitchdata_path = f"./pitch_data/reference/{sanitize_filename(actor)}_{video_filename}_{token_id}pitch.json"
+    #     s3_bgvoice_path = bgvoice_path
 
-        # S3 업로드
-        try:
-            s3_textgrid_url = upload_file_to_s3(s3_textgrid_path, bucket_name, s3_textgird_key)
-            s3_pitch_url = upload_file_to_s3(s3_pitchdata_path, bucket_name, s3_pitchdata_key)
-            s3_bgvoice_url = upload_file_to_s3(s3_bgvoice_path, bucket_name, s3_bgvoice_key)
+    #     # S3 업로드
+    #     try:
+    #         s3_textgrid_url = upload_file_to_s3(s3_textgrid_path, bucket_name, s3_textgird_key)
+    #         s3_pitch_url = upload_file_to_s3(s3_pitchdata_path, bucket_name, s3_pitchdata_key)
+    #         s3_bgvoice_url = upload_file_to_s3(s3_bgvoice_path, bucket_name, s3_bgvoice_key)
             
-        except FileNotFoundError as e:
-            print(f"❌ 로컬 파일을 찾을 수 없습니다: {e.filename}")
-        except Exception as e:
-            print(f"❌ 예기치 않은 오류 발생: {e}")
+    #     except FileNotFoundError as e:
+    #         print(f"❌ 로컬 파일을 찾을 수 없습니다: {e.filename}")
+    #     except Exception as e:
+    #         print(f"❌ 예기치 않은 오류 발생: {e}")
 
-        # DB 저장
-        if s3_textgrid_url and s3_pitch_url and s3_bgvoice_url:
-            make_token(
-                db=db,
-                movie_name = movie_name,
-                actor_name=actor,
-                speaker=s3_data,
-                audio_path= vocal_path,
-                s3_textgrid_url=s3_textgrid_url,
-                s3_pitch_url=s3_pitch_url,
-                s3_bgvoice_url=s3_bgvoice_url,
-            )
+    #     # DB 저장
+    #     if s3_textgrid_url and s3_pitch_url and s3_bgvoice_url:
+    #         make_token(
+    #             db=db,
+    #             movie_name = movie_name,
+    #             actor_name=actor,
+    #             speaker=s3_data,
+    #             audio_path= vocal_path,
+    #             s3_textgrid_url=s3_textgrid_url,
+    #             s3_pitch_url=s3_pitch_url,
+    #             s3_bgvoice_url=s3_bgvoice_url,
+    #         )
 
-    print("🎯 TextGrid 기반 토큰 생성 중...")
-
-
-    # audio = AudioSegment.from_file(no_vocals_path, format="mp3")
+    # print("🎯 TextGrid 기반 토큰 생성 중...")
 
 
-    # amplified = audio + 6 
-    # amplified.export("amplified_output.mp3", format="mp3")
+    # # audio = AudioSegment.from_file(no_vocals_path, format="mp3")
 
-    # amplified.export(no_vocals_path,format ='mp3')
+
+    # # amplified = audio + 6 
+    # # amplified.export("amplified_output.mp3", format="mp3")
+
+    # # amplified.export(no_vocals_path,format ='mp3')
 
 
 
@@ -398,7 +496,12 @@ def main():
     reset_folder("tmp_frames", "downloads", "separated/htdemucs", "cached_data","pitch_data", "split_tokens")
 # 실행
 if __name__ == "__main__":
+    import traceback
     s_time = time.time()  # ⏱️ 시작 시간
-    main()
+    try:
+        main()
+    except Exception as e:
+        print("❌ 예외 발생:", e)
+        traceback.print_exc()
     e_time = time.time() - s_time  # ⏱️ 소요 시간
     print(f"🕒 전체 전처리 소요 시간: {e_time:.2f}초")
