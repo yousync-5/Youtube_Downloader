@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import face_recognition
+from sklearn.cluster import KMeans
 
 # 세그먼트 ID에 해당하는 3장 프레임에서 평균 인코딩 추출
 def get_segment_encoding(segment_id: int, folder="tmp_frames"):
@@ -87,11 +88,30 @@ def cluster_speakers(segment_encodings, threshold=0.6):
     
     return speaker_labels, speakers
 
-def analyze_speakers_with_clustering(num_segments, folder="tmp_frames", threshold=0.6):
+def cluster_speakers_kmeans(segment_encodings, n_speakers=2):
+    valid_indices = [i for i, emb in enumerate(segment_encodings) if emb is not None]
+    valid_embeddings = [emb for emb in segment_encodings if emb is not None]
+    if not valid_embeddings:
+        return ["UNKNOWN"] * len(segment_encodings), None
+
+    kmeans = KMeans(n_clusters=n_speakers, random_state=42, n_init=10)
+    labels = kmeans.fit_predict(valid_embeddings)
+
+    speaker_labels = ["UNKNOWN"] * len(segment_encodings)
+    for idx, label in zip(valid_indices, labels):
+        speaker_labels[idx] = f"SPEAKER_{label}"
+
+    speakers = {}
+    for idx, label in zip(valid_indices, labels):
+        speakers.setdefault(label, []).append(idx)
+
+    return speaker_labels, speakers
+
+def analyze_speakers_with_clustering(num_segments, folder="tmp_frames", n_speakers=2):
     """
-    얼굴 기반 화자분리를 수행하고, 전체 세그먼트를 화자별로 분류합니다.
+    얼굴 기반 화자분리를 KMeans(n_speakers)로 수행하고, 전체 세그먼트를 화자별로 분류합니다.
     """
-    print(f"🧑‍🤝‍🧑 얼굴 기반 화자분리 시작 (세그먼트 {num_segments}개)")
+    print(f"🧑‍🤝‍🧑 얼굴 기반 화자분리(KMeans) 시작 (세그먼트 {num_segments}개, 화자 {n_speakers}명)")
     
     # 1. 모든 세그먼트의 얼굴 인코딩 추출
     segment_encodings = []
@@ -103,13 +123,16 @@ def analyze_speakers_with_clustering(num_segments, folder="tmp_frames", threshol
         else:
             print(f"❌ 세그먼트 {i}: 얼굴 인코딩 추출 실패")
     
-    # 2. 화자 클러스터링
-    speaker_labels, speakers = cluster_speakers(segment_encodings, threshold)
+    # 2. 화자 클러스터링 (KMeans)
+    speaker_labels, speakers = cluster_speakers_kmeans(segment_encodings, n_speakers=n_speakers)
     
     # 3. 결과 출력
-    print(f"\n🎭 총 {len(speakers)}명의 화자 발견:")
-    for i, speaker in enumerate(speakers):
-        print(f"   SPEAKER_{i}: {len(speaker['segments'])}개 세그먼트")
+    if speakers is not None:
+        print(f"\n🎭 총 {n_speakers}명의 화자(KMeans)로 클러스터링 결과:")
+        for label, idxs in speakers.items():
+            print(f"   SPEAKER_{label}: {len(idxs)}개 세그먼트")
+    else:
+        print("\n❌ 유효한 인코딩이 없어 클러스터링 실패")
     
     return speaker_labels, speakers
 

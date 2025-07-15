@@ -63,77 +63,31 @@ SessionLocal = sessionmaker(bind=engine)
 # 실제 사용할 DB 세션 인스턴스 생성 (이걸로 쿼리 수행)
 db = SessionLocal()
 
-def main():
-
-    # 1. 유튜브 데이터 
-
-    # 1-1 URL 저장
-    youtube_url = input("📺 URL 입력을 바랍니다.: ").strip()
-
-
-    #당장은 필요치아니함
-
-    movie_name = None
-    actor_name = None
-    try:
-        # 터미널 인코딩 설정
-        import sys
-        if hasattr(sys.stdin, 'reconfigure'):
-            sys.stdin.reconfigure(encoding='utf-8')
-        
-        movie_input = input("영화 이름을 입력하세요 (선택사항): ")
-        if movie_input and movie_input.strip():
-            movie_name = movie_input.strip()
-            
-        actor_input = input("배우 이름을 입력하세요 (선택사항): ")
-        if actor_input and actor_input.strip():
-            actor_name = actor_input.strip()
-            
-    except (UnicodeDecodeError, UnicodeError) as e:
-        print(f"입력 인코딩 오류: {e}")
-        print("기본값을 사용합니다.")
-        movie_name = None
-        actor_name = None
-    except Exception as e:
-        print(f"입력 처리 중 오류: {e}")
-        movie_name = None
-        actor_name = None
-
-
+def main_pipeline(youtube_url, movie_name=None, actor_name=None):
     start_time = time.time()  # ⏱️ 시작 시간
 
-    # 1-2 비디오 ID/FileName 추출
     video_id = extract_video_id(youtube_url)
     video_filename = sanitize_filename(video_id)
     print({video_id})
     print({video_filename})
-    # 1-3 폴더 경로지정
     mp4_path = os.path.join("downloads", video_filename + ".mp4")
     download_video(youtube_url, mp4_path)
-    # 1-4 오디오 추출 및 파일 경로 반환 
     mp3_path, _ = download_audio(youtube_url, video_id, video_filename)
- 
-    # 1-5 영상이 없을 시 다운로드 실행
+
     if not os.path.exists(mp4_path):
         download_video(youtube_url, mp4_path)
     else:
         print(f"✅ 영상 파일 이미 존재: {mp4_path}")
 
-    # 2. 데이터 추출
-
     # 2-1  Demucs로 보컬 추출
-    
     start_time = time.time()
     print(f"🕒 보컬 추출 측정시작")
     vocal_path = separate_vocals(mp3_path)
-    
     elapsed = time.time() - start_time  # ⏱️ 소요 시간
     print(f"🕒 보컬 추출 전처리 소요 시간: {elapsed:.2f}초")
 
-
     start_time = time.time()
     print(f"🕒 자막 추출 측정시작")
-    # 2-2  Whisper로 자막 추출
     segments = transcribe_audio(vocal_path)
     print("🗣️ 정밀분석:")
     for seg in segments:
@@ -142,101 +96,53 @@ def main():
 
     if not segments:
         print("❌ No speech detected.")
-        return
+        return None
 
-    # elapsed = time.time() - start_time  # ⏱️ 소요 시간
-    # print(f"🕒 자막 추출 전처리 소요 시간: {elapsed:.2f}초")
-
-
-    # check_segment = transcribe_audio(vocal_path)
-
-
-    # print("🗣️ First 5 segments:")
-    # for seg in check_segment:
-    #     print(f"[{seg['start']:.1f}s - {seg['end']:.1f}s]: {seg['text']}")
-
-
-    #예외처리
-
-
-
-    # 테스트용
     word_list = format_segments_for_output(segments)
-    # print("🗣️ 선택된 문장 리스트:")
-    # for i, seg in enumerate(word_list, 1):
-    #     print(f"{i:>2}. ⏱️ {seg['start']:.2f}s ~ {seg['end']:.2f}s | 📝 "{seg['text']}"")
 
-    #     if "words" in seg:
-    #         for w in seg["words"]:
-    #             w_start = round(w["start"], 2)
-    #             w_end = round(w["end"], 2)
-    #             w_text = w["word"].strip()
-    #             print(f"    🔹 {w_start:.2f}s - {w_end:.2f}s: {w_text}")
-
-    
-
-    # 🔡 MFA용 세그먼트 내보내기
     print("📦 MFA용 음성/텍스트 export:")
-
-
     print("📦 첫번째 MFA분석 목적은 화자분리 데이터를 만들기 위함이다. ")
     print("⏳ TextGrid 생성 완료를 기다리는 중...")
-  
     export_segments_for_mfa(
         vocal_path=vocal_path,
         segments=segments,
         output_base="../syncdata/mfa/corpus",
         filename=video_filename,
         token_num=0
-    )  
+    )
     start_time = time.time()
     print(f"🕒 측정시작")
     run_mfa_align()
     elapsed = time.time() - start_time  # ⏱️ 소요 시간
     print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
-    
-        
-    speaker_diarization_data = generate_sentence_json(selected,f"../syncdata/mfa/mfa_output/{video_filename}0.TextGrid" )
 
+    speaker_diarization_data = generate_sentence_json(selected, f"../syncdata/mfa/mfa_output/{video_filename}0.TextGrid")
     for seg in speaker_diarization_data:
         seg["start"] = round(float(seg["start"]), 2)
         seg["end"] = round(float(seg["end"]), 2)
     for check in speaker_diarization_data:
         print(check)
     pprint(speaker_diarization_data)
-
     print("여기 출력값은 정확히 화자분리를 위한 문장 타임 스템프로 활용된다.")
 
-    # === 세그먼트별 프레임 이미지 추출 ===
     extract_frames_per_segment(mp4_path, speaker_diarization_data, output_folder="tmp_frames")
     print("✅ 세그먼트별 프레임 이미지 추출 완료: tmp_frames/")
 
-    # === 얼굴+음성 융합 화자분리 ===
     from speaker_diarization.who_is_speaker import analyze_speakers_with_clustering, print_speaker_dialogue
     from speaker_diarization.voice_analyzer import analyze_voice_speakers_with_clustering
-    
-    # 얼굴 기반 라벨
     face_labels, _ = analyze_speakers_with_clustering(
-        len(speaker_diarization_data), 
-        folder="tmp_frames", 
+        len(speaker_diarization_data),
+        folder="tmp_frames",
         threshold=0.6
     )
-    
-    # 음성 기반 라벨 (화자 수는 얼굴 클러스터 수와 동일하게 시도)
     n_speakers = 0
-    try:
-        n_speakers = int(input("화자 수(명)을 입력하세요 (모르면 Enter): ") or 0)
-    except ValueError:
-        n_speakers = 0
+    # FastAPI에서는 입력 대신 기본값/추론 사용
+    n_speakers = len(set([l for l in face_labels if l != "UNKNOWN"]))
     if n_speakers < 1:
-        n_speakers = len(set([l for l in face_labels if l != "UNKNOWN"]))
-        if n_speakers < 1:
-            n_speakers = 2
+        n_speakers = 2
     voice_labels, _ = analyze_voice_speakers_with_clustering(
         vocal_path, speaker_diarization_data, n_speakers=n_speakers
     )
-    
-    # 얼굴+음성 융합 라벨
     final_labels = []
     for f, v in zip(face_labels, voice_labels):
         if f == v:
@@ -247,50 +153,12 @@ def main():
             final_labels.append(f)
         else:
             final_labels.append(v)  # 음성 우선
-    
-    # 최종 라벨을 세그먼트에 추가
     for i, (seg, label) in enumerate(zip(speaker_diarization_data, final_labels)):
         seg['speaker'] = label
-    
     print("\n=== 얼굴+음성 융합 화자분리 결과 ===")
     print_speaker_dialogue(speaker_diarization_data, final_labels)
 
-    # === pyannote 기반 화자분리 ===
-
-
-    # from speaker_diarizer import diarize_main_speaker
-    # HF_TOKEN = os.getenv("HF_TOKEN")
-    # print("\n=== pyannote 기반 화자분리 결과 ===")
-    # diar_result = diarize_main_speaker(
-    #     vocal_path=vocal_path,
-    #     post_word_data=speaker_diarization_data,
-    #     hf_token=HF_TOKEN,
-    #     min_speakers=n_speakers,
-    #     max_speakers=n_speakers,
-    # )
-    # # 화자별 대사 출력
-    # from collections import defaultdict
-    # speaker_segments = defaultdict(list)
-    # for seg in speaker_diarization_data:
-    #     lbl = seg.get("speaker_label", "unknown")
-    #     speaker_segments[lbl].append(seg)
-    # for lbl, segs in speaker_segments.items():
-    #     print(f"\n👤 {lbl}:")
-    #     for seg in segs:
-    #         print(f"   [{seg['start']:.1f}s-{seg['end']:.1f}s] {seg['text']}")
-
-
-
-
-
-
-
-
-
-
     post_word_data = merge_words_into_segments(speaker_diarization_data, word_list)
-
-    # === speaker 정보 post_word_data에 추가 ===
     for seg in post_word_data:
         match = next(
             (s for s in speaker_diarization_data
@@ -302,26 +170,16 @@ def main():
         else:
             seg['speaker'] = 'UNKNOWN'
 
-    #####################################################
-    ## test를 위한 저장
     save_path = Path("cached_data/post_word_data.json")
-    save_path.parent.mkdir(parents=True, exist_ok=True)  # 폴더 없으면 생성
-
-    # JSON 저장
+    save_path.parent.mkdir(parents=True, exist_ok=True)
     with open(save_path, "w", encoding="utf-8") as f:
         json.dump(post_word_data, f, ensure_ascii=False, indent=2)
-
     print(f"✅ post_word_data 저장 완료: {save_path.resolve()}")
-    #####################################################
-
-
-    print("이번에는 기대를 해봅니다.")
 
     for seg in post_word_data:
         start = seg["start"]
         end = seg["end"]
         print(f'📝 {start:.2f} ~ {end:.2f}: {seg["text"]}')
-        
         if "words" in seg:
             for word in seg["words"]:
                 w_start = word["start"]
@@ -329,76 +187,32 @@ def main():
                 w_text = word["word"]
                 print(f'    🔹 {w_start:6.2f}s - {w_end:6.2f}s: {w_text}')
 
-    # for seg in result:
-    #     print(f"🟢 {seg['start']}s - {seg['end']}s: {seg['text']}")
-    #     if "words" in seg:
-    #         for w in seg["words"]:
-    #             print(f"   🔹 {w['start']}s - {w['end']}s: {w['text']}")
-
-
-    # print("⏳ 이 시점에서 뽑혀진 textgrid와 segment로 화자를 분리 데이터를 만든 후 폴더를 비우고 화자별로 재요청을 보내야한다")
-
-
-    #객체 배열이 반환된다. 배열의 내용은 
-    #화자분리 로직 위치
-    #화자 분리 데이터가 나온다면 오디오도 기준에 맞춰 잘라져야한다. 
- 
-
-    # print("만약 이렇게 분할에 성공한다면 지금 즉시 syncdata 파일 내의 데이터들은 지우고 새로 요청을 박자.")
-
-
-    #화자분리 데이터가 뽑혀야한다. 
-########################################################################################
-
     HF_TOKEN = os.getenv("HF_TOKEN")
-    # VOCAL_MP3  = f"split_tokens/vocals_{video_filename}_token_1.mp3"
-    # POST_JSON  = "cached_data/post_word_data.json"
-
     with open(save_path, encoding="utf-8") as f:
-    # with open(POST_JSON, encoding="utf-8") as f:
         post_words = json.load(f)
-
-
-
-
-
-
-
     result = diarize_main_speaker(
         vocal_path     = vocal_path,
         post_word_data = post_words,
         hf_token       = HF_TOKEN,
     )
-
-
-
-
-
-    # diar_result 구조:  {'label', 'segments', 'start', 'end'}
     main_speaker_label    = result["label"]
     main_speaker_segments = result["segments"]
     final_start_time      = result["start"]
     final_end_time        = result["end"]
-
-
     print("👑 Main speaker:", main_speaker_label)
     for i, s in enumerate(main_speaker_segments, 1):
         print(f"[{i}] {s['start']:.2f}-{s['end']:.2f}: {s['text']}")
 
-    # 1. 화자별 세그먼트 분리
     from collections import defaultdict
     speaker_segments = defaultdict(list)
     for seg in post_word_data:
         speaker = seg['speaker']
         speaker_segments[speaker].append(seg)
-
-    # 2. 원하는 이름 매핑
     speaker_name_map = {
         "SPEAKER_0": "Natalie Portman",
         "SPEAKER_1": "Jude Law",
         "UNKNOWN": "Unknown"
     }
-
     speakers = []
     for idx, (speaker_label, segs) in enumerate(speaker_segments.items(), 1):
         segs = sorted(segs, key=lambda s: s['start'])
@@ -406,7 +220,7 @@ def main():
         end_time = segs[-1]['end']
         token_name = speaker_name_map.get(speaker_label, speaker_label)
         speakers.append({
-            "actor": token_name,  # 원하는 이름
+            "actor": token_name,
             "video_url": youtube_url,
             "token_id": idx,
             "speaker_label": speaker_label,
@@ -414,15 +228,11 @@ def main():
             "end_time": end_time,
             "segments": segs
         })
-
-    # 3. 아래쪽 파이프라인에서 speakers 리스트를 반복 처리
+    token_ids = []
     for s3_data in speakers:
-        # 1) 오디오 분할
         vocal_path_obj = Path("separated") / "htdemucs" / video_filename / "vocals.wav"
         no_vocals_path_obj = Path("separated") / "htdemucs" / video_filename / "no_vocals.wav"
         split_audio_by_token([vocal_path_obj, no_vocals_path_obj], s3_data, video_filename)
-
-        # 2) MFA용 세그먼트 export
         segments = s3_data["segments"]
         vocal_path_token = f"./split_tokens/vocals_{video_filename}_token_{s3_data['token_id']}.mp3"
         export_segments_for_mfa(
@@ -432,27 +242,18 @@ def main():
             filename=video_filename,
             token_num=s3_data["token_id"]
         )
-
-    # 3) MFA 실행(한 번만)
     start_time = time.time()
     print("🕒 측정시작")
     run_mfa_align()
     elapsed = time.time() - start_time
     print(f"🕒 전처리 소요 시간: {elapsed:.2f}초")
-
-    # 4) S3 업로드, pitch 추출, DB 저장 반복
     bucket_name = "testgrid-pitch-bgvoice-yousync"
     for s3_data in speakers:
         token_id = s3_data["token_id"]
         actor = s3_data["actor"]
-        # vocal_path = f"./split_tokens/vocals_{video_filename}_token_{token_id}.mp3"  # 기존(화자별 분할)
         vocal_path = f"separated/htdemucs/{video_filename}/vocals.wav"  # 전체 보컬 오디오 사용
         bgvoice_path = f"./split_tokens/no_vocals_{video_filename}_token_{token_id}.mp3"
-
-        # pitch 추출
         create_pitch_json_with_token(vocal_path, s3_data)
-
-        # S3 경로 구성
         s3_prefix = f"{actor}/{video_filename}/{token_id}"
         s3_textgird_key = f"{s3_prefix}/textgrid.TextGrid"
         s3_pitchdata_key = f"{s3_prefix}/pitch.json"
@@ -460,8 +261,6 @@ def main():
         s3_textgrid_path = f"../syncdata/mfa/mfa_output/{video_filename}{token_id}.TextGrid"
         s3_pitchdata_path = f"./pitch_data/reference/{sanitize_filename(actor)}_{video_filename}_{token_id}pitch.json"
         s3_bgvoice_path = bgvoice_path
-
-        # S3 업로드
         try:
             s3_textgrid_url = upload_file_to_s3(s3_textgrid_path, bucket_name, s3_textgird_key)
             s3_pitch_url = upload_file_to_s3(s3_pitchdata_path, bucket_name, s3_pitchdata_key)
@@ -472,10 +271,8 @@ def main():
         except Exception as e:
             print(f"❌ 예기치 않은 오류 발생: {e}")
             continue
-
-        # DB 저장
         if s3_textgrid_url and s3_pitch_url and s3_bgvoice_url:
-            make_token(
+            token = make_token(
                 db=db,
                 movie_name=movie_name,
                 actor_name=actor,
@@ -485,35 +282,24 @@ def main():
                 s3_pitch_url=s3_pitch_url,
                 s3_bgvoice_url=s3_bgvoice_url,
             )
+            if token is not None and hasattr(token, 'id'):
+                token_ids.append(token.id)
     print("🎯 TextGrid 기반 토큰 생성 중...")
-
-
-
-
-
-
-
-
-
-
-    # # audio = AudioSegment.from_file(no_vocals_path, format="mp3")
-
-
-    # # amplified = audio + 6 
-    # # amplified.export("amplified_output.mp3", format="mp3")
-
-    # # amplified.export(no_vocals_path,format ='mp3')
-
-
-
     reset_folder("../syncdata/mfa/corpus", "../syncdata/mfa/mfa_output")
     reset_folder("tmp_frames", "downloads", "separated/htdemucs", "cached_data","pitch_data", "split_tokens")
-# 실행
+    # 실제 DB에 저장된 첫 번째 토큰의 id를 반환
+    if token_ids:
+        return token_ids  # 여러 화자의 token_id 리스트 반환
+    return []
+
+# 기존 main()은 FastAPI 등에서 필요 없으므로 생략하거나, 아래처럼 남겨둘 수 있습니다.
 if __name__ == "__main__":
     import traceback
     s_time = time.time()  # ⏱️ 시작 시간
     try:
-        main()
+        # main() 대신 main_pipeline을 직접 호출할 수 있음
+        youtube_url = input("📺 URL 입력을 바랍니다.: ").strip()
+        main_pipeline(youtube_url)
     except Exception as e:
         print("❌ 예외 발생:", e)
         traceback.print_exc()
