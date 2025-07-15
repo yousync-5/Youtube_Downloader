@@ -16,9 +16,9 @@ def upload_file_to_s3(local_path, bucket_name, s3_key, region="ap-northeast-2"):
         print(f"✅ 업로드 성공: s3://{bucket_name}/{s3_key}")
         return url
 
-    except FileNotFoundError:
+    except FileNotFoundError as e:
           print(f"❌ 로컬 파일을 찾을 수 없습니다: {e.filename}")
-    except NoCredentialsError:
+    except NoCredentialsError as e:
         print("❌ AWS 자격 증명 오류 (credentials not found).")
     except Exception as e:
         print(f"❌ 오류 발생: {e}")

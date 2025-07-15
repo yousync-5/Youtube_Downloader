@@ -58,3 +58,74 @@ def analyze_speakers(num_segments: int, folder="tmp_frames", threshold=0.6):
 
 # 외부에서 호출 가능하도록 함수 노출
 __all__ = ["analyze_speakers"]
+
+def cluster_speakers(segment_encodings, threshold=0.6):
+    """
+    모든 세그먼트의 얼굴 인코딩을 분석하여 화자 그룹을 생성합니다.
+    """
+    speakers = []  # 화자 그룹들
+    speaker_labels = []  # 각 세그먼트의 화자 라벨
+    
+    for i, encoding in enumerate(segment_encodings):
+        if encoding is None:
+            speaker_labels.append("UNKNOWN")
+            continue
+            
+        # 기존 화자 그룹과 비교
+        assigned = False
+        for j, speaker_group in enumerate(speakers):
+            # 해당 그룹의 대표 인코딩과 비교
+            if np.linalg.norm(speaker_group['encoding'] - encoding) < threshold:
+                speaker_labels.append(f"SPEAKER_{j}")
+                assigned = True
+                break
+        
+        # 새로운 화자 그룹 생성
+        if not assigned:
+            speakers.append({'encoding': encoding, 'segments': [i]})
+            speaker_labels.append(f"SPEAKER_{len(speakers)-1}")
+    
+    return speaker_labels, speakers
+
+def analyze_speakers_with_clustering(num_segments, folder="tmp_frames", threshold=0.6):
+    """
+    얼굴 기반 화자분리를 수행하고, 전체 세그먼트를 화자별로 분류합니다.
+    """
+    print(f"🧑‍🤝‍🧑 얼굴 기반 화자분리 시작 (세그먼트 {num_segments}개)")
+    
+    # 1. 모든 세그먼트의 얼굴 인코딩 추출
+    segment_encodings = []
+    for i in range(num_segments):
+        encoding = get_segment_encoding(i, folder)
+        segment_encodings.append(encoding)
+        if encoding is not None:
+            print(f"✅ 세그먼트 {i}: 얼굴 인코딩 추출 성공")
+        else:
+            print(f"❌ 세그먼트 {i}: 얼굴 인코딩 추출 실패")
+    
+    # 2. 화자 클러스터링
+    speaker_labels, speakers = cluster_speakers(segment_encodings, threshold)
+    
+    # 3. 결과 출력
+    print(f"\n🎭 총 {len(speakers)}명의 화자 발견:")
+    for i, speaker in enumerate(speakers):
+        print(f"   SPEAKER_{i}: {len(speaker['segments'])}개 세그먼트")
+    
+    return speaker_labels, speakers
+
+def print_speaker_dialogue(segments, speaker_labels):
+    """
+    화자별로 분류된 대사를 출력합니다.
+    """
+    print(f"\n🗣️ 화자별 대사 분류:")
+    print("=" * 50)
+    
+    current_speaker = None
+    for i, (seg, label) in enumerate(zip(segments, speaker_labels)):
+        if label != current_speaker:
+            current_speaker = label
+            print(f"\n👤 {label}:")
+        
+        print(f"   [{seg['start']:.1f}s-{seg['end']:.1f}s] {seg['text']}")
+    
+    print("=" * 50)
