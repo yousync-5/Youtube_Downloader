@@ -15,8 +15,8 @@ def diarize_main_speaker(
     post_word_data: List[Dict[str, Any]],   # ← 반드시 리스트!
     hf_token: str,
     *,                       # 키워드 전용
-    min_speakers: int = 1,
-    max_speakers: int = 1,
+    min_speakers: int = 2,
+    max_speakers: int = 2,
 ) -> Dict[str, Any]:
     """Whisper 세그먼트(post_word_data)에 화자 라벨을 달고
        대사량이 가장 긴 화자를 반환한다."""

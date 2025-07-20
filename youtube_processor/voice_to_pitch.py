@@ -35,75 +35,60 @@ from utils import extract_video_id, sanitize_filename
 def create_pitch_json_with_token(vocal_path, speaker):
     """
     토큰 정보를 기반으로 기준 음성의 피치 JSON 생성 (기준 음성용)
-    
     Args:
         vocal_path (str): 배경음이 제거된 음성 파일 경로
         token (dict): 생성된 토큰 데이터
-    
     Returns:
         str: 생성된 피치 JSON 파일 경로
     """
-    
+    print("[DEBUG] create_pitch_json_with_token 진입")
+    print(f"[DEBUG] speaker: {speaker}")
+    print(f"[DEBUG] vocal_path: {vocal_path}")
     try:
         # 기준 음성 피치 디렉토리 생성
         PITCH_REFERENCE_DIR.mkdir(parents=True, exist_ok=True)
-        
-        # 기준 음성 파일명 생성: 배우이름_pitch.json
-
         safe_actor_name = sanitize_filename(speaker['actor'])
         safe_url = extract_video_id(speaker['video_url'])
         output_filename = f"{safe_actor_name}_{safe_url}_{speaker['token_id']}pitch.json"
-
-        # 기준 음성 전용 경로
         output_path = PITCH_REFERENCE_DIR / output_filename
-        
+        print(f"[DEBUG] output_path: {output_path}")
         print(f"기준 음성 피치 분석: {vocal_path}")
         print(f"출력 파일: {output_path}")
-        
         # 오디오 파일 로드
         snd = parselmouth.Sound(vocal_path)
         print(f"오디오 정보: {snd.duration:.2f}초, {snd.sampling_frequency}Hz")
-        
-        # 피치 추출
         pitch = snd.to_pitch(time_step=0.1)
         print(f"피치 프레임 수: {pitch.get_number_of_frames()}")
-        
         pitch_data = []
-        
-        # 피치 데이터 추출
         for i in range(pitch.get_number_of_frames()):
             frame_number = i + 1
             time = pitch.get_time_from_frame_number(frame_number)
             hz = pitch.get_value_at_time(time)
-            
-            # 0이거나 NaN인 경우 None으로 처리
             if hz == 0 or np.isnan(hz):
                 hz = None
             else:
                 hz = round(hz, 2)
-            
             pitch_data.append({
-                "time": round(time, 3), 
+                "time": round(time, 3),
                 "hz": hz
             })
-        
-        # JSON으로 저장
         with open(output_path, "w", encoding='utf-8') as f:
             json.dump(pitch_data, f, ensure_ascii=False, indent=2)
-        
         print(f"기준 음성 피치 분석 완료: {len(pitch_data)} 데이터 포인트")
-        
-        # 간단한 검증
         valid_pitches = [p["hz"] for p in pitch_data if p["hz"] is not None]
         if len(valid_pitches) > 0:
             print(f"유효한 피치 포인트: {len(valid_pitches)}/{len(pitch_data)}")
+            print(f"[DEBUG] pitch json 파일 생성 성공: {output_path}, exists: {output_path.exists()}")
             return str(output_path)
         else:
             print("유효한 피치 데이터가 없습니다.")
+            print(f"[DEBUG] pitch json 파일 생성 실패: {output_path}, exists: {output_path.exists()}")
             return None
-            
     except Exception as e:
-        print(f"기준 음성 피치 분석 중 오류: {str(e)}")
+        print(f"[ERROR] 기준 음성 피치 분석 중 오류: {str(e)}")
+        print(f"[DEBUG] speaker: {speaker}")
+        print(f"[DEBUG] vocal_path: {vocal_path}")
+        print(f"[DEBUG] output_path: {output_path if 'output_path' in locals() else 'N/A'}")
         return None
 
 def create_user_pitch_json(user_audio_filename, user_id, dubbing_video_id):

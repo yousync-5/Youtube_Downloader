@@ -148,6 +148,9 @@ def run_mfa_align():
     mfa_data_path = project_root / "syncdata" / "mfa"
     mfa_data_absolute = mfa_data_path.resolve()
     print(f"Docker MFA 경로: {mfa_data_absolute}")
+    # 디버깅: corpus, mfa_output 폴더 파일 리스트 출력
+    print("[DEBUG] corpus 폴더 파일:", list((mfa_data_path / "corpus").glob("*")))
+    print("[DEBUG] mfa_output 폴더 파일 (실행 전):", list((mfa_data_path / "mfa_output").glob("*")))
     host_mount = str(mfa_data_absolute).replace('C:', '/c').replace('\\', '/')
     command = [
         "docker", "run", "--rm", "--platform", "linux/amd64",
@@ -159,15 +162,17 @@ def run_mfa_align():
         "--phone_boundary_method", "strict", "--output_format", "long_textgrid"
     ]
     try:
-        # Launch Docker container and stream output lines
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        for raw_line in process.stdout:
-            try:
-                line = raw_line.decode('utf-8')
-            except UnicodeDecodeError:
-                line = raw_line.decode('utf-8', errors='ignore')
-            print(line, end='')
+        if process.stdout is not None:
+            for raw_line in process.stdout:
+                try:
+                    line = raw_line.decode('utf-8')
+                except UnicodeDecodeError:
+                    line = raw_line.decode('utf-8', errors='ignore')
+                print(line, end='')
         process.wait()
+        # 디버깅: mfa_output 폴더 파일 리스트 출력 (실행 후)
+        print("[DEBUG] mfa_output 폴더 파일 (실행 후):", list((mfa_data_path / "mfa_output").glob("*")))
         if process.returncode != 0:
             raise subprocess.CalledProcessError(process.returncode, command)
     except subprocess.CalledProcessError as e:

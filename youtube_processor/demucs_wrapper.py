@@ -29,8 +29,7 @@ def separate_vocals(audio_path: str, output_root="separated") -> str:
     print(f"🕒 보컬 분리 소요 시간: {elapsed:.2f}초")
 
     # 경로에서 파일 이름만을 추출
-    basename = Path(audio_path).name.split('.')[0]  # ✅ 점(.) 제거
-
+    basename = Path(audio_path).stem  # 확장자만 제거, 소수점 포함 이름도 유지
     # separated/                 ← output_root
     #└── htdemucs/              ← 모델 이름
     #   └── test_audio/        ← 오디오 파일 이름 (확장자 제거)
@@ -39,6 +38,10 @@ def separate_vocals(audio_path: str, output_root="separated") -> str:
     vocals_path = output_dir / "htdemucs" / basename / "vocals.wav"
     
     # 실제로 생성되었는지 검증
+    import glob
+    print(f"[DEBUG] vocals_path to check: {vocals_path}")
+    print(f"[DEBUG] vocals_path absolute: {vocals_path.resolve() if hasattr(vocals_path, 'resolve') else vocals_path}")
+    print(f"[DEBUG] Directory contents: {list(vocals_path.parent.glob('*'))}")
     if not vocals_path.exists():
         raise FileNotFoundError(f"❌ vocals.wav not found at {vocals_path}")
 

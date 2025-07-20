@@ -54,19 +54,21 @@ def export_segments_for_mfa(vocal_path: str, segments: list, output_base: str = 
     try:
         # 오디오 변환 및 저장
         clip = full_audio.set_channels(1).set_frame_rate(16000)
+        # 항상 token_num을 붙여서 파일명 생성
         clip_path = output_dir / f"{filename}{token_num}.wav"
         clip.export(clip_path, format="wav", parameters=["-acodec", "pcm_s16le"])
 
         # 전체 텍스트 정제 및 문장 분리
-        raw_text = " ".join(seg["text"].strip().upper() for seg in segments if seg.get("text"))
-        clean_text = normalize_text(raw_text)
-        sentences = split_into_sentences(clean_text)
-
+        # 기존: raw_text = " ".join(seg["text"].strip().upper() for seg in segments if seg.get("text"))
+        # clean_text = normalize_text(raw_text)
+        # sentences = split_into_sentences(clean_text)
+        # 수정: Whisper segment별로 한 줄씩 저장
+        sentences = [seg["text"].strip().upper() for seg in segments if seg.get("text")]
         # .lab 파일 저장 (문장당 한 줄)
         lab_path = output_dir / f"{filename}{token_num}.lab"
         with open(lab_path, "w", encoding="utf-8") as f:
             for line in sentences:
-                f.write(line.strip() + "\n")
+                f.write(line + "\n")
 
         print(f"✅ 음성 및 자막이 저장되었습니다 → {clip_path.name} / {lab_path.name}")
         # run_mfa_align()

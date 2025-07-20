@@ -102,8 +102,16 @@ def make_token(db: Session,
     else:
         print(f"✅ 기존 URL 사용: {youtube_url_str}")
 
-    # 전체 오디오에서 MFCC와 타임스탬프 추출
+    # 전체 오디오에서 MFCC와 타임스탬프 추출 (잘린 오디오 기준)
     mfcc_mat, frame_times = extract_mfcc_from_audio(audio_path)
+    
+    # start_time이 있으면 frame_times 조정 (단어 시간과 맞추기)
+    start_time_offset = float(speaker.get("start_time", 0))
+    if start_time_offset > 0:
+        print(f"[DEBUG] MFCC 추출 후 타임스탬프 조정: +{start_time_offset}초 추가")
+        # frame_times에 start_time_offset 추가
+        frame_times = frame_times + start_time_offset
+        print(f"[DEBUG] 조정된 frame_times 범위: {frame_times[0]:.3f}~{frame_times[-1]:.3f}초")
 
     token_data = {
         "token_name": movie_name if movie_name is not None else "", # None 대신 빈 문자열

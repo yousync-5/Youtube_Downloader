@@ -37,7 +37,7 @@ import numpy as np
 from pathlib import Path
 from sklearn.metrics.pairwise import cosine_similarity
 
-def extract_mfcc_from_audio(audio_path: str, sr: int = 16000) -> tuple[np.ndarray, np.ndarray]:
+def extract_mfcc_from_audio(audio_path: str, sr: int = 16000, start_time_offset: float = 0.0) -> tuple[np.ndarray, np.ndarray]:
     """
     음성에서 mfcc를 추출하는 함수
     """
@@ -50,6 +50,12 @@ def extract_mfcc_from_audio(audio_path: str, sr: int = 16000) -> tuple[np.ndarra
     duration = librosa.get_duration(y=y, sr=sr)
     n_frames = mfcc.shape[0]
     frame_times = np.linspace(0, duration, num=n_frames)
+    
+    # start_time_offset이 있으면 frame_times 조정
+    if start_time_offset > 0:
+        frame_times = frame_times + start_time_offset
+        print(f"[MFCC_DEBUG] frame_times 조정: +{start_time_offset}초 추가")
+        print(f"[MFCC_DEBUG] 조정된 frame_times 범위: {frame_times[0]:.3f}~{frame_times[-1]:.3f}초")
 
     print(f"[MFCC_DEBUG] MFCC 추출 완료 - shape: {mfcc.shape}, 길이: {duration:.3f}초")
     return mfcc, frame_times
