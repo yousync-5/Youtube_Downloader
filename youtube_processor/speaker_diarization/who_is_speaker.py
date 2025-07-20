@@ -94,7 +94,7 @@ def cluster_speakers_kmeans(segment_encodings, n_speakers=2):
     if not valid_embeddings:
         return ["UNKNOWN"] * len(segment_encodings), None
 
-    kmeans = KMeans(n_clusters=n_speakers, random_state=42, n_init=10)
+    kmeans = KMeans(n_clusters=n_speakers, random_state=42, n_init="auto")
     labels = kmeans.fit_predict(valid_embeddings)
 
     speaker_labels = ["UNKNOWN"] * len(segment_encodings)
@@ -124,19 +124,29 @@ def analyze_speakers_with_clustering(num_segments, folder="tmp_frames", n_speake
             print(f"❌ 세그먼트 {i}: 얼굴 인코딩 추출 실패")
     
     # 2. 화자 클러스터링 (KMeans)
-    speaker_labels, speakers = cluster_speakers_kmeans(segment_encodings, n_speakers=n_speakers)
+    valid_embeddings = [emb for emb in segment_encodings if emb is not None]
+    if len(valid_embeddings) >= n_speakers:
+        speaker_labels, speakers = cluster_speakers_kmeans(segment_encodings, n_speakers=n_speakers)
+        print(f"[DEBUG] KMeans로 {n_speakers}명 클러스터링 성공 (유효 인코딩 {len(valid_embeddings)}개)")
+    else:
+        print(f"⚠️ 유효한 얼굴 인코딩이 {len(valid_embeddings)}개로, KMeans({n_speakers}) 실행 불가. threshold 기반 클러스터링으로 대체합니다.")
+        speaker_labels, speakers = cluster_speakers(segment_encodings, threshold=0.6)
     
     # 3. 결과 출력
     if speakers is not None:
-        print(f"\n🎭 총 {n_speakers}명의 화자(KMeans)로 클러스터링 결과:")
-        for label, idxs in speakers.items():
-            print(f"   SPEAKER_{label}: {len(idxs)}개 세그먼트")
+        print(f"\n🎭 총 {n_speakers}명의 화자(KMeans/threshold)로 클러스터링 결과:")
+        if isinstance(speakers, dict):
+            for label, idxs in speakers.items():
+                print(f"   SPEAKER_{label}: {len(idxs)}개 세그먼트")
+        else:
+            for idx, group in enumerate(speakers):
+                print(f"   SPEAKER_{idx}: {len(group['segments'])}개 세그먼트")
     else:
         print("\n❌ 유효한 인코딩이 없어 클러스터링 실패")
     
     return speaker_labels, speakers
 
-def print_speaker_dialogue(segments, speaker_labels):
+def print_speaker_dialogue(segments: list[dict], speaker_labels: list[str]):
     """
     화자별로 분류된 대사를 출력합니다.
     """
@@ -149,6 +159,6 @@ def print_speaker_dialogue(segments, speaker_labels):
             current_speaker = label
             print(f"\n👤 {label}:")
         
-        print(f"   [{seg['start']:.1f}s-{seg['end']:.1f}s] {seg['text']}")
+        print(f"   [{seg.get('start', 0):.1f}s-{seg.get('end', 0):.1f}s] {seg.get('text', '')}")
     
     print("=" * 50)

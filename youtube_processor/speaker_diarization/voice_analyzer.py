@@ -18,7 +18,7 @@ def extract_segment_audio(full_audio_path, start, end):
     segment_audio.export(tmp.name, format="wav")
     return tmp.name
 
-def analyze_voice_speakers(vocal_audio_path, segments, threshold=0.75):
+def analyze_voice_speakers(vocal_audio_path: str, segments: list[dict], threshold: float = 0.75):
     encoder = VoiceEncoder()
 
     print("\n🔊 Resemblyzer 로딩 완료, 음성 화자 분석 시작...")
@@ -26,7 +26,7 @@ def analyze_voice_speakers(vocal_audio_path, segments, threshold=0.75):
 
     for i, seg in enumerate(segments):
         try:
-            seg_wav_path = extract_segment_audio(vocal_audio_path, seg['start'], seg['end'])
+            seg_wav_path = extract_segment_audio(vocal_audio_path, seg.get('start', 0), seg.get('end', 0))
             wav = preprocess_wav(seg_wav_path)
             embed = encoder.embed_utterance(wav)
             segment_embeddings.append(embed)
@@ -48,7 +48,7 @@ def analyze_voice_speakers(vocal_audio_path, segments, threshold=0.75):
         same = similarity > threshold
         print(f"👂 세그먼트 {i-1} ↔ {i} → {'✅ 같은 화자' if same else '❌ 다른 화자'} (cosine similarity: {similarity:.3f})")
 
-def analyze_voice_speakers_with_clustering(vocal_audio_path, segments, n_speakers=2):
+def analyze_voice_speakers_with_clustering(vocal_audio_path: str, segments: list[dict], n_speakers: int = 2):
     """
     세그먼트별 음성 임베딩을 추출하고, KMeans로 클러스터링하여 화자 라벨을 반환합니다.
     """
@@ -58,7 +58,7 @@ def analyze_voice_speakers_with_clustering(vocal_audio_path, segments, n_speaker
 
     for i, seg in enumerate(segments):
         try:
-            seg_wav_path = extract_segment_audio(vocal_audio_path, seg['start'], seg['end'])
+            seg_wav_path = extract_segment_audio(vocal_audio_path, seg.get('start', 0), seg.get('end', 0))
             wav = preprocess_wav(seg_wav_path)
             embed = encoder.embed_utterance(wav)
             segment_embeddings.append(embed)
@@ -76,7 +76,7 @@ def analyze_voice_speakers_with_clustering(vocal_audio_path, segments, n_speaker
         return ["UNKNOWN"] * len(segments), None
 
     # KMeans 클러스터링
-    kmeans = KMeans(n_clusters=n_speakers, random_state=42, n_init=10)
+    kmeans = KMeans(n_clusters=n_speakers, random_state=42, n_init="auto")
     labels = kmeans.fit_predict(valid_embeddings)
 
     # 전체 세그먼트에 라벨 할당
